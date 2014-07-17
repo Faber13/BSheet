@@ -1,0 +1,518 @@
+{
+    "uid": "",
+    "dsd": {
+        "contextSystem": "",
+        "datasource": "",
+        "aggregationRules": "",
+        "columns": [
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "ElementName",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "code"
+                ],
+                "values": [ "Production", "AreaHarvested"
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Production",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "AreaHarvested",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 1,
+                    "title": {
+                        "EN": "Elements",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "This is the element",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "elementName2",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "code"
+                ],
+                "values": [ "Maize", "Wheat", "Rice"
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Maize",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Rice",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 2,
+                    "title": {
+                        "EN": "id",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Progressive Id",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "elementName1",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "code"
+                ],
+                "values": [ "Egypt", "Russia", "Italy"
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Egypt",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Russia",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Italy",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 3,
+                    "title": {
+                        "EN": "country",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "This is the country",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "Colour",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "code"
+                ],
+                "values": ["summer", "spring","winter"
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "summer",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "spring",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "winter",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 4,
+                    "title": {
+                        "EN": "seasons",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Seasons",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "value",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "number"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 5,
+                    "title": {
+                        "EN": "values",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Values",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "measurementUnit",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 6,
+                    "title": {
+                        "EN": "MU",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Measurement Unit",
+                        "FR": ""
+                    }
+                }
+            }
+
+        ]
+    }
+}

@@ -1,0 +1,110 @@
+{
+    "gridConfiguration": {
+        "columnsKey": {
+            "left": [
+                {
+                    "columnId": 1,
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "label": "$value",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "rowProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                },
+                {
+                    "columnId": 2,
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "label": "$value",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "rowProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                }
+            ],
+            "up": [
+                {
+                    "columnId": 3,
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "label": "$value + ' ('+ $UM + ' )'",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                },
+                {
+                    "columnId": 4,
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "label": "$value",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                }
+            ]
+        },
+        "otherColumns": {
+            "valueColumn": {
+                "columnIdDomain": "",
+                "valuesValid": [
+                    "value"
+                ],
+                "properties": {
+                    "cellProperties": {
+                        "dependencyRule": "",
+                        "label": "",
+                        "coloursCharacters": "",
+                        "coloursBackground": ""
+                    }
+                }
+            },
+            "accessorsColumns": {
+                "columnIdDomain": "",
+                "properties": ""
+            }
+        }
+    }
+}
