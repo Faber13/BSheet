@@ -80,7 +80,7 @@
                     "virtual": true,
                     "id": 1,
                     "title": {
-                        "EN": "Elements",
+                        "EN": "FirstRow",
                         "FR": ""
                     },
                     "supplemental": {
@@ -164,7 +164,7 @@
                     "virtual": true,
                     "id": 2,
                     "title": {
-                        "EN": "id",
+                        "EN": "Commodity",
                         "FR": ""
                     },
                     "supplemental": {

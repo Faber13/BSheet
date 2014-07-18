@@ -11,7 +11,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "label": "$value",
+                            "label": "$value ($measurementUnit)",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
@@ -53,7 +53,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "label": "$value + ' ('+ $UM + ' )'",
+                            "label": "$value",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },

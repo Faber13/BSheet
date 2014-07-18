@@ -151,8 +151,6 @@ define(["jquery" ], function ($) {
             [ ]
         ];
 
-        debugger;
-
         var slaveArray;
         var masterArray = this.createArrayByDomain(masterColumn);
         (typeof slaveColumn !== 'undefined')?   slaveArray = this.createArrayByDomain(slaveColumn) : slaveArray = undefined;
@@ -365,7 +363,6 @@ define(["jquery" ], function ($) {
                 if (typeof slaveColumn !== 'undefined') {
                     for (var i = 0; i < masterColumn.values.length; i++) {
                         for (var j = 0; j < slaveColumn.values.length; j++) {
-                            debugger;
                             matrix[0].push([masterColumn.values[i], slaveColumn.values[j]])
                         }
                     }
