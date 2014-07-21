@@ -197,6 +197,24 @@ define(["jquery" ], function ($) {
      */
     TableDataModel.prototype.createArrayByDomain = function (column) {
 
+        Date.prototype.dateFormat = function() {
+            var yyyy = this.getFullYear();
+            var mm =   this.getMonth()+1; // getMonth() is zero-based
+            var dd  =  this.getDate();
+            return String(10000*yyyy + 100*mm + dd); // Leading zeros for mm and dd
+        }
+
+        Date.prototype.monthFormat = function() {
+            var yyyy = this.getFullYear();
+            var provMonth =   this.getMonth()+1; // getMonth() is zero-based
+            var month;
+            month = (provMonth < 10)?  ("0" + provMonth): provMonth;
+
+            return String(yyyy + month ); // Leading zeros for mm and dd
+        }
+
+
+
         var array = []
         switch (column.dataTypes[0]) {
 
@@ -221,27 +239,24 @@ define(["jquery" ], function ($) {
                 var mmFrom = from.substr(4, 2);
                 var ddFrom = from.substr(6, 2);
 
-                var dateFrom = new Date(yearFrom, mmFrom, ddFrom)
+                var dateFrom = new Date(yearFrom, mmFrom-1, ddFrom)
 
                 var to = column.domain.period.to
                 var yearTo = to.substr(0, 4);
                 var mmTo = to.substr(4, 2);
                 var ddTo = to.substr(6, 2);
+                var dateTo = new Date(yearTo, mmTo-1, ddTo)
 
-                var dateTo = new Date(yearTo, mmTo, ddTo)
-                var date = new Date(yearFrom, mmFrom, ddTo);
-                if (date.getTime() < dateTo.getTime()) {
-                    for (var i = 1; date.getTime() < dateTo.getTime(); i++) {
-                        date = new Date(yearFrom, mmFrom, ddFrom + i);
-                        arr.push(date);
+                if(dateTo.getTime() - dateFrom.getTime() >0) {
+                    var intervalDays = (dateTo.getTime() - dateFrom.getTime()) / (1000*60*60*24)
+                    for (var i = 0; i < intervalDays; i++) {
+                        var date = new Date(dateFrom.setDate(dateFrom.getDate() + 1))
+                        array.push(date.dateFormat())
                     }
-                } else if (date.getTime() == dateTo.getTime()) {
-                    array.push(dateTo)
-                } else {
-                    alert("error!")
-                    throw Error
+                }else{
+                        alert("error on DSD configuration startDate and endDate")
+                        throw Error
                 }
-
                 break;
 
             case "month":
@@ -255,27 +270,25 @@ define(["jquery" ], function ($) {
                 var yearTo = to.substr(0, 4);
                 var mmTo = to.substr(4, 2);
                 var dateTo = new Date(yearTo, mmTo)
-                var date = new Date(yearFrom, mmFrom);
-                if (date.getTime() < dateTo.getTime()) {
-                    for (var i = 1; date.getTime() < dateTo.getTime(); i++) {
-                        date = new Date(yearFrom, mmFrom + i);
-                        array.push(date);
+                if(dateTo.getTime() - dateFrom.getTime() >0) {
+                    var intervalMonths = (dateTo.getMonth() + 12*dateTo.getFullYear()) -(dateFrom.getMonth() + 12*dateFrom.getFullYear())
+                    for (var i = 0; i < intervalMonths; i++) {
+                        var date = new Date(dateFrom.setMonth(dateFrom.getMonth() + 1))
+                        array.push(date.monthFormat())
                     }
-                } else if (date.getTime() == dateTo.getTime()) {
-                    array.push(dateTo)
-                } else {
-                    alert("error!")
+                }else{
+                    alert("error on DSD configuration startDate and endDate")
                     throw Error
                 }
                 break;
 
             case "Time":
+                // Updates once every hour
                 var from = new Date(column.domain.period.from)
                 var to = new Date(column.domain.period.to)
-                var diff = parseInt((to - from) / 1000)
-                for (var i = 1; i < diff.length; i++) {
-                    var date = new Date(from + (i * 1000))
-                    array.push(JSON.parse(date));
+                var diff = parseInt((to - from) / (1000*60*60))
+                for (var i = 1; i < diff; i++) {
+                    array.push(new Date(from.getTime() + (i *( 1000*60*60))).toJSON());
                 }
                 break;
 
@@ -287,14 +300,11 @@ define(["jquery" ], function ($) {
                 var to = column.domain.period.to
                 var yearTo = to.substr(0, 4);
                 var dateTo = new Date(yearTo)
-                var date = new Date(yearTo);
-                if (date.getTime() < dateTo.getTime()) {
-                    for (var i = 1; date.getTime() < dateTo.getTime(); i++) {
-                        date = new Date(yearFrom + i);
-                        arr.push(date);
+                var yearsDiff = yearTo - yearTo;
+                if(yearsDiff >0){
+                    for(var i =0; i< yearsDiff; i++) {
+                        array.push(new Date(dateFrom.getFullYear() + 1));
                     }
-                } else if (date.getTime() == dateTo.getTime()) {
-                    array.push(dateTo)
                 } else {
                     alert("error!")
                     throw Error

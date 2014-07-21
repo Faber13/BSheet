@@ -49,7 +49,6 @@ define(["jquery" , "infragistics"], function ($, pivot) {
 
     //  var measuresDimension = this.createMeasureDimension(fullModel["valueColumnsModel"], fullModel["accessorColumnsModel"])
 
-        debugger;
         var dataSource = new $.ig.OlapFlatDataSource({
             dataSource: table,
             metadata: {
@@ -60,7 +59,6 @@ define(["jquery" , "infragistics"], function ($, pivot) {
                         caption: "Measures",
                         measures: [ //for each measure, name and aggregator are required
                             { caption: "value", name: "value", aggregator: getItem(4) }
-
                         ]
                     },
                     dimensions: [ // for each dimension
@@ -82,129 +80,7 @@ define(["jquery" , "infragistics"], function ($, pivot) {
 
         });
 
-        var dataSource2 = new $.ig.OlapFlatDataSource({
-            dataSource: table,
-            metadata: {
-                cube: {
-                    name: "Sales",
-                    caption: "Sales",
-                    measuresDimension: {
-                        caption: "Measures",
-                        measures: [ //for each measure, name and aggregator are required
-                            { caption: "value", name: "value", aggregator: getItem(4) }
-
-                        ]
-                    },
-                    dimensions: [ // for each dimension
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Rows1", name: "Rows1", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Rows1", name: "Rows1", levels: [
-
-                                {
-                                    name: "Rows1", caption: "Rows1",
-                                    memberProvider: function (item) {
-                                        return item[0];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        },
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Rows2", name: "Rows2", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Rows2", name: "Rows2", levels: [
-
-                                {
-                                    name: "Rows2", caption: "Rows2",
-                                    memberProvider: function (item) {
-                                        return item[1];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        },
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Column1", name: "Column1", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Column1", name: "Column1", levels: [
-
-                                {
-                                    name: "Column1", caption: "Column1",
-                                    memberProvider: function (item) {
-                                        return item[2];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        },
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Column2", name: "Column2", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Column2", name: "Column2", levels: [
-
-                                {
-                                    name: "Column2", caption: "Column2",
-                                    memberProvider: function (item) {
-                                        return item[3];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        }
-
-                    ]
-                }
-            },
-
-            // Preload hiearhies for the rows, columns, filters and measures
-            rows: "[Rows1].[Rows1],[Rows2].[Rows2]",
-            columns: "[Column1].[Column1],[Column2].[Column2]",
-            measures: "[Measures].[value]"//,[Measures].[UnitPrice]"
-        });
-
-
-
-/*
-
-        $("#pivotGrid").igPivotGrid({
-          // To disable filtering, drag&drop, etc..
-          hideRowsDropArea : true,
-            hideMeasuresDropArea : true,
-            hideFiltersDropArea : true,
-            hideColumnsDropArea : true,
-            allowSorting: true,
-            dataSource: dataSource,
-            gridOptions:
-            {
-                defaultColumnWidth: 80
-            },
-            width: "1000",
-            height: "100%"
-        });
-
-        var grid =  $("#pivotGrid").igPivotGrid("grid");
-        $(document).delegate("#"+grid.id(), "iggridcellclick", function (evt, ui) {
-            alert("Cell Clicked. Cell at row index:"+ ui.rowIndex+"  and column index: "+  (ui.colIndex -1))
-        });
-
-
-        //Set fixed position for the left headers
-        $(document).delegate("#pivotGrid", "igpivotgridpivotgridrendered", function (evt, ui) {
-            var width=$("#pivotGrid_rows").width();
-            $("#pivotGrid_table").find(".ui-iggrid-header").css("width",width);
-            $("#pivotGrid_table").find(".ui-iggrid-header").css("position", "fixed");
-        });
-
-*/
+        debugger;
 
 
         $("#pivotGrid").igPivotGrid({
@@ -214,7 +90,9 @@ define(["jquery" , "infragistics"], function ($, pivot) {
             compactHeaderIndentation: 80,
             isParentInFrontForColumns: true,
             gridOptions: {
-                caption: "Compact Layout"
+                caption: "Compact Layout",
+                defaultColumnWidth: 150
+
             },
             width: "100%",
             height: "100%"
@@ -229,117 +107,24 @@ define(["jquery" , "infragistics"], function ($, pivot) {
             ui.cellElement.innerText  ="BBB"
 
         });
-
-
-
-
-
     }
 
 
     GridDataView.prototype.setPropertiesDatasource = function(){
 
-    }
+        var result = {};
+        result["rows"] = "[Rows].["+titlesLeft[0]+"]";
+        if(titlesLeft.length >1){
+            result["rows"] += ",[Rows].["+titlesLeft[1]+"]";
+        }
+        result["Columns"] = "[Columns].["+titlesUp[0]+"]";
+        if(titlesLeft.length >1){
+            result["Columns"] += ",[Columns].["+titlesUp[1]+"]";
+        }
 
+        result["Measures"] =   "[Measures].[value]"
 
-
-    GridDataView.prototype.createGrid = function (Configuration, gridModel) {
-        var matrixLeft = gridModel["matrixLeft"];
-        var matrixAll =  gridModel["matrixAll"];
-        var matrixUp =   gridModel["matrixUp"];
-
-
-        // QUELLA GIUSTA(Vecchia)
-
-        var dataSource = new $.ig.OlapFlatDataSource({
-            dataSource: table,
-            metadata: {
-                cube: {
-                    name: "Sales",
-                    caption: "Sales",
-                    measuresDimension: {
-                        caption: "Measures",
-                        measures: [ //for each measure, name and aggregator are required
-                            { caption: "value", name: "value", aggregator: getItem(4) }
-
-                        ]
-                    },
-                    dimensions: [ // for each dimension
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Rows1", name: "Rows1", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Rows1", name: "Rows1", levels: [
-
-                                {
-                                    name: "Rows1", caption: "Rows1",
-                                    memberProvider: function (item) {
-                                        return item[0];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        },
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "SecondRow", name: "SecondRow", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "SecondRow", name: "SecondRow", levels: [
-
-                                {
-                                    name: "SecondRow", caption: "SecondRow",
-                                    memberProvider: function (item) {
-                                        return item[1];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        },
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Column1", name: "Column1", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Column1", name: "Column1", levels: [
-
-                                {
-                                    name: "Column1", caption: "Column1",
-                                    memberProvider: function (item) {
-                                        return item[2];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        },
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Column2", name: "Column2", /*displayFolder: "Folder1\\Folder2",*/ hierarchies: [
-                            {
-                                caption: "Column2", name: "Column2", levels: [
-
-                                {
-                                    name: "Column2", caption: "Column2",
-                                    memberProvider: function (item) {
-                                        return item[3];
-                                    }
-                                }
-                            ]
-                            }
-                        ]
-                        }
-
-                    ]
-                }
-            },
-
-            // Preload hiearhies for the rows, columns, filters and measures
-            rows: "[Rows1].[Rows1],[Rows2].[Rows2]",
-            columns: "[Column1].[Column1],[Column2].[Column2]",
-            measures: "[Measures].[value]"//,[Measures].[UnitPrice]"
-        });
-
+        return result;
 
     }
 
@@ -358,27 +143,18 @@ define(["jquery" , "infragistics"], function ($, pivot) {
                     {
                         name:    keyColumns["leftColumns"][0].domain.supplemental.EN,
                         caption: keyColumns["leftColumns"][0].domain.title.EN,
-                        /*memberProvider: function (item) {
-                            var result;
-                            //   /\$\w+/  trova la prima $label
-
-                            var label = keyColumnConf["lefKeyColumnConfiguration"][0].properties.cellProperties.label
-
-                            // start from array[1]
-                            var array =label.match(/(\$\w+)(\s)(\W+)(\s*)(\$\w+)(\s*)(\W+)+/);
-                            result = "";
-                            for(var i = 1; i<array.length; i++){
-                                if(array[i].substring(0,1) == "$"){
-                                    var value= array[i].substring(1)
-                                    result += (value == "value")? item[keyColumns["leftKeyIndexes"][0]]: item[accessorMap[value]];
-                                } else{
-                                    result += array[i];
-                                }
-                            }
-                            return result;
-                            }*/
                         memberProvider : function(item){
-                            return that.evaluateRegExpression(item, 0, keyColumnConf["lefKeyColumnConfiguration"][0], keyColumns["leftKeyIndexes"])
+                            var plus;
+                            var r = item[5]
+                                if(r){
+                                    plus = r;
+                                }
+                                else{
+                                    plus = "";
+                                }
+                            return item[0] + plus
+
+                            // return that.evaluateRegExpression(item, 0, keyColumnConf["lefKeyColumnConfiguration"][0], keyColumns["leftKeyIndexes"])
                         }
 
                     }
@@ -395,9 +171,8 @@ define(["jquery" , "infragistics"], function ($, pivot) {
                         name:    keyColumns["leftColumns"][1].domain.supplemental.EN,
                         caption: keyColumns["leftColumns"][1].domain.title.EN,
                         memberProvider: function (item) {
-                            debugger;
-
-                            return that.evaluateRegExpression(item, 1, keyColumnConf["lefKeyColumnConfiguration"][0], keyColumns["leftKeyIndexes"])                        }
+                            return that.evaluateRegExpression2(item, 1, keyColumnConf["lefKeyColumnConfiguration"][0], keyColumns["leftKeyIndexes"])
+                        }
                     }
                 ]
             }
@@ -406,7 +181,7 @@ define(["jquery" , "infragistics"], function ($, pivot) {
         return keysLeft;
     }
 
-    GridDataView.prototype.evaluateRegExpression = function(item, num, configuration, keyIndexes){
+    GridDataView.prototype.evaluateRegExpression2 = function(item, num, configuration, keyIndexes){
         var result;
         //   /\$\w+/  trova la prima $label
 
@@ -435,15 +210,67 @@ define(["jquery" , "infragistics"], function ($, pivot) {
     }
 
 
+    GridDataView.prototype.evaluateRegExpression = function(item, num, configuration, keyIndexes){
+        var result;
+        //   /\$\w+/  trova la prima $label
+
+        var label = configuration.properties.cellProperties.label
+
+        // start from array[1]
+        var array;
+
+        debugger;
+        /*var result = label.replace(/(\$\w+)/g, function(firstParameter){
+            if (firstParameter == "$value") {
+                console.log(firstParameter + "VALUEEE");
+                console.log(item[keyIndexes[num]])
+              return  item[keyIndexes[num]]
+            }else{
+                debugger;
+                console.log(firstParameter + "ELSEE");
+                console.log(accessorMap)
+                console.log(item[accessorMap[firstParameter.substring(1)]])
+               return item[accessorMap[firstParameter.substring(1)]]
+            }
+        })
+        console.log("-------------------")
+
+        console.log(result)
+        console.log("-------------------")
+
+        */debugger;
+        console.log("label!!")
+        console.log(label)
+        if (label == "$value") {
+            array = label.match(/(\$\w+)/);
+
+        }else{
+            array = label.match(/(\$\w+)(\s)(\W+)(\s*)(\$\w+)(\s*)(\W+)+/);
+        }
+       // console.log(array)
+        result = "";
+        for(var i = 1; i<array.length; i++){
+            if(array[i].substring(0,1) == "$"){
+
+                var value= array[i].substring(1)
+                result += (value == "value")? item[keyIndexes[num]]: item[accessorMap[value]];
+            } else{
+                result += array[i];
+            }
+        }
+        return result;
+    }
+
+
     GridDataView.prototype.createMeasureDimension = function(fullModel){
 
+        var result = {};
+       var result1 = { caption: "value", name: "value", aggregator: getItem(4) }
         var indexValue = fullModel["valueColumnsModel"];
         var accessorModel = fullModel["accessorColumnsModel"]
         var measures = [];
 
-        var key = {
 
-        }
 
 
         return measuresDimension;

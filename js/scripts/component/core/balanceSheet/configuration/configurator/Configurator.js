@@ -14,7 +14,9 @@ define(['jquery'], function($){
         compConfiguration,
         lefKeyColumnConfiguration,   // Left key columns on the configuration ordered with DSD
         upKeyColumnConfiguration,    // Up key columns on the configuration ordered with DSD
-        indexValueColumns;
+        indexValueColumns,
+        accessorMap;                 // It is a map with KEYS = titles of accessor fields and
+                                     // VALUES = indexes on the DSD structure
 
     function Configurator(){}
 
@@ -33,6 +35,7 @@ define(['jquery'], function($){
         upKeyColumnConfiguration = [];
         upKeyColumns = []
         upKeyIndexes = [],
+        accessorMap  = {},
         accessorColumns = [];
         accessorIndexes = []
 
@@ -69,6 +72,7 @@ define(['jquery'], function($){
                 indexValueColumns = i;
             }
             else { // Accessor Columns
+                accessorMap[dsdConf.dsd.columns[i].dimension.title.EN] = i;
                 accessorColumns.push(dsdConf.dsd.columns[i]);
                 accessorIndexes.push(i);
             }
@@ -151,6 +155,11 @@ define(['jquery'], function($){
         }
 
         return keyColumnConf;
+    }
+
+
+    Configurator.prototype.getAccessorMap = function(){
+        return accessorMap;
     }
 
 

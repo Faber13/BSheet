@@ -71,8 +71,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "",
-                        "to": ""
+                        "from": "2012-04-23T18:25:43.511Z",
+                        "to": "2012-05-24T18:25:43.511Z"
                     },
                     "columnLink": "",
                     "key": true,
@@ -156,7 +156,7 @@
                     "enumeration": "",
                     "period": {
                         "from": "",
-                        "to": ""
+                        "to": "20140624"
                     },
                     "columnLink": "",
                     "key": true,
