@@ -89,6 +89,7 @@
         "otherColumns": {
             "valueColumn": {
                 "columnIdDomain": "",
+                "label": "",
                 "valuesValid": [
                     "value"
                 ],
