@@ -163,6 +163,12 @@ define(['jquery'], function($){
     }
 
 
+    Configurator.prototype.getValueColumnConfiguration = function(){
+       var result = compConfiguration.gridConfiguration.otherColumns.valueColumn;
+       return result;
+    }
+
+
     return Configurator;
 
 })

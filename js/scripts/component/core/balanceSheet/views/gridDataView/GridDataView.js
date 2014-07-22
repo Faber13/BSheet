@@ -1,7 +1,7 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery" , "infragistics"], function ($, pivot) {
+define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap
 
@@ -12,6 +12,7 @@ define(["jquery" , "infragistics"], function ($, pivot) {
 
     GridDataView.prototype.init = function (Configuration, gridModel, tableModel, configurator, typeOfCreation) {
 
+        debugger;
         console.log("GridDataView")
         console.log(Configuration)
         console.log(tableModel)
@@ -26,28 +27,15 @@ define(["jquery" , "infragistics"], function ($, pivot) {
     }
 
 
-    GridDataView.prototype.createFullGrid = function (Configuration, gridModel) {
+    GridDataView.prototype.createFullGrid = function () {
 
-        getItem = function (propertyName) {
-
-            return function (items, cellMetadata) {
-                debugger;
-
-                $.each(items, function (index, item) {
-                    sum = item[propertyName];
-                });
-                return sum;
-            };
-        }
-
-
-        var fullModel = Configurator.getAllColumnModels();
+        var fullModel =         Configurator.getAllColumnModels();
         var configurationKeys = Configurator.getKeyColumnConfiguration();
-        accessorMap = Configurator.getAccessorMap();
-        var leftDimensions = this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys);
-        var upDimensions = this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys);
-
-        //  var measuresDimension = this.createMeasureDimension(fullModel["valueColumnsModel"], fullModel["accessorColumnsModel"])
+        accessorMap =           Configurator.getAccessorMap();
+        var leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys);
+        var upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys);
+        var valueColumn  =      Configurator.getValueColumnConfiguration();
+        var indexValues =       Configurator.getValueIndex();
 
         var dataSource = new $.ig.OlapFlatDataSource({
             dataSource: table,
@@ -58,7 +46,7 @@ define(["jquery" , "infragistics"], function ($, pivot) {
                     measuresDimension: {
                         caption: "Measures",
                         measures: [ //for each measure, name and aggregator are required
-                            { caption: "value", name: "value", aggregator: this.expressionLanguage() }
+                            { caption: "value", name: "value", aggregator:  this.expressionLanguage(valueColumn,indexValues) }
                         ]
                     },
                     dimensions: [ // for each dimension
@@ -106,30 +94,51 @@ define(["jquery" , "infragistics"], function ($, pivot) {
     }
 
 
-    GridDataView.prototype.expressionLanguage = function(){
+    GridDataView.prototype.expressionLanguage = function(columnValue, indexValue){
         var value =300;
         var UM = "KG"
-        var conditionRegExpression = /(#(\w+)(\W))/;
-        var valuesRegExpression    = /(((\w)|(\W))*(\$\w+)((\w)|(\W))*(\~))/;
+        var conditionRegExpression = /(#(\w+)(\|))/;
+        var valuesRegExpression    = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
+        var onlyValue              = /(\$\w+)/;
 
 
         return function (items, cellMetadata) {
-            var result = "X "
+            var result = ""
             $.each(items, function (index, item) {
 
-                var expression = "#value|$value~#UM| ($UM) ||";
-                var firstCondition = expression.match(conditionRegExpression)[0]
-                expression = expression.replace(conditionRegExpression, "")
-                firstCondition = firstCondition.slice(0, -1);
-                if(firstCondition.substring(0,1) == "#"){
-                    if(firstCondition.substring(1) == "value"  && typeof item[4] !== 'undefined'){
-                    result += item[4];
-                    var secondCondition = expression.match(valuesRegExpression)[0];
-                        debugger;
-
+                var expression = columnValue.label;
+                while(expression != "" && expression != "|") {
+                    var firstCondition = expression.match(conditionRegExpression)[0]
+                    expression = expression.replace(conditionRegExpression, "")
+                    firstCondition = firstCondition.slice(0, -1);
+                        if (firstCondition.substring(1) == "value" ) {
+                            if (typeof item[indexValue] !== 'undefined') {
+                                var secondCondition = expression.match(valuesRegExpression)[0];
+                                expression = expression.replace(valuesRegExpression, "")
+                                secondCondition = secondCondition.slice(0, -1);
+                                var stringAppend = secondCondition.replace(onlyValue, function (match) {
+                                    var returnedValue;
+                                    returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
+                                    return returnedValue;
+                                })
+                                result += stringAppend;
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        else if(typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
+                            var secondCondition = expression.match(valuesRegExpression)[0];
+                            expression = expression.replace(valuesRegExpression, "")
+                            secondCondition = secondCondition.slice(0, -1);
+                            var stringAppend = secondCondition.replace(onlyValue, function (match) {
+                                var returnedValue;
+                                returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
+                                return returnedValue;
+                            })
+                            result += stringAppend;
+                        }
                     }
-                }
-
             })
             return result;
         }
@@ -195,65 +204,6 @@ define(["jquery" , "infragistics"], function ($, pivot) {
             keysLeft.push(key2);
         }
         return keysLeft;
-    }
-
-    GridDataView.prototype.evaluateRegExpression2 = function (item, num, configuration, keyIndexes) {
-        var result;
-        //   /\$\w+/  trova la prima $label
-
-        var label = configuration.properties.cellProperties.label
-
-        // start from array[1]
-        var array;
-        debugger;
-        if (label == "$value") {
-            array = label.match(/(\$\w+)/);
-
-        } else {
-            array = label.match(/(\$\w+)(\s)(\W+)(\s*)(\$\w+)(\s*)(\W+)+/);
-        }
-        console.log(array)
-        result = "";
-        for (var i = 1; i < array.length; i++) {
-            if (array[i].substring(0, 1) == "$") {
-                var value = array[i].substring(1)
-                result += (value == "value") ? item[keyIndexes[num]] : item[accessorMap[value]];
-            } else {
-                result += array[i];
-            }
-        }
-        return result;
-    }
-
-
-    GridDataView.prototype.evaluateRegExpression = function (item, num, configuration, keyIndexes) {
-        var result;
-        //   /\$\w+/  trova la prima $label
-
-        var label = configuration.properties.cellProperties.label
-
-        // start from array[1]
-        var array;
-        console.log("label!!")
-        console.log(label)
-        if (label == "$value") {
-            array = label.match(/(\$\w+)/);
-
-        } else {
-            array = label.match(/(\$\w+)(\s)(\W+)(\s*)(\$\w+)(\s*)(\W+)+/);
-        }
-        // console.log(array)
-        result = "";
-        for (var i = 1; i < array.length; i++) {
-            if (array[i].substring(0, 1) == "$") {
-
-                var value = array[i].substring(1)
-                result += (value == "value") ? item[keyIndexes[num]] : item[accessorMap[value]];
-            } else {
-                result += array[i];
-            }
-        }
-        return result;
     }
 
 

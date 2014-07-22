@@ -15,7 +15,7 @@
                     }
                 },
                 "dataTypes": [
-                    "code"
+                    "date"
                 ],
                 "values": [ "Production", "AreaHarvested"
                 ],
@@ -71,8 +71,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "2012-04-23T18:25:43.511Z",
-                        "to": "2012-05-24T18:25:43.511Z"
+                        "from": "20100624",
+                        "to":   "20111024"
                     },
                     "columnLink": "",
                     "key": true,

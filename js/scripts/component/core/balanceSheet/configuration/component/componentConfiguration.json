@@ -89,7 +89,7 @@
         "otherColumns": {
             "valueColumn": {
                 "columnIdDomain": "",
-                "label": "",
+                "label": "#value|$value~#measurementUnit| ($measurementUnit) ~|",
                 "valuesValid": [
                     "value"
                 ],

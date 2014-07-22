@@ -282,7 +282,7 @@ define(["jquery" ], function ($) {
                 }
                 break;
 
-            case "Time":
+            case "time":
                 // Updates once every hour
                 var from = new Date(column.domain.period.from)
                 var to = new Date(column.domain.period.to)
