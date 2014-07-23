@@ -12,7 +12,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     GridDataView.prototype.init = function (Configuration, gridModel, tableModel, configurator, typeOfCreation) {
 
-        debugger;
         console.log("GridDataView")
         console.log(Configuration)
         console.log(tableModel)
@@ -31,9 +30,10 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
         var fullModel =         Configurator.getAllColumnModels();
         var configurationKeys = Configurator.getKeyColumnConfiguration();
+        debugger;
         accessorMap =           Configurator.getAccessorMap();
-        var leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys);
-        var upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys);
+        var leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
+        var upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
         var valueColumn  =      Configurator.getValueColumnConfiguration();
         var indexValues =       Configurator.getValueIndex();
 
@@ -70,14 +70,14 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
         $("#pivotGrid").igPivotGrid({
+
+            fixedHeaders: true,
             dataSource: dataSource,
             compactColumnHeaders: false,
             compactRowHeaders: true,
             compactHeaderIndentation: 80,
             isParentInFrontForColumns: true,
-            gridOptions: {
-                defaultColumnWidth: 100
-            },
+
             width: "100%",
             height: "100%"
 
@@ -86,6 +86,18 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         var grid = $("#pivotGrid").igPivotGrid("grid");
 
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
+            grid.getCellValue(0,0)
+            var $newdiv1 = $( "<div id='form'><input/></div>" );
+
+            $("#pivotGrid").append($newdiv1)
+            $("#form").igDialog({
+                state: "open",
+                modal: true,
+                height: "400px",
+                width: "100px"
+            });
+
+
             // Only the FIRST ROW column indexes start from 2, it needs to be checked!
             alert("Cell Clicked. Cell at row index:" + ui.rowIndex + "  and column index: " + ui.colIndex);
             ui.cellElement.innerText = "BBB"
@@ -169,8 +181,8 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         var that = this;
         titlesLeft = [];
         var keysLeft = [];
+        var that = this;
         titlesLeft.push(keyColumns["leftColumns"][0].domain.title.EN)
-        var label = keyColumnConf["lefKeyColumnConfiguration"][0].properties.cellProperties.label
         var key = {
             caption: keyColumns["leftColumns"][0].domain.title.EN,
             name: keyColumns["leftColumns"][0].domain.title.EN,
@@ -179,7 +191,14 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     name: keyColumns["leftColumns"][0].domain.supplemental.EN,
                     caption: keyColumns["leftColumns"][0].domain.title.EN,
                     memberProvider: function (item) {
-                        return  item[keyColumns["leftKeyIndexes"][0]]
+                        var result;
+                        var datatype = keyColumns["leftColumns"][0].dataTypes;
+                        if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                           result = that.renderFormatDate(item[keyColumns["leftKeyIndexes"][0]], keyColumnConf[0], datatype)
+                        }else{
+                            result = item[keyColumns["leftKeyIndexes"][0]]
+                        }
+                        return  result;
                     }
 
                 }
@@ -257,6 +276,42 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             keysUp.push(key2);
         }
         return keysUp;
+    }
+
+
+    GridDataView.prototype.renderFormatDate = function(value, configurationKeyColumn, datatype){
+        debugger;
+
+        var result;
+        switch (datatype[0]){
+            case "time":
+                var date = new Date(value);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "month":
+                var year  =  value.substr(0, 4);
+                var month =  value.substr(4,2);
+                var date  =  new Date(year,month-1);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "year":
+                var year  =  value.substr(0, 4);
+                var date  =  new Date(year);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "date":
+                var year  =  value.substr(0, 4);
+                var month =  value.substr(4,2);
+                var day   =  value.substr(6,2);
+                var date  =  new Date(year,month-1,day);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+        }
+        return result;
+
     }
 
 

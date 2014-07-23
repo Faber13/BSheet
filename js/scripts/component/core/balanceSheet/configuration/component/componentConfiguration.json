@@ -11,7 +11,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "label": "$value ($measurementUnit)",
+                            "dateFormat" : "DD/MM/YYYY",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
@@ -31,7 +31,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "label": "$value",
+                            "dateFormat" : "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
@@ -53,7 +53,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "label": "$value",
+                            "dateFormat" : "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
@@ -73,7 +73,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "label": "$value",
+                            "dateFormat" : "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },

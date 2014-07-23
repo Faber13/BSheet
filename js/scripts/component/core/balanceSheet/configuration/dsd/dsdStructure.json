@@ -15,7 +15,7 @@
                     }
                 },
                 "dataTypes": [
-                    "date"
+                    "code"
                 ],
                 "values": [ "Production", "AreaHarvested"
                 ],

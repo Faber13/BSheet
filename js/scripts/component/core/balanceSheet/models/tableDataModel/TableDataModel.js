@@ -292,7 +292,7 @@ define(["jquery" ], function ($) {
                 }
                 break;
 
-            case "Year":
+            case "year":
                 var from = column.domain.period.from
                 var yearFrom = from.substr(0, 4);
                 var dateFrom = new Date(yearFrom)

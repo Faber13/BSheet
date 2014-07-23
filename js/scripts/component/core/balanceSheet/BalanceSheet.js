@@ -23,17 +23,6 @@ define(["jquery", "models/tableDataModel/TableDataModel",
                 [ "Production","Rice" , "Egypt", "winter", 1111313, "T"]
             ]
 
-/*
-        var data2 = [
-            {"FirstRow": "Production", "SecondRow": "Maize", "FirstUp": "Egypt", "SecondUp": "summer", "value": 1000, "UM": "Kg"},
-            {"FirstRow": "Production", "SecondRow": "Rice", "FirstUp": "Egypt", "SecondUp": "summer", "value": 22, "UM": "T"},
-            {"FirstRow": "Production", "SecondRow": "Wheat", "FirstUp": "Egypt", "SecondUp": "summer", "value": 123123, "UM": "T"},
-            {"FirstRow":  "SecondRow": "Maize", "FirstUp": "Egypt", "SecondUp": "winter", "value": 22, "UM": "T"},
-            {"FirstRow": "Production", "SecondRow": "Rice", "FirstUp": "Russia", "SecondUp": "winter", "value": 2222, "UM": "Kg"},
-            {"FirstRow": "Production", "SecondRow": "Wheat", "FirstUp": "Egypt", "SecondUp": "winter", "value": 345435345, "UM": "T"},
-            {"FirstRow":  "SecondRow": "Rice", "FirstUp": "Egypt", "SecondUp": "winter", "value": 1111313, "UM": "T"}
-        ]*/
-
 
 
     console.log(data)
