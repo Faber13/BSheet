@@ -169,6 +169,24 @@ define(['jquery'], function($){
     }
 
 
+    Configurator.prototype.getIdOlapGrid = function(){
+        var result = compConfiguration.gridConfiguration.HTMLproperties.idGrid;
+        return result;
+    }
+
+
+    Configurator.prototype.getDSD = function(){
+        var result = dsdConf;
+        return result;
+    }
+
+
+    Configurator.prototype.getComponentConfigurator = function(){
+        var result = compConfiguration;
+        return result;
+    }
+
+
     return Configurator;
 
 })

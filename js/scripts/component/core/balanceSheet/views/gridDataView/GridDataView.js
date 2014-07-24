@@ -21,8 +21,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         Configurator = configurator;
 
         (typeOfCreation) ? this.createFullGrid(Configuration, gridModel) : this.createGrid(Configuration, gridModel);
-
-
     }
 
 
@@ -30,12 +28,12 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
         var fullModel =         Configurator.getAllColumnModels();
         var configurationKeys = Configurator.getKeyColumnConfiguration();
-        debugger;
         accessorMap =           Configurator.getAccessorMap();
         var leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
         var upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
         var valueColumn  =      Configurator.getValueColumnConfiguration();
         var indexValues =       Configurator.getValueIndex();
+        var idOlapGrid  =       Configurator.getIdOlapGrid();
 
         var dataSource = new $.ig.OlapFlatDataSource({
             dataSource: table,
@@ -69,7 +67,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         });
 
 
-        $("#pivotGrid").igPivotGrid({
+        $("#"+idOlapGrid).igPivotGrid({
 
             fixedHeaders: true,
             dataSource: dataSource,
@@ -83,32 +81,12 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
         });
-        var grid = $("#pivotGrid").igPivotGrid("grid");
 
-        $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
-            grid.getCellValue(0,0)
-            var $newdiv1 = $( "<div id='form'><input/></div>" );
-
-            $("#pivotGrid").append($newdiv1)
-            $("#form").igDialog({
-                state: "open",
-                modal: true,
-                height: "400px",
-                width: "100px"
-            });
-
-
-            // Only the FIRST ROW column indexes start from 2, it needs to be checked!
-            alert("Cell Clicked. Cell at row index:" + ui.rowIndex + "  and column index: " + ui.colIndex);
-            ui.cellElement.innerText = "BBB"
-
-        });
     }
 
 
     GridDataView.prototype.expressionLanguage = function(columnValue, indexValue){
-        var value =300;
-        var UM = "KG"
+
         var conditionRegExpression = /(#(\w+)(\|))/;
         var valuesRegExpression    = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
         var onlyValue              = /(\$\w+)/;
@@ -280,7 +258,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
     GridDataView.prototype.renderFormatDate = function(value, configurationKeyColumn, datatype){
-        debugger;
 
         var result;
         switch (datatype[0]){

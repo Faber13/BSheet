@@ -106,6 +106,9 @@
                 "columnIdDomain": "",
                 "properties": ""
             }
+        },
+        "HTMLproperties" : {
+            "idGrid" : "pivotGrid"
         }
     }
 }

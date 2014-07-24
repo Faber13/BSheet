@@ -2,15 +2,16 @@
  * Created by fabrizio on 6/26/14.
  */
 
-define(["jquery", "models/tableDataModel/TableDataModel",
-    "models/gridDataModel/GridDataModel", "view/GridDataView", "configurator/Configurator"],
-    function($, TableDataModel, GridDataModel, GridDataView, Configurator) {
+define(["jquery", "configurator/Configurator", "modelController/ModelsController",
+        "generalController/GeneralController"],
+    function($, Configurator,ModelController, GeneralController) {
 
         var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json"
 
         var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json"
 
-        var tableDataModel, gridDataModel, data, dsd, componentConfiguration, configurator, indexes;
+        var tableDataModel, gridDataModel, data, dsd, componentConfiguration,
+            configurator, indexes, generalController, modelController;
 
         data =
             [
@@ -33,9 +34,11 @@ define(["jquery", "models/tableDataModel/TableDataModel",
 
 
     function BalanceSheet (){
-        tableDataModel = new TableDataModel;
-        gridDataModel  = new GridDataModel;
-        configurator   = new Configurator;
+     //   tableDataModel =    new TableDataModel;
+     //   gridDataModel  =    new GridDataModel;
+        configurator   =    new Configurator;
+        generalController = new GeneralController;
+        modelController   = new ModelController;
 
     }
 
@@ -62,16 +65,24 @@ define(["jquery", "models/tableDataModel/TableDataModel",
         })
 
         configurator.init(dsd,componentConfiguration)
+        var models = modelController.init(data, dsd, componentConfiguration, configurator)
 
-        var model = this.setTableData(data)
-        console.log(model)
+        var gridModel  = models["gridData"];
+        var tableModel = models["tableData"];
 
-        var gridModel = this.setGridData(model);
+        var fullTableModel = modelController.createFullTableModel(false)
+        generalController.init(componentConfiguration,gridModel, fullTableModel, configurator, true, modelController)
 
-        var gridView = new GridDataView;
-        var tableModel = gridDataModel.createTableModel(indexes,gridModel, false);
+        /* var model = this.setTableData(data)
+         console.log(model)
+
+         var gridModel = this.setGridData(model);
+
+         var gridView = new GridDataView;
+         var tableModel = gridDataModel.createTableModel(indexes,gridModel, false);*/
         // true => every column has visualization type = full
-        gridView.init(componentConfiguration,gridModel, tableModel, configurator, true)
+    //    gridView.init(componentConfiguration,gridModel, fullTableModel, configurator, true)
+      //  generalController.init(componentConfiguration,gridModel, fullTableModel, configurator, true)
 
     }
 
