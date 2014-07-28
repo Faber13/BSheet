@@ -17,6 +17,9 @@ requirejs.config({
         },
         "infragistics" : {
             "deps" : ["jquery","jquery-ui"]
+        },
+        "jquery.dirtyFields" : {
+            deps: ["jquery"]
         }
     }
 });
