@@ -8,7 +8,7 @@ requirejs.config({
         configurator      :  "../component/core/balanceSheet/configuration/configurator",
         generalController :  "../component/core/balanceSheet/controller",
         modelController   :  "../component/core/balanceSheet/models/controllerDataModels",
-        editor            :  "../component/core/balanceSheet/editors/cell",
+        editor            :  "../component/core/balanceSheet/editors",
        "datatables"  :  "jquery.dataTables"
     },
     "shim": {

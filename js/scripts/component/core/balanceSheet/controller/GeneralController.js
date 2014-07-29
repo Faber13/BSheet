@@ -1,13 +1,13 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery", "view/GridDataView","editor/CellEditor"], function($, GridDataView, Editor){
+define(["jquery", "view/GridDataView","editor/controller/FormController"], function($, GridDataView, EditorController){
 
-    var ViewGrid, ModelController, EditorForm, dsd, Configurator;
+    var ViewGrid, ModelController, FormController, dsd, Configurator;
 
     function GeneralController(){
         ViewGrid   = new GridDataView;
-        EditorForm = new Editor;
+        FormController = new EditorController;
     };
 
     /* Function that it has to do:
@@ -38,14 +38,24 @@ define(["jquery", "view/GridDataView","editor/CellEditor"], function($, GridData
         var grid = $("#pivotGrid").igPivotGrid("grid");
         var that = this;
         var cell;
+        var indTable
 
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             var cellTableModel = ModelController.getFullTableModel();
-            cell = (ui.rowIndex ==0)? cellTableModel[((ui.rowIndex)*1) +  (ui.colIndex -2)]:
-                    cellTableModel[((ui.rowIndex)*columnsNumber)+(ui.colIndex -1)];
+            console.log("CELLTMODEL")
+            console.log(cellTableModel)
+            console.log(cellTableModel[0])
+            if(ui.rowIndex ==0){
+                indTable = ((ui.rowIndex)*1) +  (ui.colIndex -2);
+                cell = cellTableModel[indTable]
+            }else{
+                indTable = ((ui.rowIndex)*columnsNumber)+(ui.colIndex -1);
+                cell = cellTableModel[indTable]
+            }
+
             // Only the FIRST ROW column indexes start from 2, it needs to be checked!
             alert("Cell Clicked. Cell at row index(CreateListeners):" + ui.rowIndex + "  and column index: " + ui.colIndex);
-           that.onclickCell(evt,ui, cell, dsd);
+           that.onclickCell(indTable, cell, dsd);
         });
     }
 
@@ -59,13 +69,17 @@ define(["jquery", "view/GridDataView","editor/CellEditor"], function($, GridData
 
     }
 
-    GeneralController.prototype.onclickCell = function(evt,ui, cell, dsd){
+    GeneralController.prototype.onclickCell = function(indTable, cell, dsd){
 
+        var newCell;
+        var result = FormController.init(Configurator, cell, dsd)
+        $('#saveButton').on('click',function(){
+            newCell=  FormController.getValue(cell)
+            console.log(ModelController.updateModels)
+            ModelController.updateModels(newCell, indTable)
+           // ViewGrid.createFullGrid();
 
-        var result = EditorForm.init(Configurator, cell, dsd)
-        var change = result.changed;
-        ui.cellElement.innerText = "BBB"
-
+        })
 
     }
 

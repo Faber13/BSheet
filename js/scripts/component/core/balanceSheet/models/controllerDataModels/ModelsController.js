@@ -4,7 +4,7 @@
 define(["jquery",  "models/tableDataModel/TableDataModel",
     "models/gridDataModel/GridDataModel"], function($,  TableDataModel, GridDataModel) {
 
-    var TableModel, GridModel, indexes, instanceGridDataModel, instanceTableDataModel, fullTableModel;
+    var TableModel, GridModel, indexes, instanceGridDataModel, instanceTableDataModel, fullTableModel, newValues;
 
     function ModelsController() {
         TableModel = new TableDataModel;
@@ -13,15 +13,12 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
 
     ModelsController.prototype.init = function(tableData, dsd, componentConfiguration, configurator){
 
+        newValues = []; // There will be to put the new values into this variable
         console.log("ModelController.INIT()")
         indexes = configurator.getAllColumnModels();
         instanceTableDataModel = TableModel.init(tableData, dsd, componentConfiguration, configurator)
         instanceGridDataModel  = GridModel.init(dsd, instanceTableDataModel, tableData, indexes)
-        var result = {
-            "gridData"  : instanceGridDataModel,
-            "tableData" : instanceTableDataModel
-        }
-        return result;
+
     }
 
     ModelsController.prototype.getTableDataModel = function(){
@@ -39,6 +36,18 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
 
     ModelsController.prototype.getFullTableModel = function(){
         return fullTableModel;
+    }
+
+    ModelsController.prototype.updateModels = function(cell, indTable){
+        console.log("updateMODELS")
+        console.log(cell);
+        console.log(indTable)
+        console.log(newValues)
+        debugger;
+        newValues.push(cell);
+        fullTableModel[indTable] = cell;
+        // Create a GRid Model
+
     }
 
     return ModelsController;

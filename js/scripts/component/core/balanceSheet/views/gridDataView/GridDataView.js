@@ -292,7 +292,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
     }
 
 
-    GridDataView.prototype.onChangeCellValue = function () {
+    GridDataView.prototype.onChangeCellValue = function (datasource) {
         //TODO
     }
 

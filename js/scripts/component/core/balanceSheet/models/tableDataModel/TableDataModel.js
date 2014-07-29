@@ -26,7 +26,6 @@ define(["jquery" ], function ($) {
 
 
         console.log("TableDataModel init()");
-        console.log(dsd);
         dsdConf = dsd;
         compConfiguration = configuration
         configuratorDsd = configurator
@@ -50,8 +49,6 @@ define(["jquery" ], function ($) {
         lefKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["lefKeyColumnConfiguration"]
         upKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["upKeyColumnConfiguration"]
         indexValueColumns = configuratorDsd.getValueIndex();
-
-
 
         var matrixLeft = this.chooseAndCreateByDataRepresentationType("left")
         var matrixUp = this.chooseAndCreateByDataRepresentationType("up")
@@ -402,13 +399,6 @@ define(["jquery" ], function ($) {
         }
 
         return matrix
-    }
-
-
-    TableDataModel.prototype.printTest = function () {
-        for (var i = 0; i < arguments.length; i++) {
-            console.log(arguments[i]);
-        }
     }
 
 

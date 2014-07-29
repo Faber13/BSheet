@@ -4,7 +4,7 @@
 
 define(["jquery", "configurator/Configurator", "modelController/ModelsController",
         "generalController/GeneralController"],
-    function($, Configurator,ModelController, GeneralController) {
+    function ($, Configurator, ModelController, GeneralController) {
 
         var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json"
 
@@ -15,118 +15,91 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
 
         data =
             [
-                [ "Production","Maize" , "Egypt", "summer", 1000, "Kg"],
-                [ "Production","Rice" , "Egypt", "summer", 22, "T"],
-                [ "Production","Wheat" , "Egypt", "summer", 123123, "T"],
-                [ "Production","Maize" , "Egypt", "winter", 22, "T"],
-                ["AreaHarvested","Rice" , "Russia", "winter", 2222, "Kg"],
-                ["Production","Wheat" , "Egypt", "winter", 345435345, "T"],
-                [ "Production","Rice" , "Egypt", "winter", 1111313, "T"]
+                [ "Production", "Maize" , "Egypt", "summer", 1000, "Kg"],
+                [ "Production", "Rice" , "Egypt", "summer", 22, "T"],
+                [ "Production", "Wheat" , "Egypt", "summer", 123123, "T"],
+                [ "Production", "Maize" , "Egypt", "winter", 22, "T"],
+                ["AreaHarvested", "Rice" , "Russia", "winter", 2222, "Kg"],
+                ["Production", "Wheat" , "Egypt", "winter", 345435345, "T"],
+                [ "Production", "Rice" , "Egypt", "winter", 1111313, "T"]
             ]
 
 
+        function BalanceSheet() {
 
-    console.log(data)
+            configurator = new Configurator;
+            generalController = new GeneralController;
+            modelController = new ModelController;
 
+        }
 
-    var creationGridType = false
+        BalanceSheet.prototype.init = function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: urlDSD,
+                success: function (data) {
+                    dsd = data;
+                }
+            })
 
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: urlComponent,
+                success: function (data) {
+                    componentConfiguration = data;
+                }
+            })
 
+            configurator.init(dsd, componentConfiguration)
+            modelController.init(data, dsd, componentConfiguration, configurator)
 
-    function BalanceSheet (){
-     //   tableDataModel =    new TableDataModel;
-     //   gridDataModel  =    new GridDataModel;
-        configurator   =    new Configurator;
-        generalController = new GeneralController;
-        modelController   = new ModelController;
+            var gridModel = modelController.getGridDataModel()
 
-    }
+            var fullTableModel = modelController.createFullTableModel(false)
+            generalController.init(componentConfiguration, gridModel, fullTableModel, configurator, true, modelController)
 
-    // BalanceSheet.prototype.init(data
-
-    BalanceSheet.prototype.init = function(){
-        $.ajax({
-            async: false,
-            type: 'GET',
-            url: urlDSD,
-            success: function (data) {
-                dsd = data;
-            }
-        })
-
-        console.log("Qui")
-        $.ajax({
-            async: false,
-            type: 'GET',
-            url: urlComponent,
-            success: function (data) {
-                componentConfiguration = data;
-            }
-        })
-
-        configurator.init(dsd,componentConfiguration)
-        var models = modelController.init(data, dsd, componentConfiguration, configurator)
-
-        var gridModel  = models["gridData"];
-        var tableModel = models["tableData"];
-
-        var fullTableModel = modelController.createFullTableModel(false)
-        generalController.init(componentConfiguration,gridModel, fullTableModel, configurator, true, modelController)
-
-        /* var model = this.setTableData(data)
-         console.log(model)
-
-         var gridModel = this.setGridData(model);
-
-         var gridView = new GridDataView;
-         var tableModel = gridDataModel.createTableModel(indexes,gridModel, false);*/
-        // true => every column has visualization type = full
-    //    gridView.init(componentConfiguration,gridModel, fullTableModel, configurator, true)
-      //  generalController.init(componentConfiguration,gridModel, fullTableModel, configurator, true)
-
-    }
+        }
 
 
-    BalanceSheet.prototype.setTableData = function(TableData){
-        // TODO
+        BalanceSheet.prototype.setTableData = function (TableData) {
 
-        console.log("BalanceSheet.setTableData")
-        var tableModel = tableDataModel.init(TableData, dsd, componentConfiguration, configurator);
-        console.log("TableModel.init() - result")
-        console.log(tableModel)
-        return tableModel;
-
-
-    }
+            console.log("BalanceSheet.setTableData")
+            var tableModel = tableDataModel.init(TableData, dsd, componentConfiguration, configurator);
+            console.log("TableModel.init() - result")
+            console.log(tableModel)
+            return tableModel;
 
 
-    BalanceSheet.prototype.setGridData = function(model){
-
-        indexes = configurator.getAllColumnModels();
-
-        return (gridDataModel.init(dsd, model, data, indexes));
-
-    }
+        }
 
 
-    BalanceSheet.prototype.addRow = function(row){
-        // TODO
-    }
+        BalanceSheet.prototype.setGridData = function (model) {
 
-    BalanceSheet.prototype.deleteRow = function(idRow){
-        // TODO
-    }
+            indexes = configurator.getAllColumnModels();
+            return (gridDataModel.init(dsd, model, data, indexes));
 
-    BalanceSheet.prototype.addColumn = function(column){
-        // TODO
-    }
-
-    BalanceSheet.prototype.removeColumn = function(idColumn){
-        // TODO
-    }
+        }
 
 
+        BalanceSheet.prototype.addRow = function (row) {
+            // TODO
+        }
 
-    return BalanceSheet;
+        BalanceSheet.prototype.deleteRow = function (idRow) {
+            // TODO
+        }
 
-})
+        BalanceSheet.prototype.addColumn = function (column) {
+            // TODO
+        }
+
+        BalanceSheet.prototype.removeColumn = function (idColumn) {
+            // TODO
+        }
+
+
+        return BalanceSheet;
+
+    })

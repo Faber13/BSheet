@@ -4,7 +4,7 @@
 
 define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
 
-    var cells, modelCells;
+    var cells, modelCells, matrixLeft, matrixUp, matrixAll;
 
     function GridDataModel() {
     }
@@ -16,6 +16,9 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
         var yPositions = []
         var valueIndex = indexes["valueColumnsModel"];
         var accessorIndexes = indexes["accessorColumnsModel"]["accessorIndexes"];
+        matrixLeft = model["matrixLeft"];
+        matrixUp   = model["matrixUp"];
+        matrixAll  = model["matrixAll"]
 
             for (var i = 0; i < tableData.length; i++) {
 
@@ -40,6 +43,12 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
         console.log(table)
             return  model;
         }
+
+
+   /* GridDataModel.prototype.createGridDataFromTable = function(tableModel){
+
+
+    }*/
 
 
 
@@ -191,6 +200,18 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
 
     GridDataModel.prototype.removeColumn = function (idColumn) {
         //TODO
+    }
+
+    GridDataModel.prototype.getMatrixLeft = function(){
+        return matrixLeft;
+    }
+
+    GridDataModel.prototype.getMatrixUp = function(){
+        return matrixUp;
+    }
+
+    GridDataModel.prototype.getMatrixAll = function(){
+        return matrixAll;
     }
 
 
