@@ -24,22 +24,17 @@ define(["jquery" ], function ($) {
 
     TableDataModel.prototype.init = function (data, dsd, configuration, configurator) {
 
-
-        console.log("TableDataModel init()");
         dsdConf = dsd;
         compConfiguration = configuration
         configuratorDsd = configurator
         var model = this.createKeyMatrixes(data)
-
         return model;
-
     }
 
 
     TableDataModel.prototype.createKeyMatrixes = function (data) {
 
         var matrixLeft, matrixUp;
-
         leftKeyColumns = configuratorDsd.getDSDtoConfigurationKeyColumns().leftColumns
         leftKeyIndexes = configuratorDsd.getLeftKeyColumn()["leftKeyIndexes"]
         upKeyColumns = configuratorDsd.getDSDtoConfigurationKeyColumns().upColumns
@@ -85,59 +80,76 @@ define(["jquery" ], function ($) {
             throw Error;
         }
 
-        // choose the right way of creating the matrix in order with the data representation type
-        switch (dataRepresentation[0].values.dataRepresentation) {
-            case "distinct":
-                if (dataRepresentation[1].values.dataRepresentation == "distinct") {
-                    matrix = this.createMatrixDistinctToDistinct(versus, keyColumns[0], keyColumns[1]);
-                }
-                else if (dataRepresentation[1].values.dataRepresentation == "domain") {
-                    matrix = this.createMatrixDistinctToDomain(versus,keyColumns[0], keyColumns[1]);
-                }
-                else  if (dataRepresentation[1].values.dataRepresentation == "hybrid"){
-                    matrix = this.createMatrixDistinctToHybrid(versus,keyColumns[0], keyColumns[1]);
-                }
-                else{
-                    alert("Error on TableDataModel.chooseAndCreateByDataRepresentationType: error " +
-                        "on component configuration with the field dataRepresentation");
-                    throw Error;
-                }
-                break;
+        if(typeof dataRepresentation[1] !== 'undefined') {
+            // choose the right way of creating the matrix in order with the data representation type
+            switch (dataRepresentation[0].values.dataRepresentation) {
+                case "distinct":
+                    if (dataRepresentation[1].values.dataRepresentation == "distinct" ) {
+                        matrix = this.createMatrixDistinctToDistinct(versus, keyColumns[0], keyColumns[1]);
+                    }
+                    else if (dataRepresentation[1].values.dataRepresentation == "domain" ) {
+                        matrix = this.createMatrixDistinctToDomain(versus, keyColumns[0], keyColumns[1]);
+                    }
+                    else if (dataRepresentation[1].values.dataRepresentation == "hybrid" ) {
+                        matrix = this.createMatrixDistinctToHybrid(versus, keyColumns[0], keyColumns[1]);
+                    }
+                    else {
+                        alert("Error on TableDataModel.chooseAndCreateByDataRepresentationType: error " +
+                            "on component configuration with the field dataRepresentation");
+                        throw Error;
+                    }
+                    break;
 
-            case "domain":
-                if (dataRepresentation[1].values.dataRepresentation == "distinct") {
-                    matrix = this.createMatrixDomainToDistinct(versus,keyColumns[1], keyColumns[0]);
-                }
-                else if (dataRepresentation[1].values.dataRepresentation == "domain") {
-                    matrix = this.createMatrixDomainToDomain(versus,keyColumns[0], keyColumns[1]);
-                }
-                else if (dataRepresentation[1].values.dataRepresentation == "hybrid"){
-                    matrix = this.createMatrixDomainToHybrid(versus,keyColumns[0], keyColumns[1]);
-                }
-                else{
-                    alert("Error on TableDataModel.chooseAndCreateByDataRepresentationType: error" +
-                        " on component configuration with the field dataRepresentation");
-                    throw Error;
-                }
-                break;
+                case "domain":
+                    debugger;
+                    if (dataRepresentation[1].values.dataRepresentation == "distinct" && typeof dataRepresentation[1] !== 'undefined') {
+                        matrix = this.createMatrixDomainToDistinct(versus, keyColumns[1], keyColumns[0]);
+                    }
+                    else if (dataRepresentation[1].values.dataRepresentation == "domain") {
+                        matrix = this.createMatrixDomainToDomain(versus, keyColumns[0], keyColumns[1]);
+                    }
+                    else if (dataRepresentation[1].values.dataRepresentation == "hybrid") {
+                        matrix = this.createMatrixDomainToHybrid(versus, keyColumns[0], keyColumns[1]);
+                    }
+                    else {
+                        alert("Error on TableDataModel.chooseAndCreateByDataRepresentationType: error" +
+                            " on component configuration with the field dataRepresentation");
+                        throw Error;
+                    }
+                    break;
 
-            case "hybrid":
-                if (dataRepresentation[1].values.dataRepresentation == "distinct") {
-                    matrix = this.createMatrixHybridToDistinct(versus,keyColumns[1], keyColumns[0]);
-                }
-                else if (dataRepresentation[1].values.dataRepresentation == "domain") {
-                    matrix = this.createMatrixHybridToDomain(versus,keyColumns[0], keyColumns[1]);
-                }
-                else if (dataRepresentation[1].values.dataRepresentation == "hybrid") {
-                    matrix = this.createMatrixHybridToHybrid(versus,leftKeyColumns[0], leftKeyColumns[1]);
-                }
-                else{
-                    alert("Error on TableDataModel.chooseAndCreateByDataRepresentationType: error " +
-                        "on component configuration with the field dataRepresentation");
-                    throw Error;
-                }
-                break;
+                case "hybrid":
+                    if (dataRepresentation[1].values.dataRepresentation == "distinct") {
+                        matrix = this.createMatrixHybridToDistinct(versus, keyColumns[1], keyColumns[0]);
+                    }
+                    else if (dataRepresentation[1].values.dataRepresentation == "domain") {
+                        matrix = this.createMatrixHybridToDomain(versus, keyColumns[0], keyColumns[1]);
+                    }
+                    else if (dataRepresentation[1].values.dataRepresentation == "hybrid") {
+                        matrix = this.createMatrixHybridToHybrid(versus, leftKeyColumns[0], leftKeyColumns[1]);
+                    }
+                    else {
+                        alert("Error on TableDataModel.chooseAndCreateByDataRepresentationType: error " +
+                            "on component configuration with the field dataRepresentation");
+                        throw Error;
+                    }
+                    break;
+            }
         }
+        else{
+            switch (dataRepresentation[0].values.dataRepresentation) {
+                case "distinct":
+                    matrix = this.createMatrixDistinctToDistinct(versus, keyColumns[0]);
+                    break;
+                case "domain":
+                    matrix = this.createMatrixDomainToDomain(versus, keyColumns[0]);
+                    break;
+                case "hybrid":
+                    matrix = this.createHybridToDomain(versus, keyColumns[0]);
+                    break
+            }
+        }
+
         return matrix
     }
 
@@ -147,6 +159,8 @@ define(["jquery" ], function ($) {
         var matrix = [
             [ ]
         ];
+
+        debugger;
 
         var slaveArray;
         var masterArray = this.createArrayByDomain(masterColumn);
@@ -388,6 +402,7 @@ define(["jquery" ], function ($) {
         var matrix = [
             []
         ];
+        debugger;
 
         for (var i = 0; i < matrixLeft.length; i++) {
             for (var j = 0; j < matrixUp[0].length; j++) {
@@ -399,6 +414,10 @@ define(["jquery" ], function ($) {
         }
 
         return matrix
+    }
+
+    TableDataModel.prototype.createHybridToDistinct = function(versus, masterColumn, slaveColumn){
+
     }
 
 

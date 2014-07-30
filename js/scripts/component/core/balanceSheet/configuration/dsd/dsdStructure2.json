@@ -1,0 +1,719 @@
+{
+    "uid": "",
+    "dsd": {
+        "contextSystem": "",
+        "datasource": "",
+        "aggregationRules": "",
+        "columns": [
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "Element Name",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "code"
+                ],
+                "values": [ "Production", "AreaHarvested"
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Population",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Unbalanced",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Total Supply",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Domestic Supply",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Opening Stocks",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Production",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Area Harvested",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Yield",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Imports-ITY",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Imports-NMY",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Total Utilization",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Domestic Utilization",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Food Use",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Feed Use",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Other Uses",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Exports-ITY",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Exports-NMY",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Closing Stock",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "OF Which Government",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Per Cap. Food Use",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "20100624",
+                        "to":   "20111024"
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 1,
+                    "title": {
+                        "EN": "FirstRow",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "This is the element",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "elementName2",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "date"
+                ],
+                "values": [ "Maize", "Wheat", "Rice"
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Maize",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Rice",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "20140101",
+                        "to":   "20140121"
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 2,
+                    "title": {
+                        "EN": "Years",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Progressive Id",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "value",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "number"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 3,
+                    "title": {
+                        "EN": "values",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Values",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "measurementUnit",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 4,
+                    "title": {
+                        "EN": "MU",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Measurement Unit",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "Flag",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 5,
+                    "title": {
+                        "EN": "MU",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Flag",
+                        "FR": ""
+                    }
+                }
+            }
+
+        ]
+    }
+}

@@ -34,6 +34,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         var valueColumn  =      Configurator.getValueColumnConfiguration();
         var indexValues =       Configurator.getValueIndex();
         var idOlapGrid  =       Configurator.getIdOlapGrid();
+        debugger;
 
         var dataSource = new $.ig.OlapFlatDataSource({
             dataSource: table,
@@ -75,6 +76,9 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             compactRowHeaders: true,
             compactHeaderIndentation: 80,
             isParentInFrontForColumns: true,
+            gridOptions:{
+                defaultColumnWidth: 120
+            },
 
             width: "100%",
             height: "100%"
@@ -193,7 +197,14 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                         name: keyColumns["leftColumns"][1].domain.supplemental.EN,
                         caption: keyColumns["leftColumns"][1].domain.title.EN,
                         memberProvider: function (item) {
-                            return  item[keyColumns["leftKeyIndexes"][1]]
+                            var result;
+                            var datatype = keyColumns["leftColumns"][1].dataTypes;
+                            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                                result = that.renderFormatDate(item[keyColumns["leftKeyIndexes"][1]], keyColumnConf[1], datatype)
+                            }else{
+                                result = item[keyColumns["leftKeyIndexes"][1]]
+                            }
+                            return  result;
                         }
                     }
                 ]
@@ -232,8 +243,15 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     name: keyColumns["upColumns"][0].domain.supplemental.EN,
                     caption: keyColumns["upColumns"][0].domain.title.EN,
                     memberProvider: function (item) {
-                        return  item[keyColumns["upKeyIndexes"][0]]
-                    }
+                            var result;
+                            var datatype = keyColumns["upColumns"][0].dataTypes;
+                            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                                result = that.renderFormatDate(item[keyColumns["upKeyIndexes"][0]], keyColumnConf[0], datatype)
+                            }else{
+                                result = item[keyColumns["upKeyIndexes"][0]]
+                            }
+                            return  result;
+                        }
                 }
             ]}
         keysUp.push(key);
@@ -247,7 +265,14 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                         name: keyColumns["upColumns"][1].domain.supplemental.EN,
                         caption: keyColumns["upColumns"][1].domain.title.EN,
                         memberProvider: function (item) {
-                            return  item[keyColumns["upKeyIndexes"][1]]
+                            var result;
+                            var datatype = keyColumns["upColumns"][1].dataTypes;
+                            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                                result = that.renderFormatDate(item[keyColumns["upKeyIndexes"][1]], keyColumnConf[1], datatype)
+                            }else{
+                                result = item[keyColumns["upKeyIndexes"][1]]
+                            }
+                            return  result;
                         }
                     }
                 ]}
@@ -285,6 +310,8 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                 var day   =  value.substr(6,2);
                 var date  =  new Date(year,month-1,day);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                console.log("DATAAAA")
+                console.log(result)
                 break;
         }
         return result;

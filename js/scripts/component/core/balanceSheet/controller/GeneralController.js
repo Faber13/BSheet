@@ -17,7 +17,6 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
         4) Manages the communication between different modules
      */
 
-
     // It manages the initialization time of the view
     GeneralController.prototype.init = function(componentConfiguration,gridModel, fullTableModel, configurator, typeOfView, modelController){
         ModelController = modelController;
@@ -41,10 +40,9 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
         var indTable
 
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
+            // Only the FIRST ROW column indexes start from 2!
+
             var cellTableModel = ModelController.getFullTableModel();
-            console.log("CELLTMODEL")
-            console.log(cellTableModel)
-            console.log(cellTableModel[0])
             if(ui.rowIndex ==0){
                 indTable = ((ui.rowIndex)*1) +  (ui.colIndex -2);
                 cell = cellTableModel[indTable]
@@ -52,9 +50,6 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
                 indTable = ((ui.rowIndex)*columnsNumber)+(ui.colIndex -1);
                 cell = cellTableModel[indTable]
             }
-
-            // Only the FIRST ROW column indexes start from 2, it needs to be checked!
-            alert("Cell Clicked. Cell at row index(CreateListeners):" + ui.rowIndex + "  and column index: " + ui.colIndex);
            that.onclickCell(indTable, cell, dsd);
         });
     }
@@ -69,6 +64,7 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
 
     }
 
+
     GeneralController.prototype.onclickCell = function(indTable, cell, dsd){
 
         var newCell;
@@ -77,13 +73,11 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
             newCell=  FormController.getValue(cell)
             console.log(ModelController.updateModels)
             ModelController.updateModels(newCell, indTable)
-           // ViewGrid.createFullGrid();
+            ViewGrid.createFullGrid();
 
         })
 
     }
-
-
 
 
     return GeneralController;

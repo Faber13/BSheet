@@ -6,9 +6,9 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         "generalController/GeneralController"],
     function ($, Configurator, ModelController, GeneralController) {
 
-        var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json"
+        var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json"
 
-        var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json"
+        var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration2.json"
 
         var tableDataModel, gridDataModel, data, dsd, componentConfiguration,
             configurator, indexes, generalController, modelController;
@@ -23,6 +23,12 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
                 ["Production", "Wheat" , "Egypt", "winter", 345435345, "T"],
                 [ "Production", "Rice" , "Egypt", "winter", 1111313, "T"]
             ]
+
+
+        data2 = [
+            [ "Population", "20140102", 13000, '1000s', 'C'],
+            [ "Total Supply", "20140102", 232323, 'Tonn', 'D'],
+        ]
 
 
         function BalanceSheet() {
@@ -53,7 +59,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
             })
 
             configurator.init(dsd, componentConfiguration)
-            modelController.init(data, dsd, componentConfiguration, configurator)
+            modelController.init(data2, dsd, componentConfiguration, configurator)
 
             var gridModel = modelController.getGridDataModel()
 
