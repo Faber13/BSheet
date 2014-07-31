@@ -101,7 +101,6 @@ define(["jquery" ], function ($) {
                     break;
 
                 case "domain":
-                    debugger;
                     if (dataRepresentation[1].values.dataRepresentation == "distinct" && typeof dataRepresentation[1] !== 'undefined') {
                         matrix = this.createMatrixDomainToDistinct(versus, keyColumns[1], keyColumns[0]);
                     }
@@ -159,8 +158,6 @@ define(["jquery" ], function ($) {
         var matrix = [
             [ ]
         ];
-
-        debugger;
 
         var slaveArray;
         var masterArray = this.createArrayByDomain(masterColumn);
@@ -402,7 +399,6 @@ define(["jquery" ], function ($) {
         var matrix = [
             []
         ];
-        debugger;
 
         for (var i = 0; i < matrixLeft.length; i++) {
             for (var j = 0; j < matrixUp[0].length; j++) {

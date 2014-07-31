@@ -44,7 +44,7 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
 
             var cellTableModel = ModelController.getFullTableModel();
             if(ui.rowIndex ==0){
-                indTable = ((ui.rowIndex)*1) +  (ui.colIndex -2);
+                indTable = ((ui.rowIndex)+1) +  (ui.colIndex -2);
                 cell = cellTableModel[indTable]
             }else{
                 indTable = ((ui.rowIndex)*columnsNumber)+(ui.colIndex -1);

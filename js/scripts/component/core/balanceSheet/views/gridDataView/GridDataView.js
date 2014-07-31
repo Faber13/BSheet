@@ -34,7 +34,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         var valueColumn  =      Configurator.getValueColumnConfiguration();
         var indexValues =       Configurator.getValueIndex();
         var idOlapGrid  =       Configurator.getIdOlapGrid();
-        debugger;
 
         var dataSource = new $.ig.OlapFlatDataSource({
             dataSource: table,
@@ -69,7 +68,11 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
         $("#"+idOlapGrid).igPivotGrid({
-
+            allowSorting: true,
+            allowHeaderRowsSorting: true,
+            allowHeaderColumnsSorting: true,
+            firstSortDirection: "ascending",
+            firstLevelSortDirection: "ascending",
             fixedHeaders: true,
             dataSource: dataSource,
             compactColumnHeaders: false,
@@ -77,7 +80,17 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             compactHeaderIndentation: 80,
             isParentInFrontForColumns: true,
             gridOptions:{
-                defaultColumnWidth: 120
+                defaultColumnWidth: 150,
+                features: [
+                    {
+                        name: "Selection",
+                        mode: "cell"
+                    },
+                    {
+                        name: "Tooltips",
+                        visibility: "always"
+                    },
+                ]
             },
 
             width: "100%",
@@ -96,11 +109,15 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         var onlyValue              = /(\$\w+)/;
 
 
+        debugger;
         return function (items, cellMetadata) {
             var result = ""
+            debugger;
             $.each(items, function (index, item) {
 
                 var expression = columnValue.label;
+                debugger;
+
                 while(expression != "" && expression != "|") {
                     var firstCondition = expression.match(conditionRegExpression)[0]
                     expression = expression.replace(conditionRegExpression, "")
@@ -310,8 +327,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                 var day   =  value.substr(6,2);
                 var date  =  new Date(year,month-1,day);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-                console.log("DATAAAA")
-                console.log(result)
+
                 break;
         }
         return result;

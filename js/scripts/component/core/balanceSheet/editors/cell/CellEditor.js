@@ -22,7 +22,6 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
 
 
     CellEditor.prototype.init = function (Configurator, cell, dsd) {
-        debugger;
 
         var f  = document.getElementById("dialogForm");
         if(f !== null){
@@ -64,6 +63,7 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                 "</div><br>")
         }
 
+        debugger;
         $('#form').append("<div class ='row'>" +
         "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title.EN
         + "</label></div>" +

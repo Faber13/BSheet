@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9c545015-d849-4255-bddb-f86503e14350" name="Default" comment="" />
     <ignored path="BalanceSheet.iws" />
@@ -26,8 +29,8 @@
       <file leaf-file-name="TableDataModel.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/tableDataModel/TableDataModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1537" max-vertical-offset="7740">
-              <caret line="141" column="88" selection-start-line="141" selection-start-column="88" selection-end-line="141" selection-end-column="88" />
+            <state vertical-scroll-proportion="-98.333336" vertical-offset="4268" max-vertical-offset="7668">
+              <caret line="401" column="0" selection-start-line="401" selection-start-column="0" selection-end-line="401" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -36,14 +39,9 @@
       <file leaf-file-name="GeneralController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/controller/GeneralController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1386">
-              <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-              <folding>
-                <element signature="e#266#359#0" expanded="false" />
-                <element signature="e#366#586#0" expanded="false" />
-                <element signature="e#2075#2083#0" expanded="false" />
-                <element signature="e#2141#2149#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="251" max-vertical-offset="1602">
+              <caret line="46" column="42" selection-start-line="46" selection-start-column="42" selection-end-line="46" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -51,12 +49,9 @@
       <file leaf-file-name="dsdStructure.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="58.962963" vertical-offset="4130" max-vertical-offset="6102">
-              <caret line="326" column="43" selection-start-line="326" selection-start-column="43" selection-end-line="326" selection-end-column="43" />
-              <folding>
-                <element signature="e#150#3152#0" expanded="false" />
-                <element signature="e#6150#9889#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="-4.631579" vertical-offset="6792" max-vertical-offset="9432">
+              <caret line="392" column="24" selection-start-line="392" selection-start-column="22" selection-end-line="392" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,28 +59,28 @@
       <file leaf-file-name="dsdStructure2.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.368421" vertical-offset="11238" max-vertical-offset="13050">
-              <caret line="654" column="35" selection-start-line="654" selection-start-column="35" selection-end-line="654" selection-end-column="35" />
+            <state vertical-scroll-proportion="-16.0" vertical-offset="8124" max-vertical-offset="13050">
+              <caret line="502" column="37" selection-start-line="502" selection-start-column="37" selection-end-line="502" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BalanceSheet.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/BalanceSheet.js">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2088">
-              <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.82653064" vertical-offset="378" max-vertical-offset="1530">
+              <caret line="57" column="51" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="componentConfiguration2.json" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="componentConfiguration2.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration2.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38686132" vertical-offset="600" max-vertical-offset="1422">
-              <caret line="51" column="94" selection-start-line="51" selection-start-column="79" selection-end-line="51" selection-end-column="94" />
+            <state vertical-scroll-proportion="-11.368421" vertical-offset="270" max-vertical-offset="1422">
+              <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -94,8 +89,8 @@
       <file leaf-file-name="componentConfiguration.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.777778" vertical-offset="1320" max-vertical-offset="2142">
-              <caret line="91" column="79" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="79" />
+            <state vertical-scroll-proportion="-15.111111" vertical-offset="1320" max-vertical-offset="2142">
+              <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -104,18 +99,8 @@
       <file leaf-file-name="GridDataView.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/views/gridDataView/GridDataView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-125.4" vertical-offset="1836" max-vertical-offset="6372">
-              <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CellEditor.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/cell/CellEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="2808">
-              <caret line="48" column="85" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="85" />
+            <state vertical-scroll-proportion="-20.266666" vertical-offset="1048" max-vertical-offset="6660">
+              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -124,8 +109,18 @@
       <file leaf-file-name="FormController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/controller/FormController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="810">
-              <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CellEditor.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/cell/CellEditor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="2808">
+              <caret line="76" column="122" selection-start-line="76" selection-start-column="79" selection-end-line="76" selection-end-column="122" />
               <folding />
             </state>
           </provider>
@@ -143,23 +138,23 @@
       <list>
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/controller/EventsController.js" />
-        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/controllerDataModels/ControllerModels.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/configurator/Configurator.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/controller/EditorController.js" />
         <option value="$PROJECT_DIR$/js/main.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/validator/EditorValidator.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/controller/FormController.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/gridDataModel/GridDataModel.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/controllerDataModels/ModelsController.js" />
-        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/controller/GeneralController.js" />
-        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/cell/CellEditor.js" />
-        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/tableDataModel/TableDataModel.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/BalanceSheet.js" />
+        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/cell/CellEditor.js" />
+        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json" />
+        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/tableDataModel/TableDataModel.js" />
+        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration2.json" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/views/gridDataView/GridDataView.js" />
         <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json" />
-        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration2.json" />
+        <option value="$PROJECT_DIR$/js/scripts/component/core/balanceSheet/controller/GeneralController.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -197,6 +192,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -330,75 +326,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tableDataModel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BalanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BalanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="component" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="balanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BalanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BalanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="component" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="balanceSheet" />
+              <option name="myItemId" value="editors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -436,11 +364,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="configuration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dsd" />
+              <option name="myItemId" value="editors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -474,55 +398,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="configuration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configurator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BalanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BalanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="component" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="balanceSheet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configuration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="component" />
+              <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -797,11 +678,13 @@
       <workItem from="1406716426207" duration="655000" />
       <workItem from="1406732483873" duration="12000" />
       <workItem from="1406734896388" duration="7464000" />
+      <workItem from="1406787181915" duration="1000000" />
+      <workItem from="1406808574669" duration="5323000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="322782000" />
+    <option name="totallyTimeSpent" value="329105000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -845,39 +728,39 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26432848" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26432848" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09402655" sideWeight="0.33019674" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.49957228" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26432848" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09402655" sideWeight="0.66980326" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3507271" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24978614" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -944,7 +827,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="570" max-vertical-offset="2670">
           <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -952,12 +834,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#266#359#0" expanded="false" />
-            <element signature="e#366#586#0" expanded="false" />
-            <element signature="e#2075#2083#0" expanded="false" />
-            <element signature="e#2141#2149#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1010,7 +887,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="675" max-vertical-offset="2670">
           <caret line="144" column="17" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1033,12 +909,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#266#359#0" expanded="false" />
-            <element signature="e#366#586#0" expanded="false" />
-            <element signature="e#2075#2083#0" expanded="false" />
-            <element signature="e#2141#2149#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1062,7 +933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="885">
           <caret line="48" column="51" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1099,7 +969,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1455" max-vertical-offset="2700">
           <caret line="128" column="21" selection-start-line="128" selection-start-column="21" selection-end-line="128" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1115,12 +984,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#266#359#0" expanded="false" />
-            <element signature="e#366#586#0" expanded="false" />
-            <element signature="e#2075#2083#0" expanded="false" />
-            <element signature="e#2141#2149#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1166,7 +1030,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2670">
           <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1206,19 +1069,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="1458">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/controllerDataModels/ModelsController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="213" max-vertical-offset="1062">
           <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1226,7 +1080,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3214" max-vertical-offset="4050">
           <caret line="50" column="7" selection-start-line="50" selection-start-column="7" selection-end-line="50" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1234,55 +1087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2700" max-vertical-offset="3546">
           <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/controller/FormController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
-          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/cell/CellEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1566" max-vertical-offset="2808">
-          <caret line="48" column="85" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="58.962963" vertical-offset="4130" max-vertical-offset="6102">
-          <caret line="326" column="43" selection-start-line="326" selection-start-column="43" selection-end-line="326" selection-end-column="43" />
-          <folding>
-            <element signature="e#150#3152#0" expanded="false" />
-            <element signature="e#6150#9889#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/controller/GeneralController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1386">
-          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-          <folding>
-            <element signature="e#266#359#0" expanded="false" />
-            <element signature="e#366#586#0" expanded="false" />
-            <element signature="e#2075#2083#0" expanded="false" />
-            <element signature="e#2141#2149#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/tableDataModel/TableDataModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1969" max-vertical-offset="7740">
-          <caret line="141" column="88" selection-start-line="141" selection-start-column="88" selection-end-line="141" selection-end-column="88" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1294,34 +1098,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/views/gridDataView/GridDataView.js">
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-125.4" vertical-offset="1836" max-vertical-offset="6372">
-          <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+        <state vertical-scroll-proportion="-4.631579" vertical-offset="6792" max-vertical-offset="9432">
+          <caret line="392" column="24" selection-start-line="392" selection-start-column="22" selection-end-line="392" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.777778" vertical-offset="1320" max-vertical-offset="2142">
-          <caret line="91" column="79" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.368421" vertical-offset="11238" max-vertical-offset="13050">
-          <caret line="654" column="35" selection-start-line="654" selection-start-column="35" selection-end-line="654" selection-end-column="35" />
+        <state vertical-scroll-proportion="-15.111111" vertical-offset="1320" max-vertical-offset="2142">
+          <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration2.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38686132" vertical-offset="600" max-vertical-offset="1422">
-          <caret line="51" column="94" selection-start-line="51" selection-start-column="79" selection-end-line="51" selection-end-column="94" />
+        <state vertical-scroll-proportion="-11.368421" vertical-offset="270" max-vertical-offset="1422">
+          <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/models/tableDataModel/TableDataModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-98.333336" vertical-offset="4268" max-vertical-offset="7668">
+          <caret line="401" column="0" selection-start-line="401" selection-start-column="0" selection-end-line="401" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/views/gridDataView/GridDataView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.266666" vertical-offset="1048" max-vertical-offset="6660">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.0" vertical-offset="8124" max-vertical-offset="13050">
+          <caret line="502" column="37" selection-start-line="502" selection-start-column="37" selection-end-line="502" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/cell/CellEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="648" max-vertical-offset="2808">
+          <caret line="76" column="122" selection-start-line="76" selection-start-column="79" selection-end-line="76" selection-end-column="122" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/controller/FormController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/controller/GeneralController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="251" max-vertical-offset="1602">
+          <caret line="46" column="42" selection-start-line="46" selection-start-column="42" selection-end-line="46" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82653064" vertical-offset="378" max-vertical-offset="1530">
+          <caret line="57" column="51" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
           <folding />
         </state>
       </provider>
