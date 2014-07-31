@@ -116,23 +116,8 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     var firstCondition = expression.match(conditionRegExpression)[0]
                     expression = expression.replace(conditionRegExpression, "")
                     firstCondition = firstCondition.slice(0, -1);
-                        if (firstCondition.substring(1) == "value" ) {
-                            if (typeof item[indexValue] !== 'undefined') {
-                                var secondCondition = expression.match(valuesRegExpression)[0];
-                                expression = expression.replace(valuesRegExpression, "")
-                                secondCondition = secondCondition.slice(0, -1);
-                                var stringAppend = secondCondition.replace(onlyValue, function (match) {
-                                    var returnedValue;
-                                    returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
-                                    return returnedValue;
-                                })
-                                result += stringAppend;
-                            }
-                            else {
-                                break;
-                            }
-                        }
-                        else if(typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
+                    if (firstCondition.substring(1) == "value" ) {
+                        if (typeof item[indexValue] !== 'undefined') {
                             var secondCondition = expression.match(valuesRegExpression)[0];
                             expression = expression.replace(valuesRegExpression, "")
                             secondCondition = secondCondition.slice(0, -1);
@@ -143,7 +128,22 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                             })
                             result += stringAppend;
                         }
+                        else {
+                            break;
+                        }
                     }
+                    else if(typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
+                        var secondCondition = expression.match(valuesRegExpression)[0];
+                        expression = expression.replace(valuesRegExpression, "")
+                        secondCondition = secondCondition.slice(0, -1);
+                        var stringAppend = secondCondition.replace(onlyValue, function (match) {
+                            var returnedValue;
+                            returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
+                            return returnedValue;
+                        })
+                        result += stringAppend;
+                    }
+                }
             })
             return result;
         }
@@ -185,7 +185,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                         var result;
                         var datatype = keyColumns["leftColumns"][0].dataTypes;
                         if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                           result = that.renderFormatDate(item[keyColumns["leftKeyIndexes"][0]], keyColumnConf[0], datatype)
+                            result = that.renderFormatDate(item[keyColumns["leftKeyIndexes"][0]], keyColumnConf[0], datatype)
                         }else{
                             result = item[keyColumns["leftKeyIndexes"][0]]
                         }
@@ -252,15 +252,15 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     name: keyColumns["upColumns"][0].domain.supplemental.EN,
                     caption: keyColumns["upColumns"][0].domain.title.EN,
                     memberProvider: function (item) {
-                            var result;
-                            var datatype = keyColumns["upColumns"][0].dataTypes;
-                            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                                result = that.renderFormatDate(item[keyColumns["upKeyIndexes"][0]], keyColumnConf[0], datatype)
-                            }else{
-                                result = item[keyColumns["upKeyIndexes"][0]]
-                            }
-                            return  result;
+                        var result;
+                        var datatype = keyColumns["upColumns"][0].dataTypes;
+                        if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                            result = that.renderFormatDate(item[keyColumns["upKeyIndexes"][0]], keyColumnConf[0], datatype)
+                        }else{
+                            result = item[keyColumns["upKeyIndexes"][0]]
                         }
+                        return  result;
+                    }
                 }
             ]}
         keysUp.push(key);

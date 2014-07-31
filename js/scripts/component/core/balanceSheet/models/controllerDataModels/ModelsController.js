@@ -39,13 +39,13 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
     }
 
     ModelsController.prototype.updateModels = function(cell, indTable){
+        var newCell = cell;
         console.log("updateMODELS")
         console.log(cell);
         console.log(indTable)
         console.log(newValues)
-        debugger;
-        newValues.push(cell);
-        fullTableModel[indTable] = cell;
+        newValues.push(newCell);
+        fullTableModel[indTable] = newCell;
         // Create a GRid Model
 
     }

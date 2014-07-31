@@ -11,10 +11,10 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
     };
 
     /* Function that it has to do:
-        1) initialization of the grid view (OK)
-        2) Export/import of the data
-        3) manages the life cycle
-        4) Manages the communication between different modules
+     1) initialization of the grid view (OK)
+     2) Export/import of the data
+     3) manages the life cycle
+     4) Manages the communication between different modules
      */
 
     // It manages the initialization time of the view
@@ -50,8 +50,9 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
             }else{
                 indTable = ((ui.rowIndex)*columnsNumber)+(ui.colIndex -1);
                 cell = cellTableModel[indTable]
+                debugger;
             }
-           that.onclickCell(indTable, cell, dsd);
+            that.onclickCell(indTable, cell, dsd);
         });
     }
 
@@ -69,18 +70,17 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
     GeneralController.prototype.onclickCell = function(indTable, cell, dsd){
         alert("clickedOnCell")
 
-        var newCell;
+
         var result = FormController.init(Configurator, cell, dsd)
-        alert($('#saveButton'))
-        debugger;
-        $(document).on('click',"#saveButton",function(e){
-            alert("CLICKEDDD")
-            newCell=  FormController.getValue(cell)
-            console.log(ModelController.updateModels)
+        $(document.body).on('click',"#saveButton",function(e){
+            var newCell=  FormController.getValue(cell)
+            console.log()
             ModelController.updateModels(newCell, indTable)
             ViewGrid.createFullGrid();
+            $("saveButton").off();
             return
         })
+
 
 
     }
