@@ -108,16 +108,10 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         var valuesRegExpression    = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
         var onlyValue              = /(\$\w+)/;
 
-
-        debugger;
         return function (items, cellMetadata) {
-            var result = ""
-            debugger;
+            var result = "";
             $.each(items, function (index, item) {
-
                 var expression = columnValue.label;
-                debugger;
-
                 while(expression != "" && expression != "|") {
                     var firstCondition = expression.match(conditionRegExpression)[0]
                     expression = expression.replace(conditionRegExpression, "")
@@ -167,11 +161,9 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         if (titlesLeft.length > 1) {
             result["Columns"] += ",[Columns].[" + titlesUp[1] + "]";
         }
-
         result["Measures"] = "[Measures].[value]"
 
         return result;
-
     }
 
 

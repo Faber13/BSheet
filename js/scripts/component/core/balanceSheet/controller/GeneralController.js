@@ -26,13 +26,14 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
         var that =this;
         var columnsNumber = gridModel["matrixUp"][0].length;
 
-        $("#pivotGrid").igPivotGrid({
-            pivotGridRendered: function(evt, ui) {that.createListeners(columnsNumber)}
-        });
+        $("#pivotGrid").igPivotGrid();
+        this.createListeners(columnsNumber)
     }
 
 
     GeneralController.prototype.createListeners = function(columnsNumber){
+
+        alert()
 
         var grid = $("#pivotGrid").igPivotGrid("grid");
         var that = this;
@@ -66,16 +67,21 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
 
 
     GeneralController.prototype.onclickCell = function(indTable, cell, dsd){
+        alert("clickedOnCell")
 
         var newCell;
         var result = FormController.init(Configurator, cell, dsd)
-        $('#saveButton').on('click',function(){
+        alert($('#saveButton'))
+        debugger;
+        $(document).on('click',"#saveButton",function(e){
+            alert("CLICKEDDD")
             newCell=  FormController.getValue(cell)
             console.log(ModelController.updateModels)
             ModelController.updateModels(newCell, indTable)
             ViewGrid.createFullGrid();
-
+            return
         })
+
 
     }
 

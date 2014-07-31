@@ -31,8 +31,9 @@ define(["jquery", "editor/cell/CellEditor"],function($, CellEditor){
                result[accessorIndexes[i-1]] = $input[i].value;
            }
        }
-
        $("#dialogForm").dialog('close');
+
+
        return result;
     }
 

@@ -28,8 +28,6 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
             f.remove()
         }
 
-
-        //TODO
         var result = {
             "changed": false,
             "cell": cell
@@ -63,7 +61,6 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                 "</div><br>")
         }
 
-        debugger;
         $('#form').append("<div class ='row'>" +
         "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title.EN
         + "</label></div>" +
@@ -79,13 +76,7 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                 "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
                 "</div><br>")
         }
-/*
-        $('#form').append( "<br><div class ='row' id = 'buttons'>"+
-            "<div class='col-lg-6'>"+
-            " <button type='button' class='btn btn-danger' id='saveButton'>Save</button> </div>"+
-            "<div class='col-lg-6'>"+
-            "<button type='button' class='btn btn-info' id='resetButton'>Reset</button>"+
-            "</div></div>)")*/
+
 
         $('#form').append(("</fieldset></form>"))
 
@@ -100,6 +91,7 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                     text: 'Save',
                     id: "saveButton",
                     click: function () {
+                        alert()
                     if ($.fn.dirtyFields.getDirtyFieldNames($("#dialogForm")).length > 0) {
                         cell[valueIndex] = document.getElementById('valueInput').value;
                         for (var i = 0; i < accessorIndexes.length; i++) {
