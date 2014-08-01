@@ -117,7 +117,6 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                     text: 'Save',
                     id: "saveButton",
                     click: function () {
-                        alert()
                         if ($.fn.dirtyFields.getDirtyFieldNames($("#dialogForm")).length > 0) {
                             cell[valueIndex] = document.getElementById('valueInput').value;
                             for (var i = 0; i < accessorIndexes.length; i++) {

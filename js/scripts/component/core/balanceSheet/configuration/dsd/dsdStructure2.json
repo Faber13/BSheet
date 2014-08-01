@@ -498,7 +498,7 @@
                     "enumeration": "",
                     "period": {
                         "from": "20131231",
-                        "to":   "20140113"
+                        "to":   "20140109"
                     },
                     "columnLink": "",
                     "key": true,
@@ -705,6 +705,72 @@
                     "id": 5,
                     "title": {
                         "EN": "Flag",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Flag",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "notes",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 5,
+                    "title": {
+                        "EN": "Notes",
                         "FR": ""
                     },
                     "supplemental": {

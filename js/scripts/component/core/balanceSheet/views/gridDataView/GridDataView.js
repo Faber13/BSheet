@@ -3,8 +3,7 @@
  */
 define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
-    var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap
-
+    var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues
     function GridDataView() {
 
     }
@@ -26,14 +25,32 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     GridDataView.prototype.createFullGrid = function () {
 
-        var fullModel =         Configurator.getAllColumnModels();
-        var configurationKeys = Configurator.getKeyColumnConfiguration();
+        fullModel =         Configurator.getAllColumnModels();
+        configurationKeys = Configurator.getKeyColumnConfiguration();
         accessorMap =           Configurator.getAccessorMap();
         var leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
         var upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
-        var valueColumn  =      Configurator.getValueColumnConfiguration();
-        var indexValues =       Configurator.getValueIndex();
+        valueColumn  =      Configurator.getValueColumnConfiguration();
+        indexValues =       Configurator.getValueIndex();
         var idOlapGrid  =       Configurator.getIdOlapGrid();
+
+
+         getValue = function (valueInd) {
+           var result;
+            return function (items, cellMetadata) {
+
+                $.each(items, function (index, item) {
+                    result = item[valueInd];
+                });
+                return result;
+            };
+        };
+
+        var modelView = this.createViewModel(table);
+        console.log(table)
+        console.log("MODELVIEW")
+        console.log(modelView);
+
 
         var dataSource = new $.ig.OlapFlatDataSource({
             dataSource: table,
@@ -65,6 +82,37 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             measures: "[Measures].[value]"
 
         });
+        var dataSource2 = new $.ig.OlapFlatDataSource({
+            dataSource: modelView,
+            metadata: {
+                cube: {
+                    name: "Sales",
+                    caption: "Sales",
+                    measuresDimension: {
+                        caption: "Measures",
+                        measures: [ //for each measure, name and aggregator are required
+                            { caption: "value", name: "value", aggregator:  getValue(indexValues) }
+                        ]
+                    },
+                    dimensions: [ // for each dimension
+                        {
+                            // For each dimension at least one hierarchy must be defined.
+                            caption: "Rows", name: "Rows", hierarchies: leftDimensions
+                        },
+                        {
+                            caption: "Columns", name: "Columns", displayFolder: "Folder1\\Folder2", hierarchies: upDimensions
+                        }
+                    ]
+
+                }
+            },
+            // Preload hiearhies for the rows, columns, filters and measures
+            rows: "[Rows].[" + titlesLeft[0] + "],[Rows].[" + titlesLeft[1] + "]",
+            columns: "[Columns].[" + titlesUp[0] + "],[Columns].[" + titlesUp[1] + "]",
+            measures: "[Measures].[value]"
+
+        });
+
 
 
         $("#"+idOlapGrid).igPivotGrid({
@@ -74,7 +122,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             firstSortDirection: "ascending",
             firstLevelSortDirection: "ascending",
             fixedHeaders: true,
-            dataSource: dataSource,
+            dataSource: dataSource2,
             compactColumnHeaders: false,
             compactRowHeaders: true,
             compactHeaderIndentation: 80,
@@ -89,7 +137,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     {
                         name: "Tooltips",
                         visibility: "always"
-                    },
+                    }
                 ]
             },
 
@@ -181,16 +229,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                 {
                     name: keyColumns["leftColumns"][0].domain.supplemental.EN,
                     caption: keyColumns["leftColumns"][0].domain.title.EN,
-                    memberProvider: function (item) {
-                        var result;
-                        var datatype = keyColumns["leftColumns"][0].dataTypes;
-                        if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                            result = that.renderFormatDate(item[keyColumns["leftKeyIndexes"][0]], keyColumnConf[0], datatype)
-                        }else{
-                            result = item[keyColumns["leftKeyIndexes"][0]]
-                        }
-                        return  result;
-                    }
+                    memberProvider: function (item) { return item[keyColumns["leftKeyIndexes"][0]]; }
 
                 }
             ]
@@ -205,16 +244,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     {
                         name: keyColumns["leftColumns"][1].domain.supplemental.EN,
                         caption: keyColumns["leftColumns"][1].domain.title.EN,
-                        memberProvider: function (item) {
-                            var result;
-                            var datatype = keyColumns["leftColumns"][1].dataTypes;
-                            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                                result = that.renderFormatDate(item[keyColumns["leftKeyIndexes"][1]], keyColumnConf[1], datatype)
-                            }else{
-                                result = item[keyColumns["leftKeyIndexes"][1]]
-                            }
-                            return  result;
-                        }
+                        memberProvider: function (item) { return item[keyColumns["leftKeyIndexes"][1]]; }
                     }
                 ]
             }
@@ -251,16 +281,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                 {
                     name: keyColumns["upColumns"][0].domain.supplemental.EN,
                     caption: keyColumns["upColumns"][0].domain.title.EN,
-                    memberProvider: function (item) {
-                        var result;
-                        var datatype = keyColumns["upColumns"][0].dataTypes;
-                        if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                            result = that.renderFormatDate(item[keyColumns["upKeyIndexes"][0]], keyColumnConf[0], datatype)
-                        }else{
-                            result = item[keyColumns["upKeyIndexes"][0]]
-                        }
-                        return  result;
-                    }
+                    memberProvider: function (item) { return item[keyColumns["upKeyIndexes"][0]]; }
                 }
             ]}
         keysUp.push(key);
@@ -273,17 +294,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     {
                         name: keyColumns["upColumns"][1].domain.supplemental.EN,
                         caption: keyColumns["upColumns"][1].domain.title.EN,
-                        memberProvider: function (item) {
-                            var result;
-                            var datatype = keyColumns["upColumns"][1].dataTypes;
-                            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                                result = that.renderFormatDate(item[keyColumns["upKeyIndexes"][1]], keyColumnConf[1], datatype)
-                            }else{
-                                result = item[keyColumns["upKeyIndexes"][1]]
-                            }
-                            return  result;
-                        }
-                    }
+                        memberProvider: function (item) { return item[keyColumns["upKeyIndexes"][1]]; }                    }
                 ]}
             keysUp.push(key2);
         }
@@ -349,6 +360,100 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     GridDataView.prototype.onRemoveColumn = function () {
         //TODO (V2.0)
+    }
+
+
+    GridDataView.prototype.createViewModel = function(tableModel){
+        var result = tableModel.slice();
+
+        for(var i=0; i<tableModel.length; i++){
+
+            var item = tableModel[i];
+            result[i] = this.transformItem(item);
+        }
+        return result;
+
+    }
+
+
+    GridDataView.prototype.transformItem = function(item){
+        var result = item.slice()
+        fullModel["upColumnsModel"]["upKeyIndexes"]
+
+        var  upKeyIndexes       = fullModel["upColumnsModel"]["upKeyIndexes"]
+        var  leftKeyIndexes     = fullModel["leftColumnsModel"]["leftKeyIndexes"];
+        var  leftConf           = configurationKeys["lefKeyColumnConfiguration"];
+        var  upConf             = configurationKeys["upKeyColumnConfiguration"]
+
+        // UpPIVOT
+        for(var i = 0; i< upKeyIndexes.length; i++){
+            var datatype = fullModel["upColumnsModel"]["upColumns"][i].dataTypes;
+            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]], upConf[i], datatype)
+            }else{
+                result[upKeyIndexes[i]] = item[upKeyIndexes[i]]
+            }
+        }
+        // left KEY
+        for(var i = 0; i< upKeyIndexes.length; i++){
+            // for now simple
+            var datatype = fullModel["leftColumnsModel"]["leftColumns"][i].dataTypes;
+            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+                result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
+            }else{
+                debugger;
+                result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
+            }
+        }
+
+        result[indexValues] = this.expressionLanguage2(valueColumn, indexValues, item);
+
+        return result;
+
+    }
+
+
+    GridDataView.prototype.expressionLanguage2 = function(columnValue, indexValue, item){
+
+        var conditionRegExpression = /(#(\w+)(\|))/;
+        var valuesRegExpression    = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
+        var onlyValue              = /(\$\w+)/;
+        var result = "";
+
+        var expression = columnValue.label;
+        while(expression != "" && expression != "|") {
+            var firstCondition = expression.match(conditionRegExpression)[0]
+            expression = expression.replace(conditionRegExpression, "")
+            firstCondition = firstCondition.slice(0, -1);
+            if (firstCondition.substring(1) == "value" ) {
+                if (typeof item[indexValue] !== 'undefined') {
+                    var secondCondition = expression.match(valuesRegExpression)[0];
+                    expression = expression.replace(valuesRegExpression, "")
+                    secondCondition = secondCondition.slice(0, -1);
+                    var stringAppend = secondCondition.replace(onlyValue, function (match) {
+                        var returnedValue;
+                        returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
+                        return returnedValue;
+                    })
+                    result += stringAppend;
+                }
+                else {
+                    break;
+                }
+            }
+            else if(typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
+                var secondCondition = expression.match(valuesRegExpression)[0];
+                expression = expression.replace(valuesRegExpression, "")
+                secondCondition = secondCondition.slice(0, -1);
+                var stringAppend = secondCondition.replace(onlyValue, function (match) {
+                    var returnedValue;
+                    returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
+                    return returnedValue;
+                })
+                result += stringAppend;
+            }
+        }
+        return result;
     }
 
 

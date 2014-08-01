@@ -33,7 +33,6 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
 
     GeneralController.prototype.createListeners = function(columnsNumber){
 
-        alert()
 
         var grid = $("#pivotGrid").igPivotGrid("grid");
         var that = this;
@@ -68,7 +67,6 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
 
 
     GeneralController.prototype.onclickCell = function(indTable, cell, dsd){
-        alert("clickedOnCell")
 
 
         var result = FormController.init(Configurator, cell, dsd)
