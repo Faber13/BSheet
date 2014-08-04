@@ -3,7 +3,8 @@
  */
 define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
-    var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues
+    var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues, modelView,
+    leftDimensions, upDimensions, valueColumn, dataSource2
     function GridDataView() {
 
     }
@@ -11,9 +12,9 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     GridDataView.prototype.init = function (Configuration, gridModel, tableModel, configurator, typeOfCreation) {
 
-        console.log("GridDataView")
-        console.log(Configuration)
-        console.log(tableModel)
+      //console.log("GridDataView")
+      //console.log(Configuration)
+      //console.log(tableModel)
         model = gridModel;
         table = tableModel;
         configuration = Configuration;
@@ -28,11 +29,12 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         fullModel =         Configurator.getAllColumnModels();
         configurationKeys = Configurator.getKeyColumnConfiguration();
         accessorMap =           Configurator.getAccessorMap();
-        var leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
-        var upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
+         leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
+         upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
         valueColumn  =      Configurator.getValueColumnConfiguration();
         indexValues =       Configurator.getValueIndex();
         var idOlapGrid  =       Configurator.getIdOlapGrid();
+        modelView = this.createViewModel(table);
 
 
          getValue = function (valueInd) {
@@ -46,43 +48,13 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             };
         };
 
-        var modelView = this.createViewModel(table);
-        console.log(table)
-        console.log("MODELVIEW")
-        console.log(modelView);
+   //console.log(table)
+    //  console.log("MODELVIEW")
+    //  console.log(modelView);
 
 
-        var dataSource = new $.ig.OlapFlatDataSource({
-            dataSource: table,
-            metadata: {
-                cube: {
-                    name: "Sales",
-                    caption: "Sales",
-                    measuresDimension: {
-                        caption: "Measures",
-                        measures: [ //for each measure, name and aggregator are required
-                            { caption: "value", name: "value", aggregator:  this.expressionLanguage(valueColumn,indexValues) }
-                        ]
-                    },
-                    dimensions: [ // for each dimension
-                        {
-                            // For each dimension at least one hierarchy must be defined.
-                            caption: "Rows", name: "Rows", hierarchies: leftDimensions
-                        },
-                        {
-                            caption: "Columns", name: "Columns", displayFolder: "Folder1\\Folder2", hierarchies: upDimensions
-                        }
-                    ]
 
-                }
-            },
-            // Preload hiearhies for the rows, columns, filters and measures
-            rows: "[Rows].[" + titlesLeft[0] + "],[Rows].[" + titlesLeft[1] + "]",
-            columns: "[Columns].[" + titlesUp[0] + "],[Columns].[" + titlesUp[1] + "]",
-            measures: "[Measures].[value]"
-
-        });
-        var dataSource2 = new $.ig.OlapFlatDataSource({
+         dataSource2 = new $.ig.OlapFlatDataSource({
             dataSource: modelView,
             metadata: {
                 cube: {
@@ -146,6 +118,75 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
         });
+
+        console.log("After rendering all grid!!")
+    }
+
+
+    GridDataView.prototype.updateGridView = function(newCell, indexCell){
+
+
+        getValue = function (valueInd) {
+            var result;
+            return function (items, cellMetadata) {
+
+                $.each(items, function (index, item) {
+                    result = item[valueInd];
+                });
+                return result;
+            };
+        };
+
+
+        var cellTransformed = this.transformItem(newCell);
+        modelView[indexCell] = cellTransformed;
+
+        debugger;
+
+        dataSource2 = new $.ig.OlapFlatDataSource({
+            dataSource: modelView,
+            metadata: {
+                cube: {
+                    name: "Sales",
+                    caption: "Sales",
+                    measuresDimension: {
+                        caption: "Measures",
+                        measures: [ //for each measure, name and aggregator are required
+                            { caption: "value", name: "value", aggregator:  getValue(indexValues) }
+                        ]
+                    },
+                    dimensions: [ // for each dimension
+                        {
+                            // For each dimension at least one hierarchy must be defined.
+                            caption: "Rows", name: "Rows", hierarchies: leftDimensions
+                        },
+                        {
+                            caption: "Columns", name: "Columns", displayFolder: "Folder1\\Folder2", hierarchies: upDimensions
+                        }
+                    ]
+
+                }
+            },
+            // Preload hiearhies for the rows, columns, filters and measures
+            rows: "[Rows].[" + titlesLeft[0] + "],[Rows].[" + titlesLeft[1] + "]",
+            columns: "[Columns].[" + titlesUp[0] + "],[Columns].[" + titlesUp[1] + "]",
+            measures: "[Measures].[value]"
+
+        });
+
+
+
+        //console.log(table)
+        //  console.log("MODELVIEW")
+        //  console.log(modelView);
+
+
+
+        $("#pivotGrid").igPivotGrid("option", "dataSource", dataSource2)
+
+
+
+
 
     }
 
@@ -365,9 +406,10 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     GridDataView.prototype.createViewModel = function(tableModel){
         var result = tableModel.slice();
-
         for(var i=0; i<tableModel.length; i++){
-
+            if(i == 2){
+                debugger;
+            }
             var item = tableModel[i];
             result[i] = this.transformItem(item);
         }
@@ -401,7 +443,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
                 result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
             }else{
-                debugger;
                 result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
             }
         }
@@ -413,19 +454,19 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
     }
 
 
-    GridDataView.prototype.expressionLanguage2 = function(columnValue, indexValue, item){
+    GridDataView.prototype.expressionLanguage2 = function(columnValue, indexValue, item) {
 
         var conditionRegExpression = /(#(\w+)(\|))/;
-        var valuesRegExpression    = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
-        var onlyValue              = /(\$\w+)/;
+        var valuesRegExpression = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
+        var onlyValue = /(\$\w+)/;
         var result = "";
 
         var expression = columnValue.label;
-        while(expression != "" && expression != "|") {
+        while (expression != "" && expression != "|") {
             var firstCondition = expression.match(conditionRegExpression)[0]
             expression = expression.replace(conditionRegExpression, "")
             firstCondition = firstCondition.slice(0, -1);
-            if (firstCondition.substring(1) == "value" ) {
+            if (firstCondition.substring(1) == "value") {
                 if (typeof item[indexValue] !== 'undefined') {
                     var secondCondition = expression.match(valuesRegExpression)[0];
                     expression = expression.replace(valuesRegExpression, "")
@@ -441,18 +482,24 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     break;
                 }
             }
-            else if(typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
-                var secondCondition = expression.match(valuesRegExpression)[0];
-                expression = expression.replace(valuesRegExpression, "")
-                secondCondition = secondCondition.slice(0, -1);
-                var stringAppend = secondCondition.replace(onlyValue, function (match) {
-                    var returnedValue;
-                    returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
-                    return returnedValue;
-                })
-                result += stringAppend;
+            else {
+                if (typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
+                    var secondCondition = expression.match(valuesRegExpression)[0];
+                    expression = expression.replace(valuesRegExpression, "")
+                    secondCondition = secondCondition.slice(0, -1);
+                    var stringAppend = secondCondition.replace(onlyValue, function (match) {
+                        var returnedValue;
+                        returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
+                        return returnedValue;
+                    })
+                    result += stringAppend;
+                }
+                else{
+                    expression = expression.replace(valuesRegExpression, "")
+                }
             }
         }
+
         return result;
     }
 

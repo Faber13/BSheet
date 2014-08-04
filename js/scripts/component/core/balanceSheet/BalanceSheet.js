@@ -104,7 +104,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
             [ "Domestic Utilization", "20140102", 8.77, 'Million tonnes', 'C'],
             [ "Domestic Utilization", "20140103", 9.20, 'Million tonnes', 'C'],
             [ "Domestic Utilization", "20140104", 9.02, 'Million tonnes', 'C'],
-            [ "Domestic Utilization", "20140105", 9.30, 'Million tonnes', 'C'],
+            [ "Domestic Utilization", "20140105", 9.30, 'Million tonnes', 'C']
 
 
 
@@ -128,6 +128,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         data2 = [
             [ "Population", "20140102", 13000, '1000s', 'C',"note" ],
             [ "Total Supply", "20140102", 232323, 'Tonn', 'D',"note"],
+            [ "Population", "20140103", 1302130, , , ],
         ]
 
 

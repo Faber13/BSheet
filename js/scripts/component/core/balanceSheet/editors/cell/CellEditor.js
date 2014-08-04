@@ -112,6 +112,7 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
             modal: true,
             height: '400',
             width: "300",
+            background: '#FFFFFF',
             buttons: [
                 {
                     text: 'Save',

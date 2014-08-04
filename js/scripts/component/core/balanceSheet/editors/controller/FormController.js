@@ -17,6 +17,8 @@ define(["jquery", "editor/cell/CellEditor"],function($, CellEditor){
     }
 
     FormController.prototype.getValue = function(cell){
+        console.log("FormController.getValue(), cell")
+        console.log(cell)
         var result
         var $input = document.getElementsByClassName('input-group-lg');
         var result = []; // An new empty array
@@ -24,17 +26,15 @@ define(["jquery", "editor/cell/CellEditor"],function($, CellEditor){
             result[i] = cell[i];
         }
 
-        for(var i = 0; i< accessorIndexes.length +1; i++){
-            if(i ==0) {
-                result[valueIndex] = $input[i].value;
-            }else {
-                result[accessorIndexes[i-1]] = $input[i].value;
-            }
+        for(var i = 0; i< accessorIndexes.length +1; i++) {
+                if (i == 0) {
+                 result[valueIndex] = ($input[i].value !=='undefined')? $input[i].value : undefined;
+                }else {
+                 result[accessorIndexes[i - 1]] = ($input[i].value !=='undefined')? $input[i].value : undefined;
+                }
         }
-        $("#dialogForm").dialog('close');
 
-        console.log("RESULT")
-        console.log(result)
+        $("#dialogForm").dialog('close');
         return result;
     }
 

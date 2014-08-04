@@ -36,22 +36,22 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
 
         var grid = $("#pivotGrid").igPivotGrid("grid");
         var that = this;
-        var cell;
-        var indTable
 
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             // Only the FIRST ROW column indexes start from 2!
 
             var cellTableModel = ModelController.getFullTableModel();
             if(ui.rowIndex ==0){
-                indTable = ((ui.rowIndex)+1) +  (ui.colIndex -2);
-                cell = cellTableModel[indTable]
+                var indTable = ((ui.rowIndex)+1) +  (ui.colIndex -2);
+                var clickedCell = cellTableModel[indTable]
             }else{
-                indTable = ((ui.rowIndex)*columnsNumber)+(ui.colIndex -1);
-                cell = cellTableModel[indTable]
-                debugger;
+                var indTable = ((ui.rowIndex)*columnsNumber)+(ui.colIndex -1);
+                var clickedCell = cellTableModel[indTable]
             }
-            that.onclickCell(indTable, cell, dsd);
+            FormController.init(Configurator, clickedCell, dsd)
+            console.log("clicked cell sent to GeneralController.oncclickCell()")
+            console.log(clickedCell)
+            that.onclickCell(indTable, clickedCell);
         });
     }
 
@@ -66,16 +66,27 @@ define(["jquery", "view/GridDataView","editor/controller/FormController"], funct
     }
 
 
-    GeneralController.prototype.onclickCell = function(indTable, cell, dsd){
+    GeneralController.prototype.onclickCell = function(indTable, cell){
 
 
-        var result = FormController.init(Configurator, cell, dsd)
         $(document.body).on('click',"#saveButton",function(e){
+            console.log("cell accepted from FormController: ")
+            console.log(cell)
             var newCell=  FormController.getValue(cell)
-            console.log()
+            console.log("new Cell after FormController.getValue(cell)")
+            console.log(newCell)
             ModelController.updateModels(newCell, indTable)
-            ViewGrid.createFullGrid();
-            $("saveButton").off();
+            console.log("After modelController update models")
+
+
+
+            ViewGrid.updateGridView(newCell, indTable);
+            console.log("After ViewGrid createGrid")
+
+            $(document.body).off();
+            console.log("After off of the save button")
+            console.log("After rendering the pivot grid")
+
             return
         })
 
