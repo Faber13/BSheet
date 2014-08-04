@@ -109,7 +109,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     {
                         name: "Tooltips",
                         visibility: "always"
-                    }
+                    },
                 ]
             },
 
@@ -360,6 +360,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                 break;
 
             case "year":
+                debugger;
                 var year  =  value.substr(0, 4);
                 var date  =  new Date(year);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)

@@ -441,9 +441,9 @@
                     }
                 },
                 "dataTypes": [
-                    "date"
+                    "year"
                 ],
-                "values": [ "Maize", "Wheat", "Rice"
+                "values": [ ""
                 ],
                 "domain": {
                     "codes": [
@@ -497,8 +497,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "20131231",
-                        "to":   "20140109"
+                        "from": "2001",
+                        "to":   "2011"
                     },
                     "columnLink": "",
                     "key": true,

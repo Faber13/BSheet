@@ -197,7 +197,12 @@ define(["jquery" ], function ($) {
         The data representation of the master column is "distinct" and the one of the slave column is "domain"
      */
     TableDataModel.prototype.createMatrixDistinctToDomain = function (versus, masterColumn, slaveColumn) {
-        //TODO
+        if(typeof slaveColumn !== 'undefined'){
+            return this.createMatrixDomainToDomain(versus,masterColumn,slaveColumn)
+        }
+
+
+
     }
 
     /*
@@ -268,19 +273,20 @@ define(["jquery" ], function ($) {
                 break;
 
             case "month":
-                var arr = [];
+                debugger;
                 var from = column.domain.period.from
                 var yearFrom = from.substr(0, 4);
                 var mmFrom = from.substr(4, 2);
-                var dateFrom = new Date(yearFrom, mmFrom)
+                var dateFrom = new Date(yearFrom, mmFrom-1)
 
                 var to = column.domain.period.to
                 var yearTo = to.substr(0, 4);
                 var mmTo = to.substr(4, 2);
-                var dateTo = new Date(yearTo, mmTo)
+                var dateTo = new Date(yearTo, mmTo-1)
                 if(dateTo.getTime() - dateFrom.getTime() >0) {
                     var intervalMonths = (dateTo.getMonth() + 12*dateTo.getFullYear()) -(dateFrom.getMonth() + 12*dateFrom.getFullYear())
-                    for (var i = 0; i < intervalMonths; i++) {
+                    array.push(dateFrom.monthFormat())
+                    for (var i = 0; i <= intervalMonths; i++) {
                         var date = new Date(dateFrom.setMonth(dateFrom.getMonth() + 1))
                         array.push(date.monthFormat())
                     }
@@ -301,6 +307,7 @@ define(["jquery" ], function ($) {
                 break;
 
             case "year":
+                debugger;
                 var from = column.domain.period.from
                 var yearFrom = from.substr(0, 4);
                 var dateFrom = new Date(yearFrom)
@@ -308,10 +315,10 @@ define(["jquery" ], function ($) {
                 var to = column.domain.period.to
                 var yearTo = to.substr(0, 4);
                 var dateTo = new Date(yearTo)
-                var yearsDiff = yearTo - yearTo;
+                var yearsDiff = yearTo - yearFrom;
                 if(yearsDiff >0){
-                    for(var i =0; i< yearsDiff; i++) {
-                        array.push(new Date(dateFrom.getFullYear() + 1));
+                    for(var i =0; i<= yearsDiff; i++) {
+                        array.push(new Date((parseInt(yearFrom) + i).toString()).getFullYear().toString());
                     }
                 } else {
                     alert("error!")
