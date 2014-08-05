@@ -56,7 +56,8 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
         $("#exportButton").click(function(){
             var ExportControl = new ExportController;
-            var table = ViewGrid.getModelView();
+         // var table = ViewGrid.getModelView();
+            var table = ModelController.getFullTableModel();
             ExportControl.init(table, Configurator)
 
 

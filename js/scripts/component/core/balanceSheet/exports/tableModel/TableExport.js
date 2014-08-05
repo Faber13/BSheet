@@ -28,7 +28,7 @@ define(["jquery", "excellentExport"], function($){
         var uri = ' data:application/vnd.ms-excel,'+ $('#tablePivot').html();
         var downloadLink = document.createElement("a");
         downloadLink.href = uri;
-        downloadLink.download = "data.xls";
+        downloadLink.download = "data";
 
         document.body.appendChild(downloadLink);
         downloadLink.click();
