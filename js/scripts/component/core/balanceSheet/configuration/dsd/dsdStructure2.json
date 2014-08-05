@@ -441,7 +441,7 @@
                     }
                 },
                 "dataTypes": [
-                    "year"
+                    "date"
                 ],
                 "values": [ ""
                 ],
@@ -497,8 +497,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "2001",
-                        "to":   "2011"
+                        "from": "20140101",
+                        "to":   "20140110"
                     },
                     "columnLink": "",
                     "key": true,
@@ -638,7 +638,7 @@
                     "virtual": true,
                     "id": 4,
                     "title": {
-                        "EN": "MU",
+                        "EN": "Measurement Unit",
                         "FR": ""
                     },
                     "supplemental": {

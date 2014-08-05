@@ -1,0 +1,9 @@
+.dirtyField {color:blue;}
+
+.ui-widget-overlay {
+    position: fixed !important;
+}
+
+#tablePivot {
+    visibility : hidden
+}

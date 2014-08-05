@@ -186,6 +186,11 @@ define(['jquery'], function($){
         return result;
     }
 
+    Configurator.prototype.getComponentLanguage = function(){
+        var language = compConfiguration.gridConfiguration.generalOptions.language;
+        return language;
+    }
+
 
     return Configurator;
 

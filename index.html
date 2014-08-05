@@ -19,12 +19,7 @@
     <!-- IngniteUI -->
     <link rel="stylesheet" href="css/infragistics.css">
     <link rel="stylesheet" href="css/infragistics.theme.css">
-
-    <!-- T be REMOVEd -->
-    <style>.dirtyField {color:blue;}
-    .ui-widget-overlay {
-        position: fixed !important;
-    }</style>
+    <link rel="stylesheet" href="css/balanceSheet.css">
 
 </head>
 
@@ -58,12 +53,22 @@
 <br>
 
 <div class="container">
-    <label id="jqxGrid"><h1><small>Grid</small></h1></label><br>
+    <label id="jqxGrid"></label><br>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" id="pivotGridContainer">
+            <label for="pivotGridContainer" class="control-label"><h1><small>Grid</small></h1></label>
             <div id="pivotGrid"></div>
         </div>
     </div>
+    </hr>
+    <div class="row">
+        <div class="col-lg-3" id="optionGridContainer">
+                <label for="optionGridContainer" class="control-label">
+                    <button type="button" class="btn btn-danger" id="exportButton">Export excel Format</button>
+                </label>
+                <div id="optionPivotGrid"></div>
+            </div>
+     </div>
     <div id="detailsView"></div>
 </div>
 

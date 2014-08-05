@@ -4,7 +4,7 @@
 define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
     var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues, modelView,
-    leftDimensions, upDimensions, valueColumn, dataSource2
+    leftDimensions, upDimensions, valueColumn, dataSource2, idOlapGrid, language
     function GridDataView() {
 
     }
@@ -19,6 +19,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         table = tableModel;
         configuration = Configuration;
         Configurator = configurator;
+        language = Configurator.getComponentLanguage();
 
         (typeOfCreation) ? this.createFullGrid(Configuration, gridModel) : this.createGrid(Configuration, gridModel);
     }
@@ -28,17 +29,22 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
         fullModel =         Configurator.getAllColumnModels();
         configurationKeys = Configurator.getKeyColumnConfiguration();
-        accessorMap =           Configurator.getAccessorMap();
-         leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
-         upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
+        accessorMap =       Configurator.getAccessorMap();
+        leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
+        upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
         valueColumn  =      Configurator.getValueColumnConfiguration();
         indexValues =       Configurator.getValueIndex();
-        var idOlapGrid  =       Configurator.getIdOlapGrid();
+        idOlapGrid  =       Configurator.getIdOlapGrid();
         modelView = this.createViewModel(table);
+        this.renderGrid(modelView)
+
+    }
 
 
-         getValue = function (valueInd) {
-           var result;
+    GridDataView.prototype.renderGrid = function(model){
+
+        getValue = function (valueInd) {
+            var result;
             return function (items, cellMetadata) {
 
                 $.each(items, function (index, item) {
@@ -48,14 +54,9 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             };
         };
 
-   //console.log(table)
-    //  console.log("MODELVIEW")
-    //  console.log(modelView);
 
-
-
-         dataSource2 = new $.ig.OlapFlatDataSource({
-            dataSource: modelView,
+        dataSource2 = new $.ig.OlapFlatDataSource({
+            dataSource: model,
             metadata: {
                 cube: {
                     name: "Sales",
@@ -109,7 +110,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     {
                         name: "Tooltips",
                         visibility: "always"
-                    },
+                    }
                 ]
             },
 
@@ -120,28 +121,15 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         });
 
         console.log("After rendering all grid!!")
+
+
     }
 
 
     GridDataView.prototype.updateGridView = function(newCell, indexCell){
 
-
-        getValue = function (valueInd) {
-            var result;
-            return function (items, cellMetadata) {
-
-                $.each(items, function (index, item) {
-                    result = item[valueInd];
-                });
-                return result;
-            };
-        };
-
-
         var cellTransformed = this.transformItem(newCell);
         modelView[indexCell] = cellTransformed;
-
-        debugger;
 
         dataSource2 = new $.ig.OlapFlatDataSource({
             dataSource: modelView,
@@ -174,19 +162,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
         });
 
-
-
-        //console.log(table)
-        //  console.log("MODELVIEW")
-        //  console.log(modelView);
-
-
-
         $("#pivotGrid").igPivotGrid("option", "dataSource", dataSource2)
-
-
-
-
 
     }
 
@@ -262,14 +238,14 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         titlesLeft = [];
         var keysLeft = [];
         var that = this;
-        titlesLeft.push(keyColumns["leftColumns"][0].domain.title.EN)
+        titlesLeft.push(keyColumns["leftColumns"][0].domain.title[language])
         var key = {
-            caption: keyColumns["leftColumns"][0].domain.title.EN,
-            name: keyColumns["leftColumns"][0].domain.title.EN,
+            caption: keyColumns["leftColumns"][0].domain.title[language],
+            name: keyColumns["leftColumns"][0].domain.title[language],
             levels: [
                 {
-                    name: keyColumns["leftColumns"][0].domain.supplemental.EN,
-                    caption: keyColumns["leftColumns"][0].domain.title.EN,
+                    name: keyColumns["leftColumns"][0].domain.supplemental[language],
+                    caption: keyColumns["leftColumns"][0].domain.title[language],
                     memberProvider: function (item) { return item[keyColumns["leftKeyIndexes"][0]]; }
 
                 }
@@ -277,14 +253,14 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         }
         keysLeft.push(key);
         if (keyColumns["leftColumns"].length > 1) {
-            titlesLeft.push(keyColumns["leftColumns"][1].domain.title.EN)
+            titlesLeft.push(keyColumns["leftColumns"][1].domain.title[language])
             var key2 = {
-                caption: keyColumns["leftColumns"][1].domain.title.EN,
-                name: keyColumns["leftColumns"][1].domain.title.EN,
+                caption: keyColumns["leftColumns"][1].domain.title[language],
+                name: keyColumns["leftColumns"][1].domain.title[language],
                 levels: [
                     {
-                        name: keyColumns["leftColumns"][1].domain.supplemental.EN,
-                        caption: keyColumns["leftColumns"][1].domain.title.EN,
+                        name: keyColumns["leftColumns"][1].domain.supplemental[language],
+                        caption: keyColumns["leftColumns"][1].domain.title[language],
                         memberProvider: function (item) { return item[keyColumns["leftKeyIndexes"][1]]; }
                     }
                 ]
@@ -312,29 +288,29 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
         var that = this;
         titlesUp = []
-        titlesUp.push(keyColumns["upColumns"][0].domain.title.EN);
+        titlesUp.push(keyColumns["upColumns"][0].domain.title[language]);
 
         var keysUp = [];
         var key = {
-            caption: keyColumns["upColumns"][0].domain.title.EN,
-            name: keyColumns["upColumns"][0].domain.title.EN,
+            caption: keyColumns["upColumns"][0].domain.title[language],
+            name: keyColumns["upColumns"][0].domain.title[language],
             levels: [
                 {
-                    name: keyColumns["upColumns"][0].domain.supplemental.EN,
-                    caption: keyColumns["upColumns"][0].domain.title.EN,
+                    name: keyColumns["upColumns"][0].domain.supplemental[language],
+                    caption: keyColumns["upColumns"][0].domain.title[language],
                     memberProvider: function (item) { return item[keyColumns["upKeyIndexes"][0]]; }
                 }
             ]}
         keysUp.push(key);
         if (keyColumns["upColumns"].length > 1) {
-            titlesUp.push(keyColumns["upColumns"][1].domain.title.EN)
+            titlesUp.push(keyColumns["upColumns"][1].domain.title[language])
             var key2 = {
-                caption: keyColumns["upColumns"][1].domain.title.EN,
-                name: keyColumns["upColumns"][1].domain.title.EN,
+                caption: keyColumns["upColumns"][1].domain.title[language],
+                name: keyColumns["upColumns"][1].domain.title[language],
                 levels: [
                     {
-                        name: keyColumns["upColumns"][1].domain.supplemental.EN,
-                        caption: keyColumns["upColumns"][1].domain.title.EN,
+                        name: keyColumns["upColumns"][1].domain.supplemental[language],
+                        caption: keyColumns["upColumns"][1].domain.title[language],
                         memberProvider: function (item) { return item[keyColumns["upKeyIndexes"][1]]; }                    }
                 ]}
             keysUp.push(key2);
@@ -408,9 +384,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
     GridDataView.prototype.createViewModel = function(tableModel){
         var result = tableModel.slice();
         for(var i=0; i<tableModel.length; i++){
-            if(i == 2){
-                debugger;
-            }
+
             var item = tableModel[i];
             result[i] = this.transformItem(item);
         }
@@ -501,6 +475,11 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             }
         }
 
+        return result;
+    }
+
+    GridDataView.prototype.getModelView = function(){
+        var result = modelView;
         return result;
     }
 

@@ -15,7 +15,8 @@ define(["jquery" ], function ($) {
         lefKeyColumnConfiguration,   // Left key columns on the configuration ordered with DSD
         upKeyColumnConfiguration,    // Up key columns on the configuration ordered with DSD
         indexValueColumns,
-        configuratorDsd
+        configuratorDsd,
+        language
 
 
     function TableDataModel() {
@@ -44,6 +45,7 @@ define(["jquery" ], function ($) {
         lefKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["lefKeyColumnConfiguration"]
         upKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["upKeyColumnConfiguration"]
         indexValueColumns = configuratorDsd.getValueIndex();
+        language       = configuratorDsd.getComponentLanguage();
 
         var matrixLeft = this.chooseAndCreateByDataRepresentationType("left")
         var matrixUp = this.chooseAndCreateByDataRepresentationType("up")
@@ -234,7 +236,7 @@ define(["jquery" ], function ($) {
             case "code" :
                 var codes = column.domain.codes
                 for (var i = 0; i < codes.length; i++) {
-                    array.push(codes[i].code.title.EN)
+                    array.push(codes[i].code.title[language])
                 }
                 break;
 
@@ -418,6 +420,7 @@ define(["jquery" ], function ($) {
 
         return matrix
     }
+
 
     TableDataModel.prototype.createHybridToDistinct = function(versus, masterColumn, slaveColumn){
 

@@ -41,8 +41,8 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
 
         var table = this.createTableModel(indexes,model);
         console.log(table)
-            return  model;
-        }
+        return  model;
+    }
 
 
    /* GridDataModel.prototype.createGridDataFromTable = function(tableModel){
@@ -112,28 +112,36 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
     }
 
 
-    GridDataModel.prototype.createTableModel = function (indexes, model, full) {
+    GridDataModel.prototype.createTableModel = function (indexes, model) {
 
         var leftIndexes = indexes["leftColumnsModel"]["leftKeyIndexes"]
         var upIndexes = indexes["upColumnsModel"]["upKeyIndexes"]
         var accessorIndexes = indexes["accessorColumnsModel"]["accessorIndexes"];
         var valueIndexes = indexes["valueColumnsModel"]
-
         var table = []
+        var counter = {
+            rows: [],
+            columns : []
+        }
 
         var numberOfRows = 0;
         for (var i = 0; i < model["matrixAll"].length; i++) {
+            counter.rows[i] = 0;
             for (var j = 0; j < model["matrixAll"][i].length; j++) {
+                if(typeof counter.columns[j] === 'undefined'){
+                    counter.columns[j] = 0
+                }
                 var cell = model["matrixAll"][i][j];
-                if (cell.length > 0 && full) {
-
+                if (cell.length > 0) {
+                    debugger;
+                    counter.columns[j] = 1;
+                    counter.rows[i] = 1;
                     var leftKeys = model["matrixLeft"][i]
                     var upKeys = model["matrixUp"][0][j]
                     var val = cell[0];
                     var accessors = []
                     for (var k = 1; k < cell.length; k++) {
                         accessors.push(cell[k]);
-
                     }
                     var array = []
                     for (var m = 0; m < leftIndexes.length; m++) {
@@ -179,6 +187,7 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
                 }
             }
         }
+        debugger;
         return table;
     }
 

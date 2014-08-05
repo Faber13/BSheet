@@ -128,7 +128,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         data2 = [
             [ "Population", "20140102", 13000, '1000s', 'C',"note" ],
             [ "Total Supply", "20140102", 232323, 'Tonn', 'D',"note"],
-            [ "Population", "20140103", 1302130, , , ],
+            [ "Population", "20140103", 1302130, ,'' , '']
         ]
 
 

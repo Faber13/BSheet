@@ -1,5 +1,8 @@
 {
     "gridConfiguration": {
+        "generalOptions":{
+          "language": "EN"
+        },
         "columnsKey": {
             "left": [
                 {
@@ -48,7 +51,8 @@
         },
         "otherColumns": {
             "valueColumn": {
-                "columnIdDomain": "",
+                "numberFormat" : "",
+                "columnId": "",
                 "label": "#value|$value~#measurementUnit| ($measurementUnit) ~#flag| $flag ~|",
                 "valuesValid": [
                     "value"
@@ -62,10 +66,12 @@
                     }
                 }
             },
-            "accessorsColumns": {
-                "columnIdDomain": "",
-                "properties": ""
-            }
+            "accessorsColumns": [
+                {
+                    "columnId": "",
+                    "properties": ""
+                }
+            ]
         },
         "HTMLproperties" : {
             "idGrid" : "pivotGrid"
