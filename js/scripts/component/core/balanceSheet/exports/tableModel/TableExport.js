@@ -14,7 +14,8 @@ define(["jquery", "excellentExport"], function($){
         string += "</tr><tr>";
         for(var i = 0; i<table.length; i++){
             for(var j=0; j<table[i].length; j++) {
-                string += "<td>" + table[i][j] + "</td>"
+                var value = (typeof  table[i][j] === 'undefined')? "":  table[i][j];
+                string += "<td>" + value + "</td>"
             }
             if(i < table.length -1) {
                 string += "</tr><tr>";
@@ -28,7 +29,7 @@ define(["jquery", "excellentExport"], function($){
         var uri = ' data:application/vnd.ms-excel,'+ $('#tablePivot').html();
         var downloadLink = document.createElement("a");
         downloadLink.href = uri;
-        downloadLink.download = "data";
+        downloadLink.download = "data.xslx";
 
         document.body.appendChild(downloadLink);
         downloadLink.click();

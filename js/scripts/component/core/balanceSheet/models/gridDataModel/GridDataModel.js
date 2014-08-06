@@ -4,52 +4,41 @@
 
 define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
 
-    var cells, modelCells, matrixLeft, matrixUp, matrixAll;
+    var matrixLeft, matrixUp, matrixAll, instanceGridModel;
 
     function GridDataModel() {
     }
 
 
-    GridDataModel.prototype.init = function (dsd, model, tableData, indexes) {
+    GridDataModel.prototype.init = function (model, tableData, indexes) {
 
         var xPositions = []
         var yPositions = []
         var valueIndex = indexes["valueColumnsModel"];
         var accessorIndexes = indexes["accessorColumnsModel"]["accessorIndexes"];
         matrixLeft = model["matrixLeft"];
-        matrixUp   = model["matrixUp"];
-        matrixAll  = model["matrixAll"]
+        matrixUp = model["matrixUp"];
+        matrixAll = model["matrixAll"]
 
-            for (var i = 0; i < tableData.length; i++) {
+        for (var i = 0; i < tableData.length; i++) {
+            var fieldsRowTable = tableData[i]
+            xPositions.push(this.findPositionLeftCell(tableData[i], indexes["leftColumnsModel"]["leftKeyIndexes"], model["matrixLeft"]))
+            yPositions.push(this.findPositionUpCell(tableData[i], indexes["upColumnsModel"]["upKeyIndexes"], model["matrixUp"]))
 
-                var fieldsRowTable = tableData[i]
-                xPositions.push(this.findPositionLeftCell(tableData[i], indexes["leftColumnsModel"]["leftKeyIndexes"], model["matrixLeft"]))
-                yPositions.push(this.findPositionUpCell(tableData[i], indexes["upColumnsModel"]["upKeyIndexes"], model["matrixUp"]))
-
-                // Insert DATA
-
-                if (typeof  xPositions[i] !== 'undefined' && typeof  yPositions[i] !== 'undefined') {
-                    var cell = model["matrixAll"][xPositions[i]][yPositions[i]]
-                    cell.push(fieldsRowTable[valueIndex])
-
-                    for (var k = 0; k < accessorIndexes.length; k++) {
-                        cell.push(fieldsRowTable[accessorIndexes[k]])
-                    }
-
+            // Insert DATA
+            if (typeof  xPositions[i] !== 'undefined' && typeof  yPositions[i] !== 'undefined') {
+                var cell = model["matrixAll"][xPositions[i]][yPositions[i]]
+                cell.push(fieldsRowTable[valueIndex])
+                for (var k = 0; k < accessorIndexes.length; k++) {
+                    cell.push(fieldsRowTable[accessorIndexes[k]])
                 }
             }
+        }
 
-        var table = this.createTableModel(indexes,model);
-        console.log(table)
-        return  model;
+        instanceGridModel = model["matrixAll"];
+        var result = model;
+        return result;
     }
-
-
-   /* GridDataModel.prototype.createGridDataFromTable = function(tableModel){
-
-
-    }*/
-
 
 
     GridDataModel.prototype.findPositionLeftCell = function (rowTable, leftIndexes, leftKeyMatrix) {
@@ -106,89 +95,13 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
 
     }
 
-
-    GridDataModel.prototype.createCells = function (leftKeys, upKeys, tableModel) {
-        //TODO
+    GridDataModel.prototype.getGridDataModel = function () {
+        return instanceGridModel;
     }
 
 
-    GridDataModel.prototype.createTableModel = function (indexes, model) {
-
-        var leftIndexes = indexes["leftColumnsModel"]["leftKeyIndexes"]
-        var upIndexes = indexes["upColumnsModel"]["upKeyIndexes"]
-        var accessorIndexes = indexes["accessorColumnsModel"]["accessorIndexes"];
-        var valueIndexes = indexes["valueColumnsModel"]
-        var table = []
-        var counter = {
-            rows: [],
-            columns : []
-        }
-
-        var numberOfRows = 0;
-        for (var i = 0; i < model["matrixAll"].length; i++) {
-            counter.rows[i] = 0;
-            for (var j = 0; j < model["matrixAll"][i].length; j++) {
-                if(typeof counter.columns[j] === 'undefined'){
-                    counter.columns[j] = 0
-                }
-                var cell = model["matrixAll"][i][j];
-                if (cell.length > 0) {
-                    debugger;
-                    counter.columns[j] = 1;
-                    counter.rows[i] = 1;
-                    var leftKeys = model["matrixLeft"][i]
-                    var upKeys = model["matrixUp"][0][j]
-                    var val = cell[0];
-                    var accessors = []
-                    for (var k = 1; k < cell.length; k++) {
-                        accessors.push(cell[k]);
-                    }
-                    var array = []
-                    for (var m = 0; m < leftIndexes.length; m++) {
-                        array[leftIndexes[m]] = leftKeys[m];
-                    }
-
-                    for (var m = 0; m < upIndexes.length; m++) {
-                        array[upIndexes[m]] = upKeys[m];
-                    }
-
-                    for (var m = 0; m < accessorIndexes.length; m++) {
-                        array[accessorIndexes[m]] = accessors[m];
-                    }
-                    array[valueIndexes] = val;
-
-                    table.push(array)
-                    numberOfRows ++;
-                } else{
-                    var leftKeys = model["matrixLeft"][i]
-                    var upKeys = model["matrixUp"][0][j]
-                    var val = cell[0];
-                    var accessors = []
-                    for (var k = 1; k < cell.length; k++) {
-                        accessors.push(cell[k]);
-
-                    }
-                    var array = []
-                    for (var m = 0; m < leftIndexes.length; m++) {
-                        array[leftIndexes[m]] = leftKeys[m];
-                    }
-
-                    for (var m = 0; m < upIndexes.length; m++) {
-                        array[upIndexes[m]] = upKeys[m];
-                    }
-
-                    for (var m = 0; m < accessorIndexes.length; m++) {
-                        array[accessorIndexes[m]] = accessors[m];
-                    }
-                    array[valueIndexes] = val;
-
-                    table.push(array)
-                    numberOfRows ++;
-                }
-            }
-        }
-        debugger;
-        return table;
+    GridDataModel.prototype.updateModel = function(cell, indexRow, indexColumn){
+        instanceGridModel[indexRow][indexColumn] = cell;
     }
 
 
@@ -211,15 +124,15 @@ define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
         //TODO
     }
 
-    GridDataModel.prototype.getMatrixLeft = function(){
+    GridDataModel.prototype.getMatrixLeft = function () {
         return matrixLeft;
     }
 
-    GridDataModel.prototype.getMatrixUp = function(){
+    GridDataModel.prototype.getMatrixUp = function () {
         return matrixUp;
     }
 
-    GridDataModel.prototype.getMatrixAll = function(){
+    GridDataModel.prototype.getMatrixAll = function () {
         return matrixAll;
     }
 

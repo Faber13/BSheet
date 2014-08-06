@@ -9,8 +9,7 @@ requirejs.config({
         generalController :  "../component/core/balanceSheet/controller",
         modelController   :  "../component/core/balanceSheet/models/controllerDataModels",
         editor            :  "../component/core/balanceSheet/editors",
-        exporter          :  "../component/core/balanceSheet/exports",
-       "datatables"  :  "jquery.dataTables"
+        exporter          :  "../component/core/balanceSheet/exports"
     },
     "shim": {
         "bootstrap": {

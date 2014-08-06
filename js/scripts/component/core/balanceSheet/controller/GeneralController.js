@@ -19,12 +19,11 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
      */
 
     // It manages the initialization time of the view
-    GeneralController.prototype.init = function (componentConfiguration, gridModel, fullTableModel, configurator, typeOfView, modelController) {
+    GeneralController.prototype.init = function ( gridModel, fullTableModel, configurator, typeOfView, modelController) {
         ModelController = modelController;
         dsd = configurator.getDSD();
         Configurator = configurator;
-        ViewGrid.init(componentConfiguration, gridModel, fullTableModel, configurator, typeOfView)
-        var that = this;
+        ViewGrid.init( gridModel, fullTableModel, configurator, typeOfView)
         var columnsNumber = gridModel["matrixUp"][0].length;
         this.createListeners(columnsNumber)
     }
@@ -32,26 +31,28 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
     GeneralController.prototype.createListeners = function (columnsNumber) {
 
-
         var grid = $("#pivotGrid").igPivotGrid("grid");
         var that = this;
 
-
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             // Only the FIRST ROW column indexes start from 2!
-
-            var cellTableModel = ModelController.getFullTableModel();
+            var rowGridIndex, columnGridIndex;
+            var cellTableModel =        ModelController.getFullTableModel();
+            var numberLeftKeyColumns =  Configurator.getLeftKeyColumn().leftColumns.length
             if (ui.rowIndex == 0) {
-                var indTable = ((ui.rowIndex) + 1) + (ui.colIndex - 2);
+                rowGridIndex = 0;
+                columnGridIndex = ui.colIndex - 2;
+                var indTable = (numberLeftKeyColumns > 1)?  ((ui.rowIndex) ) + (ui.colIndex - 2):
+                    ((ui.rowIndex) + 1) + (ui.colIndex - 2);
                 var clickedCell = cellTableModel[indTable]
             } else {
+                rowGridIndex = ui.rowIndex;
+                columnGridIndex = ui.colIndex - 1;
                 var indTable = ((ui.rowIndex) * columnsNumber) + (ui.colIndex - 1);
                 var clickedCell = cellTableModel[indTable]
             }
             FormController.init(Configurator, clickedCell, dsd)
-            console.log("clicked cell sent to GeneralController.oncclickCell()")
-            console.log(clickedCell)
-            that.onclickCell(indTable, clickedCell);
+            that.onclickCell(indTable, clickedCell, rowGridIndex, columnGridIndex);
         });
 
         $("#exportButton").click(function(){
@@ -59,8 +60,6 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
          // var table = ViewGrid.getModelView();
             var table = ModelController.getFullTableModel();
             ExportControl.init(table, Configurator)
-
-
         })
     }
 
@@ -75,11 +74,11 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
     }
 
 
-    GeneralController.prototype.onclickCell = function (indTable, cell) {
+    GeneralController.prototype.onclickCell = function (indTable, cell, rowIndex, columnIndex) {
 
         $(document.body).on('click', "#saveButton", function (e) {
             var newCell = FormController.getValue(cell)
-            ModelController.updateModels(newCell, indTable)
+            ModelController.updateModels(newCell, indTable,rowIndex, columnIndex)
             ViewGrid.updateGridView(newCell, indTable);
             $(document.body).off();
         })

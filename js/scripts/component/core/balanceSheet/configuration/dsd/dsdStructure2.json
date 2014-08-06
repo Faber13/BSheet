@@ -5,6 +5,355 @@
         "datasource": "",
         "aggregationRules": "",
         "columns": [
+
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "notes",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 5,
+                    "title": {
+                        "EN": "Notes",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Flag",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "elementName2",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "date"
+                ],
+                "values": [ ""
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Maize",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "Rice",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "20140101",
+                        "to":   "20140110"
+                    },
+                    "columnLink": "",
+                    "key": true,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 2,
+                    "title": {
+                        "EN": "Forecast Date",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Progressive Id",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "value",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "number"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 3,
+                    "title": {
+                        "EN": "values",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Values",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "measurementUnit",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 4,
+                    "title": {
+                        "EN": "Measurement Unit",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Measurement Unit",
+                        "FR": ""
+                    }
+                }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "flag",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "string"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "customCodes": [
+                        {
+                            "code": "",
+                            "title": {
+                                "EN": "",
+                                "FR": ""
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "",
+                        "to": ""
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 5,
+                    "title": {
+                        "EN": "Flag",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "Flag",
+                        "FR": ""
+                    }
+                }
+            },
             {
                 "dimension": {
                     "link": "",
@@ -427,354 +776,6 @@
                     },
                     "supplemental": {
                         "EN": "This is the element",
-                        "FR": ""
-                    }
-                }
-            },
-            {
-                "dimension": {
-                    "link": "",
-                    "uid": "",
-                    "title": {
-                        "EN": "elementName2",
-                        "FR": ""
-                    }
-                },
-                "dataTypes": [
-                    "date"
-                ],
-                "values": [ ""
-                ],
-                "domain": {
-                    "codes": [
-                        {
-                            "codeList": {
-                                "codeList": "",
-                                "version": "1",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            },
-                            "code": {
-                                "codeList": "",
-                                "version": "",
-                                "code": "",
-                                "title": {
-                                    "EN": "Maize",
-                                    "FR": ""
-                                }
-                            }
-                        },
-                        {
-                            "codeList": {
-                                "codeList": "",
-                                "version": "1",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            },
-                            "code": {
-                                "codeList": "",
-                                "version": "",
-                                "code": "",
-                                "title": {
-                                    "EN": "Rice",
-                                    "FR": ""
-                                }
-                            }
-                        }
-                    ],
-                    "customCodes": [
-                        {
-                            "code": "",
-                            "title": {
-                                "EN": "",
-                                "FR": ""
-                            }
-                        }
-                    ],
-                    "enumeration": "",
-                    "period": {
-                        "from": "20140101",
-                        "to":   "20140110"
-                    },
-                    "columnLink": "",
-                    "key": true,
-                    "transposed": true,
-                    "virtual": true,
-                    "id": 2,
-                    "title": {
-                        "EN": "Forecast Date",
-                        "FR": ""
-                    },
-                    "supplemental": {
-                        "EN": "Progressive Id",
-                        "FR": ""
-                    }
-                }
-            },
-            {
-                "dimension": {
-                    "link": "",
-                    "uid": "",
-                    "title": {
-                        "EN": "value",
-                        "FR": ""
-                    }
-                },
-                "dataTypes": [
-                    "number"
-                ],
-                "values": [
-
-                ],
-                "domain": {
-                    "codes": [
-                        {
-                            "codeList": {
-                                "codeList": "",
-                                "version": "1",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            },
-                            "code": {
-                                "codeList": "",
-                                "version": "",
-                                "code": "",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            }
-                        }
-                    ],
-                    "customCodes": [
-                        {
-                            "code": "",
-                            "title": {
-                                "EN": "",
-                                "FR": ""
-                            }
-                        }
-                    ],
-                    "enumeration": "",
-                    "period": {
-                        "from": "",
-                        "to": ""
-                    },
-                    "columnLink": "",
-                    "key": false,
-                    "transposed": true,
-                    "virtual": true,
-                    "id": 3,
-                    "title": {
-                        "EN": "values",
-                        "FR": ""
-                    },
-                    "supplemental": {
-                        "EN": "Values",
-                        "FR": ""
-                    }
-                }
-            },
-            {
-                "dimension": {
-                    "link": "",
-                    "uid": "",
-                    "title": {
-                        "EN": "measurementUnit",
-                        "FR": ""
-                    }
-                },
-                "dataTypes": [
-                    "string"
-                ],
-                "values": [
-
-                ],
-                "domain": {
-                    "codes": [
-                        {
-                            "codeList": {
-                                "codeList": "",
-                                "version": "1",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            },
-                            "code": {
-                                "codeList": "",
-                                "version": "",
-                                "code": "",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            }
-                        }
-                    ],
-                    "customCodes": [
-                        {
-                            "code": "",
-                            "title": {
-                                "EN": "",
-                                "FR": ""
-                            }
-                        }
-                    ],
-                    "enumeration": "",
-                    "period": {
-                        "from": "",
-                        "to": ""
-                    },
-                    "columnLink": "",
-                    "key": false,
-                    "transposed": true,
-                    "virtual": true,
-                    "id": 4,
-                    "title": {
-                        "EN": "Measurement Unit",
-                        "FR": ""
-                    },
-                    "supplemental": {
-                        "EN": "Measurement Unit",
-                        "FR": ""
-                    }
-                }
-            },
-            {
-                "dimension": {
-                    "link": "",
-                    "uid": "",
-                    "title": {
-                        "EN": "flag",
-                        "FR": ""
-                    }
-                },
-                "dataTypes": [
-                    "string"
-                ],
-                "values": [
-
-                ],
-                "domain": {
-                    "codes": [
-                        {
-                            "codeList": {
-                                "codeList": "",
-                                "version": "1",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            },
-                            "code": {
-                                "codeList": "",
-                                "version": "",
-                                "code": "",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            }
-                        }
-                    ],
-                    "customCodes": [
-                        {
-                            "code": "",
-                            "title": {
-                                "EN": "",
-                                "FR": ""
-                            }
-                        }
-                    ],
-                    "enumeration": "",
-                    "period": {
-                        "from": "",
-                        "to": ""
-                    },
-                    "columnLink": "",
-                    "key": false,
-                    "transposed": true,
-                    "virtual": true,
-                    "id": 5,
-                    "title": {
-                        "EN": "Flag",
-                        "FR": ""
-                    },
-                    "supplemental": {
-                        "EN": "Flag",
-                        "FR": ""
-                    }
-                }
-            },
-            {
-                "dimension": {
-                    "link": "",
-                    "uid": "",
-                    "title": {
-                        "EN": "notes",
-                        "FR": ""
-                    }
-                },
-                "dataTypes": [
-                    "string"
-                ],
-                "values": [
-
-                ],
-                "domain": {
-                    "codes": [
-                        {
-                            "codeList": {
-                                "codeList": "",
-                                "version": "1",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            },
-                            "code": {
-                                "codeList": "",
-                                "version": "",
-                                "code": "",
-                                "title": {
-                                    "EN": "",
-                                    "FR": ""
-                                }
-                            }
-                        }
-                    ],
-                    "customCodes": [
-                        {
-                            "code": "",
-                            "title": {
-                                "EN": "",
-                                "FR": ""
-                            }
-                        }
-                    ],
-                    "enumeration": "",
-                    "period": {
-                        "from": "",
-                        "to": ""
-                    },
-                    "columnLink": "",
-                    "key": false,
-                    "transposed": true,
-                    "virtual": true,
-                    "id": 5,
-                    "title": {
-                        "EN": "Notes",
-                        "FR": ""
-                    },
-                    "supplemental": {
-                        "EN": "Flag",
                         "FR": ""
                     }
                 }

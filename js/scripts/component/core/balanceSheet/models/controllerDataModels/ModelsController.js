@@ -2,35 +2,40 @@
  * Created by fabrizio on 7/24/14.
  */
 define(["jquery",  "models/tableDataModel/TableDataModel",
-    "models/gridDataModel/GridDataModel"], function($,  TableDataModel, GridDataModel) {
+    "models/gridDataModel/GridDataModel", "models/creator/HandlerCreationModels"], function($,  TableDataModel, GridDataModel, ModelCreator) {
 
-    var TableModel, GridModel, indexes, instanceGridDataModel, instanceTableDataModel, fullTableModel, newValues;
+    var TableModel, GridModel, indexes, instanceGridDataModel, instanceTableDataModel, fullTableModel, newValues, dataTable, CreatorModels,
+        modelForCreation;
 
     function ModelsController() {
-        TableModel = new TableDataModel;
-        GridModel  = new GridDataModel;
+        TableModel    = new TableDataModel;
+        GridModel     = new GridDataModel;
+        CreatorModels = new ModelCreator;
     }
 
     ModelsController.prototype.init = function(tableData, dsd, componentConfiguration, configurator){
 
+        dataTable = tableData
         newValues = []; // There will be to put the new values into this variable
         console.log("ModelController.INIT()")
         indexes = configurator.getAllColumnModels();
-        instanceTableDataModel = TableModel.init(tableData, dsd, componentConfiguration, configurator)
-        instanceGridDataModel  = GridModel.init(dsd, instanceTableDataModel, tableData, indexes)
+        instanceTableDataModel = tableData;
+        TableModel.init(tableData, configurator);
+        modelForCreation       = CreatorModels.init(configurator)
+        instanceGridDataModel  = GridModel.init( modelForCreation, tableData, indexes)
 
     }
 
     ModelsController.prototype.getTableDataModel = function(){
-        return instanceTableDataModel;
+        return TableModel.getTableDataModel();
     }
 
     ModelsController.prototype.getGridDataModel = function(){
-        return instanceGridDataModel;
+        return GridModel.getGridDataModel();
     }
 
     ModelsController.prototype.createFullTableModel = function(creationMode){
-        fullTableModel = GridModel.createTableModel(indexes, instanceGridDataModel, creationMode)
+        fullTableModel = TableModel.createFullTableData(instanceGridDataModel)
         return fullTableModel;
     }
 
@@ -38,7 +43,7 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         return fullTableModel;
     }
 
-    ModelsController.prototype.updateModels = function(cell, indTable){
+    ModelsController.prototype.updateModels = function(cell, indTable, rowIndex, columnIndex){
         var newCell = cell;
         console.log("updateMODELS")
         console.log(cell);
@@ -47,6 +52,8 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         newValues.push(newCell);
         fullTableModel[indTable] = newCell;
         // Create a GRid Model
+        GridModel.updateModel(cell,rowIndex, columnIndex)
+        instanceGridDataModel = GridDataModel.getGridDataModel();
 
     }
 

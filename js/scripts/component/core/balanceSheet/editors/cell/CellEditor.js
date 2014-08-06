@@ -20,7 +20,6 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
     function CellEditor() {
     }
 
-
     CellEditor.prototype.init = function (Configurator, cell, dsd) {
 
         var f  = document.getElementById("dialogForm");
@@ -75,37 +74,23 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                     "</div><br>")
             }
         }
-
         $('#form').append("<div class ='row'>" +
             "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title.EN
             + "</label></div>" +
             "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" +  cell[valueIndex] + "'></div>" +
             "</div><br>")
 
-
-
         for (var i = 0; i < accessorIndexes.length; i++) {
 
-            if (columns[accessorIndexes[i]].domain.title.EN != "MU") {
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title.EN
                     + "</label></div>" +
                     "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
                     "</div><br>")
-            }
-            else {
-                $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title.EN
-                    + "</label></div>" +
-                    "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "' readonly></div>" +
-                    "</div><br>")
-            }
+
         }
 
-
-
         $('#form').append(("</fieldset></form>"))
-
         $("#dialogForm").dialog({
             title: 'Editor',
             state: "open",

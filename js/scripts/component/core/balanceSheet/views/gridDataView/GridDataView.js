@@ -3,25 +3,24 @@
  */
 define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
-    var model, configuration, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues, modelView,
+    var model, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues, modelView,
     leftDimensions, upDimensions, valueColumn, dataSource2, idOlapGrid, language
     function GridDataView() {
 
     }
 
 
-    GridDataView.prototype.init = function (Configuration, gridModel, tableModel, configurator, typeOfCreation) {
+    GridDataView.prototype.init = function ( gridModel, tableModel, configurator, typeOfCreation) {
 
       //console.log("GridDataView")
       //console.log(Configuration)
       //console.log(tableModel)
         model = gridModel;
         table = tableModel;
-        configuration = Configuration;
         Configurator = configurator;
         language = Configurator.getComponentLanguage();
 
-        (typeOfCreation) ? this.createFullGrid(Configuration, gridModel) : this.createGrid(Configuration, gridModel);
+        (typeOfCreation) ? this.createFullGrid() : this.createGrid();
     }
 
 
@@ -37,7 +36,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         idOlapGrid  =       Configurator.getIdOlapGrid();
         modelView = this.createViewModel(table);
         this.renderGrid(modelView)
-
     }
 
 
@@ -115,7 +113,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             },
 
             width: "100%",
-            height: "100%"
+            height: "1000"
 
 
         });
