@@ -81,10 +81,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             rows: "[Rows].[" + titlesLeft[0] + "],[Rows].[" + titlesLeft[1] + "]",
             columns: "[Columns].[" + titlesUp[0] + "],[Columns].[" + titlesUp[1] + "]",
             measures: "[Measures].[value]"
-
         });
-
-
 
         $("#"+idOlapGrid).igPivotGrid({
             allowSorting: true,
@@ -98,6 +95,8 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
             compactRowHeaders: true,
             compactHeaderIndentation: 80,
             isParentInFrontForColumns: true,
+            disableFiltersDropArea : true,
+            hideFiltersDropArea : true,
             gridOptions:{
                 defaultColumnWidth: 150,
                 features: [
@@ -111,20 +110,15 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
                     }
                 ]
             },
-
             width: "100%",
             height: "1000"
-
-
         });
-
         console.log("After rendering all grid!!")
-
-
     }
 
 
     GridDataView.prototype.updateGridView = function(newCell, indexCell){
+        debugger;
 
         var cellTransformed = this.transformItem(newCell);
         modelView[indexCell] = cellTransformed;

@@ -16,7 +16,7 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
     ModelsController.prototype.init = function(tableData, dsd, componentConfiguration, configurator){
 
         dataTable = tableData
-        newValues = []; // There will be to put the new values into this variable
+        newValues = []; // New values will be put into this variable
         console.log("ModelController.INIT()")
         indexes = configurator.getAllColumnModels();
         instanceTableDataModel = tableData;
@@ -53,7 +53,7 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         fullTableModel[indTable] = newCell;
         // Create a GRid Model
         GridModel.updateModel(cell,rowIndex, columnIndex)
-        instanceGridDataModel = GridDataModel.getGridDataModel();
+        instanceGridDataModel = GridModel.getGridDataModel();
 
     }
 

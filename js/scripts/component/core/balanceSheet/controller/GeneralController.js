@@ -13,9 +13,8 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
     /* Function that it has to do:
      1) initialization of the grid view (OK)
-     2) Export/import of the data
-     3) manages the life cycle
-     4) Manages the communication between different modules
+     2) Export of the data
+     3) Manages the communication between different modules
      */
 
     // It manages the initialization time of the view
@@ -24,7 +23,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
         dsd = configurator.getDSD();
         Configurator = configurator;
         ViewGrid.init( gridModel, fullTableModel, configurator, typeOfView)
-        var columnsNumber = gridModel["matrixUp"][0].length;
+        var columnsNumber = gridModel[0].length;
         this.createListeners(columnsNumber)
     }
 
@@ -78,8 +77,10 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
         $(document.body).on('click', "#saveButton", function (e) {
             var newCell = FormController.getValue(cell)
-            ModelController.updateModels(newCell, indTable,rowIndex, columnIndex)
-            ViewGrid.updateGridView(newCell, indTable);
+            if(newCell.length >0) {
+                ModelController.updateModels(newCell, indTable, rowIndex, columnIndex)
+                ViewGrid.updateGridView(newCell, indTable);
+            }
             $(document.body).off();
         })
 

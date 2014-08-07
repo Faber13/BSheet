@@ -156,7 +156,7 @@
                     }
                 }
             },
-            {
+              {
                 "dimension": {
                     "link": "",
                     "uid": "",
@@ -166,7 +166,7 @@
                     }
                 },
                 "dataTypes": [
-                    "number"
+                    "Number"
                 ],
                 "values": [
 
@@ -204,8 +204,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "",
-                        "to": ""
+                        "from": "10",
+                        "to": "100"
                     },
                     "columnLink": "",
                     "key": false,
@@ -298,7 +298,7 @@
                     }
                 },
                 "dataTypes": [
-                    "string"
+                    "month"
                 ],
                 "values": [
 

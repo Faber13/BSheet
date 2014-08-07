@@ -1,96 +1,103 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery", "jquery.dirtyFields"], function ($) {
+define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
 
-    // Support functions
-    Element.prototype.remove = function() {
+    // ---------------------- SUPPORT FUNCTIONS -------------------------------------------
+
+    Element.prototype.remove = function () {
         this.parentElement.removeChild(this);
     }
 
-    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-        for(var i = 0, len = this.length; i < len; i++) {
-            if(this[i] && this[i].parentElement) {
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function () {
+        for (var i = 0, len = this.length; i < len; i++) {
+            if (this[i] && this[i].parentElement) {
                 this[i].parentElement.removeChild(this[i]);
             }
         }
     }
+    // ------------------------------------------------------------------------------------
 
 
-    function CellEditor() {
-    }
+    function CellEditor() {}
+
 
     CellEditor.prototype.init = function (Configurator, cell, dsd) {
 
-        var f  = document.getElementById("dialogForm");
-        if(f !== null){
-            f.remove()
-        }
+        var columns = dsd.dsd.columns
+        var leftKeyColumnsIndexes = Configurator.getLeftKeyColumn()["leftKeyIndexes"];
+        var upKeyColumnsIndexes   = Configurator.getUpKeyColumn()["upKeyIndexes"];
+        var configurationKeys     = Configurator.getKeyColumnConfiguration();
+        var upKeyColumns          = Configurator.getUpKeyColumn()["upColumns"];
+        var valueIndex            = Configurator.getValueIndex();
+        var accessorIndexes       = Configurator.getDSDAccessorColumns()["accessorIndexes"]
+        var language              = Configurator.getComponentLanguage();
 
-        var result = {
-            "changed": false,
-            "cell": cell
+        var f = document.getElementById("dialogForm");
+        if (f !== null) {
+            f.remove()
         }
 
         var $newdiv1 = $("<div id='dialogForm'></div>");
         // Only the FIRST ROW column indexes start from 2, it needs to be checked!
         $("#pivotGrid").append($newdiv1)
 
-        var columns = dsd.dsd.columns
         var form = ("<form id ='form' role='form' class='col-lg-10'><fieldset>");
         $('#dialogForm').append(form);
-        var leftKeyColumnsIndexes = Configurator.getLeftKeyColumn()["leftKeyIndexes"];
-        var upKeyColumnsIndexes = Configurator.getUpKeyColumn()["upKeyIndexes"];
-        var configurationKeys = Configurator.getKeyColumnConfiguration();
-        var upKeyColumns = Configurator.getUpKeyColumn()["upColumns"];
-        var valueIndex = Configurator.getValueIndex();
-        var accessorIndexes = Configurator.getDSDAccessorColumns()["accessorIndexes"]
-
+        // leftKeyColumns
         for (var i = 0; i < leftKeyColumnsIndexes.length; i++) {
             $('#form').append("<div class ='row'>" +
-                "<div class='col-lg-6'><label for='leftKeyColumn" + i + "'>" + columns[leftKeyColumnsIndexes[i]].domain.title.EN
+                "<div class='col-lg-6'><label for='leftKeyColumn" + i + "'>" + columns[leftKeyColumnsIndexes[i]].domain.title[language]
                 + "</label></div>" +
                 "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='leftKeyColumn" + i + "'>" + cell[leftKeyColumnsIndexes[i]] + "</p></div>" +
                 "</div><br>")
         }
-
+        // upKeyColumns
         for (var i = 0; i < upKeyColumnsIndexes.length; i++) {
-            if (upKeyColumns[i].dataTypes == "date" || upKeyColumns[i].dataTypes == "date" || upKeyColumns[i].dataTypes == "time" ||
-                upKeyColumns[i].dataTypes == "year"){
+            if (upKeyColumns[i].dataTypes == "date" || upKeyColumns[i].dataTypes == "month" || upKeyColumns[i].dataTypes == "time" ||
+                upKeyColumns[i].dataTypes == "year") {
                 var date = this.renderFormatDate(cell[upKeyColumnsIndexes[i]],
                     configurationKeys["upKeyColumnConfiguration"][i],
                     upKeyColumns[i].dataTypes)
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title.EN
+                    "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
                     + "</label></div>" +
                     "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" + date + "</p></div>" +
                     "</div><br>")
-
-            }else{
+            } else {
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title.EN
+                    "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
                     + "</label></div>" +
                     "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" + cell[upKeyColumnsIndexes[i]] + "</p></div>" +
                     "</div><br>")
             }
         }
-        $('#form').append("<div class ='row'>" +
-            "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title.EN
-            + "</label></div>" +
-            "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" +  cell[valueIndex] + "'></div>" +
-            "</div><br>")
 
-        for (var i = 0; i < accessorIndexes.length; i++) {
-
-                $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title.EN
-                    + "</label></div>" +
-                    "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
-                    "</div><br>")
-
+        if(columns[valueIndex].dataTypes !== "boolean") {
+            // valueColumn
+            $('#form').append("<div class ='row'>" +
+                "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
+                + "</label></div>" +
+                "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "'></div>" +
+                "</div><br>")
+        }else{
+            $('#form').append("<div class ='row'>" +
+                "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
+                + "</label></div>" +
+                "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "'></div>" +
+                "</div><br>")
         }
-
+        // accessorColumn
+        for (var i = 0; i < accessorIndexes.length; i++) {
+            $('#form').append("<div class ='row'>" +
+                "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title[language]
+                + "</label></div>" +
+                "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
+                "</div><br>")
+        }
         $('#form').append(("</fieldset></form>"))
+
+        // Creation of the dialog
         $("#dialogForm").dialog({
             title: 'Editor',
             state: "open",
@@ -108,7 +115,6 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                             for (var i = 0; i < accessorIndexes.length; i++) {
                                 cell[accessorIndexes[i]] = document.getElementById("accessorInput" + i + "").value;
                             }
-                            result.changed = true;
                         }
                     }
                 },
@@ -126,13 +132,11 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
             ]
         });
 
-
-
-
-        $('#dialogForm').dirtyFields();
-        if (result["changed"]) {
-            return result;
+        this.chooseInputFormat(columns[valueIndex], 'valueInput')
+        for (var i = 0; i < accessorIndexes.length; i++) {
+            this.chooseInputFormat(columns[accessorIndexes[i]], 'accessorInput'+i)
         }
+        $('#dialogForm').dirtyFields();
     }
 
 
@@ -164,25 +168,46 @@ define(["jquery", "jquery.dirtyFields"], function ($) {
                 var day = value.substr(6, 2);
                 var date = new Date(year, month - 1, day);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-
                 break;
         }
         return result;
-
     }
 
 
-    CellEditor.prototype.editOnPopup = function () {
-        //TODO
-    }
+    CellEditor.prototype.chooseInputFormat = function(column,id){
+        switch(column.dataTypes[0]){
+            case "date" :
+                $( "#"+id ).datepicker({ altField: "#actualDate" });
+                break;
+            case "month":
+                $( "#"+id ).datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    dateFormat: 'MM yy'
+                }).focus(function() {
+                    var thisCalendar = $(this);
+                    $('.ui-datepicker-calendar').detach();
+                    $('.ui-datepicker-close').click(function() {
+                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                        thisCalendar.datepicker('setDate', new Date(year, month, 1));
+                    });
+                });
+                break;
+            case "time":
+                $( "#"+id ).datepicker({ altField: "#actualDate" });
+                break;
+            case "year":
+                $( "#"+id ).spinner({min: column.domain.period.from, max: column.domain.period.to });
+                break;
+            case "boolean":
+                break;
 
-    CellEditor.prototype.editOnTable = function () {
-        //TODO
-
-    }
-
-    CellEditor.prototype.editOnForm = function () {
-        //TODO
+            case ("Number" || "enum"):
+                $( "#"+id ).spinner({min: column.domain.period.from, max: column.domain.period.to });
+                break;
+        }
     }
 
 
