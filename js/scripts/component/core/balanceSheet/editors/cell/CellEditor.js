@@ -82,10 +82,15 @@ define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
                 "</div><br>")
         }else{
             $('#form').append("<div class ='row'>" +
-                "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
-                + "</label></div>" +
-                "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "'></div>" +
+                "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]+ "</label></div>");
+            if( cell[valueIndex]){
+                form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' checked></div>" +
                 "</div><br>")
+
+            }else{
+                form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' ></div>" +
+                    "</div><br>")
+            }
         }
         // accessorColumn
         for (var i = 0; i < accessorIndexes.length; i++) {

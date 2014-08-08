@@ -120,7 +120,13 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         [ "Total Supply", "20140102", 232323, 'Tonn'  , 'D'],
         [ "Population"  , "20140103", 1302130, '1000s' , 'C']
     ]
-    data3 = [["note","20140102",33,'KG','C',"Population"]]
+    data3 = [
+        ["note","20140102",1,'KG','C',"Population"],
+        ["note","20140103",2,'KG','C',"Total Supply"],
+        ["note","20140105",3,'KG','C',"AreaHarvested"],
+        ["note","20140107",4,'KG','C',"Domestic Utilization"],
+        ["note","20140108",5,'KG','C',"Total Utilization"]
+    ]
     // -----------------------------------------------------------------------------------------
 
 
@@ -131,7 +137,6 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         modelController = new ModelController;
 
     }
-
 
     BalanceSheet.prototype.init = function (tableData) {
         $.ajax({
@@ -156,11 +161,10 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         modelController.init(data3, dsd, componentConfiguration, configurator)
 
         var gridModel = modelController.getGridDataModel()
-        var fullTableModel = modelController.createFullTableModel(false)
-        generalController.init( gridModel, fullTableModel, configurator, true, modelController)
+        var tableModel = modelController.getTableDataModel()
+        generalController.init( gridModel, tableModel, configurator, modelController)
 
     }
-
 
     BalanceSheet.prototype.setTableData = function (TableData) {
 
@@ -171,19 +175,18 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         return tableModel;
     }
 
-
     BalanceSheet.prototype.setGridData = function (model) {
-
         indexes = configurator.getAllColumnModels();
         return (gridDataModel.init(dsd, model, data, indexes));
-
     }
-
 
     BalanceSheet.prototype.getTableData = function () {
-
+        return modelController.getTableData();
     }
 
+    BalanceSheet.prototype.getGridData = function() {
+        return modelController.getGridData();
+    }
 
     BalanceSheet.prototype.addRow = function (row) {
         // TODO
@@ -200,7 +203,6 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
     BalanceSheet.prototype.removeColumn = function (idColumn) {
         // TODO
     }
-
 
     return BalanceSheet;
 

@@ -4,6 +4,7 @@ requirejs.config({
     "paths": {
         balanceSheet      :  "../component/core/balanceSheet",
         models            :  "../component/core/balanceSheet/models",
+        views             :  "../component/core/balanceSheet/views",
         view              :  "../component/core/balanceSheet/views/gridDataView",
         configurator      :  "../component/core/balanceSheet/configuration/configurator",
         generalController :  "../component/core/balanceSheet/controller",
@@ -18,8 +19,14 @@ requirejs.config({
         "infragistics" : {
             "deps" : ["jquery","jquery-ui"]
         },
+        "jquery-ui" : {
+          "deps" : ["jquery"]
+        },
         "jquery.dirtyFields" : {
             deps: ["jquery"]
+        },
+        "timepicker":{
+            deps: ["jquery-ui"]
         }
     }
 });

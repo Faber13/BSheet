@@ -1,26 +1,23 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
+define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pivot, ViewModel) {
 
     var model, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues, modelView,
-    leftDimensions, upDimensions, valueColumn, dataSource2, idOlapGrid, language
+    leftDimensions, upDimensions, valueColumn, dataSource2, idOlapGrid, language, viewModel
     function GridDataView() {
 
     }
 
 
-    GridDataView.prototype.init = function ( gridModel, tableModel, configurator, typeOfCreation) {
+    GridDataView.prototype.init = function ( tableModel, configurator) {
 
-      //console.log("GridDataView")
-      //console.log(Configuration)
-      //console.log(tableModel)
-        model = gridModel;
-        table = tableModel;
-        Configurator = configurator;
-        language = Configurator.getComponentLanguage();
-
-        (typeOfCreation) ? this.createFullGrid() : this.createGrid();
+       viewModel = new ViewModel;
+       table = tableModel;
+       Configurator = configurator;
+        debugger;
+       language = Configurator.getComponentLanguage();
+       this.createFullGrid();
     }
 
 
@@ -34,7 +31,8 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
         valueColumn  =      Configurator.getValueColumnConfiguration();
         indexValues =       Configurator.getValueIndex();
         idOlapGrid  =       Configurator.getIdOlapGrid();
-        modelView = this.createViewModel(table);
+        modelView = viewModel.init(table,Configurator)
+       // modelView = this.createViewModel(table);
         this.renderGrid(modelView)
     }
 
@@ -118,7 +116,6 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
     GridDataView.prototype.updateGridView = function(newCell, indexCell){
-        debugger;
 
         var cellTransformed = this.transformItem(newCell);
         modelView[indexCell] = cellTransformed;
@@ -263,7 +260,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
     }
 
 
-    GridDataView.prototype.createMeasureDimension = function (fullModel) {
+   /* GridDataView.prototype.createMeasureDimension = function (fullModel) {
 
         var result = {};
         var result1 = { caption: "value", name: "value", aggregator: getItem(4) }
@@ -273,7 +270,7 @@ define(["jquery" , "infragistics", "moment"], function ($, pivot, moment) {
 
 
         return measuresDimension;
-    }
+    } */
 
 
     GridDataView.prototype.createUpPivotDimension = function (keyColumns, keyColumnConf) {

@@ -368,6 +368,20 @@ define(["jquery"], function ($) {
                 }
                 break;
 
+            case "codeList":
+                var codes = column.domain.codes
+                for (var i = 0; i < codes.length; i++) {
+                    array.push(codes[i].codeList)
+                }
+                break;
+
+            case "customCode" :
+                var codes = column.domain.codes
+                for (var i = 0; i < codes.length; i++) {
+                    array.push(codes[i].code)
+                }
+                break;
+
             case "boolean":
                 array.push(true);
                 array.push(false)

@@ -60,7 +60,7 @@
                 "properties": {
                     "cellProperties": {
                         "dependencyRule": "",
-                        "label": "",
+                        "dateFormat" : "DD-MM-YYYY LT",
                         "coloursCharacters": "",
                         "coloursBackground": ""
                     }

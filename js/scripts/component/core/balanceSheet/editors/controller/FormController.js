@@ -14,7 +14,7 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
     FormController.prototype.init = function(Configurator, cell, dsd){
 
         FormEditor.init(Configurator,cell,dsd)
-        columns         = Configurator.getDSD().columns
+        columns         = Configurator.getDSD().dsd.columns
         accessorIndexes = Configurator.getDSDAccessorColumns()["accessorIndexes"]
         valueIndex      = Configurator.getValueIndex();
 
@@ -25,7 +25,9 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
         var result
         var $input = document.getElementsByClassName('input-group-lg');
         var result = []; // An new empty array
+
         // If something has changed
+        debugger;
         if(this.checkValuesChanged($input)) {
             for (var i = 0, len = cell.length; i < len; i++) {
                 result[i] = cell[i];

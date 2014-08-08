@@ -4,7 +4,8 @@
 
 define(["jquery" ], function ($) {
 
-    var instanceData, Configurator, instanceFullTableData, counterEmptySpaces
+    var instanceData, Configurator, instanceFullTableData, counterEmptySpaces,
+        fullRows, fullColumns
 
 
     function TableDataModel() {
@@ -23,11 +24,17 @@ define(["jquery" ], function ($) {
 
 
     TableDataModel.prototype.setTableData = function(newData){
-        // TODO
+       // TODO
+    }
+
+    TableDataModel.prototype.createSparseTableData = function(newData){
+        instanceData = newData;
     }
 
 
     TableDataModel.prototype.createFullTableData = function(modelForCreation){
+        fullColumns = [];
+        fullRows = [];
 
         var dsdColumns = Configurator.getAllColumnModels();
         var leftIndexes = dsdColumns["leftColumnsModel"]["leftKeyIndexes"]
@@ -49,6 +56,9 @@ define(["jquery" ], function ($) {
                 }
                 var cell = modelForCreation["matrixAll"][i][j];
                 if (cell.length > 0) {
+                    fullColumns.push(j);
+                    fullRows.push(i);
+
                     counterEmptySpaces.columns[j] = 1;
                     counterEmptySpaces.rows[i] = 1;
                     var leftKeys = modelForCreation["matrixLeft"][i]
@@ -102,22 +112,38 @@ define(["jquery" ], function ($) {
                 }
             }
         }
+        instanceFullTableData =table;
         return table;
     }
 
 
     TableDataModel.prototype.createTableModelFromGrid = function(GridDataModel){
 
+        fullRows.sort(function(a,b){ return a > b ? 1 : a < b ? -1 : 0;})
+        fullColumns.sort(function(a,b){return a > b ? 1 : a < b ? -1 : 0;})
+        debugger;
+
         var result = [];
-        for(var i =0; i< GridDataModel.length; i++){
-            for(var j= 0; j<GridDataModel[i].length; j++){
+        for(var i =0; i< fullRows.length; i++){
+            var indRow = fullRows[i]
+            for(var j= 0; j<fullColumns.length; j++){
+                var indCol = fullColumns[j]
                 // for each value contained into a cell
+                var numberColumns  =  counterEmptySpaces.columns.length;
+                if (indRow == 0) {
+                   result.push(instanceFullTableData[indCol])
+                }else{
+                   result.push(instanceFullTableData[(numberColumns * indRow)+(indCol)])
+                }
             }
         }
+        debugger;
+        return result;
+    }
 
 
-
-
+    TableDataModel.prototype.updateTableData = function(value, index){
+        instanceData[index] = value;
     }
 
 

@@ -18,11 +18,11 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
      */
 
     // It manages the initialization time of the view
-    GeneralController.prototype.init = function ( gridModel, fullTableModel, configurator, typeOfView, modelController) {
+    GeneralController.prototype.init = function ( gridModel, fullTableModel, configurator, modelController) {
         ModelController = modelController;
         dsd = configurator.getDSD();
         Configurator = configurator;
-        ViewGrid.init( gridModel, fullTableModel, configurator, typeOfView)
+        ViewGrid.init(  fullTableModel, configurator)
         var columnsNumber = gridModel[0].length;
         this.createListeners(columnsNumber)
     }
@@ -36,7 +36,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             // Only the FIRST ROW column indexes start from 2!
             var rowGridIndex, columnGridIndex;
-            var cellTableModel =        ModelController.getFullTableModel();
+            var cellTableModel =        ModelController.getTableDataModel();
             var numberLeftKeyColumns =  Configurator.getLeftKeyColumn().leftColumns.length
             if (ui.rowIndex == 0) {
                 rowGridIndex = 0;
@@ -54,10 +54,11 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
             that.onclickCell(indTable, clickedCell, rowGridIndex, columnGridIndex);
         });
 
+
         $("#exportButton").click(function(){
             var ExportControl = new ExportController;
          // var table = ViewGrid.getModelView();
-            var table = ModelController.getFullTableModel();
+            var table = ModelController.getTableDataModel();
             ExportControl.init(table, Configurator)
         })
     }
@@ -82,6 +83,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
                 ViewGrid.updateGridView(newCell, indTable);
             }
             $(document.body).off();
+            debugger;
         })
 
 
