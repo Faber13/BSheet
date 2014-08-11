@@ -33,7 +33,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "1",
                                 "title": {
                                     "EN": "Production",
                                     "FR": ""
@@ -52,7 +52,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "2",
                                 "title": {
                                     "EN": "AreaHarvested",
                                     "FR": ""
@@ -117,7 +117,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "1",
                                 "title": {
                                     "EN": "Maize",
                                     "FR": ""
@@ -136,9 +136,28 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "2",
                                 "title": {
                                     "EN": "Rice",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "3",
+                                "title": {
+                                    "EN": "Wheat",
                                     "FR": ""
                                 }
                             }
@@ -201,7 +220,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "11",
                                 "title": {
                                     "EN": "Egypt",
                                     "FR": ""
@@ -220,7 +239,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "12",
                                 "title": {
                                     "EN": "Russia",
                                     "FR": ""
@@ -239,7 +258,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "13",
                                 "title": {
                                     "EN": "Italy",
                                     "FR": ""
@@ -305,7 +324,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "21",
                                 "title": {
                                     "EN": "summer",
                                     "FR": ""
@@ -324,7 +343,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "22",
                                 "title": {
                                     "EN": "spring",
                                     "FR": ""
@@ -343,7 +362,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "23",
                                 "title": {
                                     "EN": "winter",
                                     "FR": ""

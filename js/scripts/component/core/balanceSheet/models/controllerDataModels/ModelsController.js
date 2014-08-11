@@ -13,7 +13,7 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         CreatorModels = new ModelCreator;
     }
 
-    ModelsController.prototype.init = function(tableData, dsd, componentConfiguration, configurator){
+    ModelsController.prototype.init = function(tableData,  configurator){
 
         dataTable = tableData
         newValues = []; // New values will be put into this variable
@@ -28,7 +28,6 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         TableModel.createFullTableData(modelForCreation)
         var newTable = TableModel.createTableModelFromGrid(instanceGridDataModel);
         TableModel.createSparseTableData(newTable);
-        debugger;
 
     }
 
@@ -60,6 +59,27 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         // Create a GRid Model
         GridModel.updateModel(cell,rowIndex, columnIndex)
         instanceGridDataModel = GridModel.getGridDataModel();
+
+    }
+
+
+    ModelsController.prototype.getFullRowsIndexes = function(){
+        return TableModel.getFullIndexRows();
+    }
+
+
+    ModelsController.prototype.getFullColumnsIndexes = function(){
+        return TableModel.getFullIndexColumns();
+    }
+
+
+    ModelsController.prototype.getIndexesNewFirstColumnLeft = function(){
+        return TableModel.getIndexesDoubleColumns();
+    }
+
+
+    ModelsController.prototype.getMapDomainCodes = function(indexColumn){
+        TableModel.getMapDomainCodes(indexColumn)
 
     }
 

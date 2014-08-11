@@ -5,7 +5,23 @@
 define(["jquery" ], function ($) {
 
     var instanceData, Configurator, instanceFullTableData, counterEmptySpaces,
-        fullRows, fullColumns
+        fullRows, fullColumns, indexesDoubleColumnLeft;
+
+    // -------------------- SET OPERATIONS --------------------------------------
+
+    Array.prototype.getUnique = function () {
+        var u = {}, a = [];
+        for (var i = 0, l = this.length; i < l; ++i) {
+            if (u.hasOwnProperty(this[i])) {
+                continue;
+            }
+            a.push(this[i]);
+            u[this[i]] = 1;
+        }
+        return a;
+    }
+
+    //----------------------------------------------------------------------
 
 
     function TableDataModel() {
@@ -18,21 +34,21 @@ define(["jquery" ], function ($) {
     }
 
 
-    TableDataModel.prototype.getTableData = function(){
+    TableDataModel.prototype.getTableData = function () {
         return instanceData
     }
 
 
-    TableDataModel.prototype.setTableData = function(newData){
-       // TODO
+    TableDataModel.prototype.setTableData = function (newData) {
+        // TODO
     }
 
-    TableDataModel.prototype.createSparseTableData = function(newData){
+    TableDataModel.prototype.createSparseTableData = function (newData) {
         instanceData = newData;
     }
 
 
-    TableDataModel.prototype.createFullTableData = function(modelForCreation){
+    TableDataModel.prototype.createFullTableData = function (modelForCreation) {
         fullColumns = [];
         fullRows = [];
 
@@ -44,14 +60,14 @@ define(["jquery" ], function ($) {
         var table = []
         counterEmptySpaces = {
             rows: [],
-            columns : []
+            columns: []
         }
 
         var numberOfRows = 0;
         for (var i = 0; i < modelForCreation["matrixAll"].length; i++) {
             counterEmptySpaces.rows[i] = 0;
             for (var j = 0; j < modelForCreation["matrixAll"][i].length; j++) {
-                if(typeof counterEmptySpaces.columns[j] === 'undefined'){
+                if (typeof counterEmptySpaces.columns[j] === 'undefined') {
                     counterEmptySpaces.columns[j] = 0
                 }
                 var cell = modelForCreation["matrixAll"][i][j];
@@ -83,8 +99,8 @@ define(["jquery" ], function ($) {
                     array[valueIndexes] = val;
 
                     table.push(array)
-                    numberOfRows ++;
-                } else{
+                    numberOfRows++;
+                } else {
                     var leftKeys = modelForCreation["matrixLeft"][i]
                     var upKeys = modelForCreation["matrixUp"][0][j]
                     var val = cell[0];
@@ -108,47 +124,100 @@ define(["jquery" ], function ($) {
                     array[valueIndexes] = val;
 
                     table.push(array)
-                    numberOfRows ++;
+                    numberOfRows++;
                 }
             }
         }
-        instanceFullTableData =table;
+
+        this.makeOperationsOnFullIndexes(),
+        instanceFullTableData = table;
         return table;
     }
 
 
-    TableDataModel.prototype.createTableModelFromGrid = function(GridDataModel){
+    TableDataModel.prototype.getFullIndexRows = function () {
+        return fullRows;
+    }
 
-        fullRows.sort(function(a,b){ return a > b ? 1 : a < b ? -1 : 0;})
-        fullColumns.sort(function(a,b){return a > b ? 1 : a < b ? -1 : 0;})
-        debugger;
+    TableDataModel.prototype.getFullIndexColumns = function () {
+        return fullColumns;
+    }
+
+
+    TableDataModel.prototype.makeOperationsOnFullIndexes = function () {
+        // Sort and unique values
+
+        fullRows.sort(function (a, b) {
+            return a > b ? 1 : a < b ? -1 : 0;
+        })
+        fullRows = fullRows.getUnique()
+        fullColumns.sort(function (a, b) {
+            return a > b ? 1 : a < b ? -1 : 0;
+        })
+        fullColumns = fullColumns.getUnique();
+
+
+    }
+
+
+    TableDataModel.prototype.createTableModelFromGrid = function (GridDataModel) {
 
         var result = [];
-        for(var i =0; i< fullRows.length; i++){
+        indexesDoubleColumnLeft = {};
+        if(fullRows.length >0 && fullColumns.length >0) {
+            var firstIndex = (counterEmptySpaces.columns.length * fullRows[0]) + fullColumns[0];
+            var firstField = instanceFullTableData[firstIndex][0];
+
+        }
+
+        for (var i = 0; i < fullRows.length; i++) {
             var indRow = fullRows[i]
-            for(var j= 0; j<fullColumns.length; j++){
+            for (var j = 0; j < fullColumns.length; j++) {
                 var indCol = fullColumns[j]
                 // for each value contained into a cell
-                var numberColumns  =  counterEmptySpaces.columns.length;
-                if (indRow == 0) {
-                   result.push(instanceFullTableData[indCol])
-                }else{
-                   result.push(instanceFullTableData[(numberColumns * indRow)+(indCol)])
+                var numberColumns = counterEmptySpaces.columns.length;
+                if (GridDataModel["matrixLeft"][0].length == 2) {
+                    if (indRow == 0) {
+                        result.push(instanceFullTableData[indCol])
+                    } else {
+                        var index = (numberColumns * indRow) + (indCol);
+                        var element = instanceFullTableData[(numberColumns * indRow) + (indCol)]
+                        if (typeof firstField !== 'undefined' && firstField !== element[0]) {
+                            firstField = element[0];
+                            var startingIndex = j + (i * fullColumns.length);
+                            for (var k = 0; k < fullColumns.length; k++) {
+                                indexesDoubleColumnLeft[startingIndex + k] = 1;
+                            }
+                        }
+                        result.push(instanceFullTableData[(numberColumns * indRow) + (indCol)])
+                        // new Left key element
+                    }
+
+                } else {
+                    if (indRow == 0) {
+                        result.push(instanceFullTableData[indCol])
+                    } else {
+                        result.push(instanceFullTableData[(numberColumns * indRow) + (indCol)])
+                    }
                 }
             }
         }
-        debugger;
+
         return result;
     }
 
 
-    TableDataModel.prototype.updateTableData = function(value, index){
+    TableDataModel.prototype.updateTableData = function (value, index) {
         instanceData[index] = value;
     }
 
 
-    TableDataModel.prototype.getFullTableData = function(){
+    TableDataModel.prototype.getFullTableData = function () {
         return instanceFullTableData;
+    }
+
+    TableDataModel.prototype.getIndexesDoubleColumns = function () {
+        return indexesDoubleColumnLeft;
     }
 
 

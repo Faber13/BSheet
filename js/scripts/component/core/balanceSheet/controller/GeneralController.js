@@ -23,7 +23,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
         dsd = configurator.getDSD();
         Configurator = configurator;
         ViewGrid.init(  fullTableModel, configurator)
-        var columnsNumber = gridModel[0].length;
+        var columnsNumber = ModelController.getFullColumnsIndexes().length;
         this.createListeners(columnsNumber)
     }
 
@@ -48,6 +48,13 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
                 rowGridIndex = ui.rowIndex;
                 columnGridIndex = ui.colIndex - 1;
                 var indTable = ((ui.rowIndex) * columnsNumber) + (ui.colIndex - 1);
+                if(numberLeftKeyColumns >1){
+                    var indexesObject = ModelController.getIndexesNewFirstColumnLeft();
+                    if(typeof indexesObject[indTable-1] !== 'undefined'){
+                        indTable --;
+                    }
+                }
+
                 var clickedCell = cellTableModel[indTable]
             }
             FormController.init(Configurator, clickedCell, dsd)
@@ -57,7 +64,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
         $("#exportButton").click(function(){
             var ExportControl = new ExportController;
-         // var table = ViewGrid.getModelView();
+            // var table = ViewGrid.getModelView();
             var table = ModelController.getTableDataModel();
             ExportControl.init(table, Configurator)
         })
@@ -83,10 +90,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
                 ViewGrid.updateGridView(newCell, indTable);
             }
             $(document.body).off();
-            debugger;
         })
-
-
     }
 
 

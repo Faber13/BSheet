@@ -5,9 +5,9 @@
 define(["jquery", "configurator/Configurator", "modelController/ModelsController",
     "generalController/GeneralController"], function ($, Configurator, ModelController, GeneralController) {
 
-    var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure2.json"
+    var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json"
 
-    var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration2.json"
+    var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json"
 
     var tableDataModel, gridDataModel, data, dsd, componentConfiguration,
         configurator, indexes, generalController, modelController;
@@ -107,13 +107,12 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         [ "Domestic Utilization", "20140105", 9.30, 'Million tonnes', 'C']
     ]
     data = [
-        [ "Production", "Maize" , "Egypt", "summer", 1000, "Kg", "note"],
-        [ "Production", "Rice" , "Egypt", "summer", 22, "T", "note"],
-        [ "Production", "Wheat" , "Egypt", "summer", 123123, "T", "note"],
-        [ "Production", "Maize" , "Egypt", "winter", 22, "T"],
-        ["AreaHarvested", "Rice" , "Russia", "winter", 2222, "Kg"],
-        ["Production", "Wheat" , "Egypt", "winter", 345435345, "T"],
-        [ "Production", "Rice" , "Egypt", "winter", 1111313, "T"]
+        [ 1, 2 ,11, 21, 22, "T"],
+        [ 1, 3 , 11, 21, 123123, "T"],
+        [2, 2 , 12, 23, 2222, "Kg"],
+        [2, 3 , 12,23, 888, "Kg"],
+        [1, 3 , 11, 22, 345435345, "T"],
+        [1, 3, 11, 23, 1111313, "T"]
     ]
     data2 = [
         [ "Population"  , "20140102", 13000, '1000s' , 'C'],
@@ -158,7 +157,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         })
 
         configurator.init(dsd, componentConfiguration)
-        modelController.init(data3, dsd, componentConfiguration, configurator)
+        modelController.init(data, configurator)
 
         var gridModel = modelController.getGridDataModel()
         var tableModel = modelController.getTableDataModel()

@@ -1,25 +1,27 @@
-define(["jquery"], function($){
+define(["jquery"], function ($) {
 
-    var configurator, fullModel, configurationKeys, valueColumn, indexValues, idOlapGrid, accessorMap;
+    var configurator, fullModel, configurationKeys, valueColumn, indexValues, idOlapGrid, accessorMap, dsd;
 
-    function ViewModel(){}
+    function ViewModel() {
+    }
 
-    ViewModel.prototype.init = function(tableData, Configurator){
+    ViewModel.prototype.init = function (tableData, Configurator) {
 
         configurator = Configurator;
-        fullModel =         Configurator.getAllColumnModels();
-        configurationKeys = Configurator.getKeyColumnConfiguration();
-        valueColumn  =      Configurator.getValueColumnConfiguration();
-        accessorMap =       Configurator.getAccessorMap();
-        indexValues =       Configurator.getValueIndex();
-        idOlapGrid  =       Configurator.getIdOlapGrid();
+        dsd = configurator.getDSD()
+        fullModel = configurator.getAllColumnModels();
+        configurationKeys = configurator.getKeyColumnConfiguration();
+        valueColumn = configurator.getValueColumnConfiguration();
+        accessorMap = configurator.getAccessorMap();
+        indexValues = configurator.getValueIndex();
+        idOlapGrid = configurator.getIdOlapGrid();
         return this.createViewModel(tableData);
 
     }
 
-    ViewModel.prototype.createViewModel = function(tableModel){
+    ViewModel.prototype.createViewModel = function (tableModel) {
         var result = tableModel.slice();
-        for(var i=0; i<tableModel.length; i++){
+        for (var i = 0; i < tableModel.length; i++) {
             var item = tableModel[i];
             result[i] = this.updateItem(item);
         }
@@ -27,31 +29,40 @@ define(["jquery"], function($){
     }
 
 
-    ViewModel.prototype.updateItem = function(item){
+    ViewModel.prototype.updateItem = function (item) {
         var result = item.slice()
         fullModel["upColumnsModel"]["upKeyIndexes"]
-        var  upKeyIndexes       = fullModel["upColumnsModel"]["upKeyIndexes"]
-        var  leftKeyIndexes     = fullModel["leftColumnsModel"]["leftKeyIndexes"];
-        var  leftConf           = configurationKeys["lefKeyColumnConfiguration"];
-        var  upConf             = configurationKeys["upKeyColumnConfiguration"];
+        var upColumns = fullModel["upColumnsModel"];
+        var leftColumns = fullModel["leftColumnsModel"];
+        var upKeyIndexes = fullModel["upColumnsModel"]["upKeyIndexes"];
+        var leftKeyIndexes = fullModel["leftColumnsModel"]["leftKeyIndexes"];
+        var leftConf = configurationKeys["lefKeyColumnConfiguration"];
+        var upConf = configurationKeys["upKeyColumnConfiguration"];
 
         // UpPIVOT
-        for(var i = 0; i< upKeyIndexes.length; i++){
+        for (var i = 0; i < upKeyIndexes.length; i++) {
             var datatype = fullModel["upColumnsModel"]["upColumns"][i].dataTypes;
-            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+            if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
                 result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]], upConf[i], datatype)
-            }else if(datatype == "code" || datatype == "codeList" || datatype == "month" ){
-                result[upKeyIndexes[i]] = this.renderCode(item[upKeyIndexes[i]], upConf[i], datatype)
-                result[upKeyIndexes[i]] = item[upKeyIndexes[i]]
+            } else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
+
+
+                configurator.createMapCodes(upColumns.upColumns[i], upConf[i])
+                var index = configurator.getMapDomainCodesIndexes((upKeyIndexes[i]) + 1);
+
+                var codeMap = configurator.getMapDomainCodes();
+
+                //     result[upKeyIndexes[i]] = this.renderCode(item[upKeyIndexes[i]], upConf[i], datatype)
+                result[upKeyIndexes[i]] = codeMap[index].mapCodeLabel[item[upKeyIndexes[i]]];
             }
         }
         // left KEY
-        for(var i = 0; i< upKeyIndexes.length; i++){
+        for (var i = 0; i < upKeyIndexes.length; i++) {
             // for now simple
             var datatype = fullModel["leftColumnsModel"]["leftColumns"][i].dataTypes;
-            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
+            if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
                 result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
-            }else{
+            } else {
                 result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
             }
         }
@@ -59,7 +70,7 @@ define(["jquery"], function($){
         return result;
     }
 
-    ViewModel.prototype.expressionLanguage = function(columnValue, indexValue, item) {
+    ViewModel.prototype.expressionLanguage = function (columnValue, indexValue, item) {
 
         var conditionRegExpression = /(#(\w+)(\|))/;
         var valuesRegExpression = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
@@ -99,7 +110,7 @@ define(["jquery"], function($){
                     })
                     result += stringAppend;
                 }
-                else{
+                else {
                     expression = expression.replace(valuesRegExpression, "")
                 }
             }
@@ -108,39 +119,44 @@ define(["jquery"], function($){
     }
 
 
-    ViewModel.prototype.renderFormatDate = function(value, configurationKeyColumn, datatype){
+    ViewModel.prototype.renderFormatDate = function (value, configurationKeyColumn, datatype) {
 
         var result;
-        switch (datatype[0]){
+        switch (datatype[0]) {
             case "time":
                 var date = new Date(value);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "month":
-                var year  =  value.substr(0, 4);
-                var month =  value.substr(4,2);
-                var date  =  new Date(year,month-1);
+                var year = value.substr(0, 4);
+                var month = value.substr(4, 2);
+                var date = new Date(year, month - 1);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "year":
                 debugger;
-                var year  =  value.substr(0, 4);
-                var date  =  new Date(year);
+                var year = value.substr(0, 4);
+                var date = new Date(year);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "date":
-                var year  =  value.substr(0, 4);
-                var month =  value.substr(4,2);
-                var day   =  value.substr(6,2);
-                var date  =  new Date(year,month-1,day);
+                var year = value.substr(0, 4);
+                var month = value.substr(4, 2);
+                var day = value.substr(6, 2);
+                var date = new Date(year, month - 1, day);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-
                 break;
+
         }
         return result;
+    }
+
+
+    ViewModel.prototype.renderCode = function (value) {
+
 
     }
 

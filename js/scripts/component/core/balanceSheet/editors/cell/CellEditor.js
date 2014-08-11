@@ -1,7 +1,7 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
+define(["jquery", "jquery.dirtyFields", "timepicker", "infragistics"], function ($) {
 
     // ---------------------- SUPPORT FUNCTIONS -------------------------------------------
 
@@ -73,6 +73,9 @@ define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
             }
         }
 
+        // ----------- VALUE COLUMN ---------------------------------
+        var toAppend = this.chooseInputFormat(columns[valueIndex], 'valueInput',cell[valueIndex])
+
         if(columns[valueIndex].dataTypes !== "boolean") {
             // valueColumn
             $('#form').append("<div class ='row'>" +
@@ -85,7 +88,7 @@ define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
                 "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]+ "</label></div>");
             if( cell[valueIndex]){
                 form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' checked></div>" +
-                "</div><br>")
+                    "</div><br>")
 
             }else{
                 form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' ></div>" +
@@ -137,10 +140,10 @@ define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
             ]
         });
 
-        this.chooseInputFormat(columns[valueIndex], 'valueInput')
-        for (var i = 0; i < accessorIndexes.length; i++) {
-            this.chooseInputFormat(columns[accessorIndexes[i]], 'accessorInput'+i)
-        }
+        this.chooseInputFormat(columns[valueIndex], 'valueInput' )
+        /*for (var i = 0; i < accessorIndexes.length; i++) {
+            this.chooseInputFormat(columns[accessorIndexes[i]], 'accessorInput'+i, cell[accessorIndexes[i]])
+        }*/
         $('#dialogForm').dirtyFields();
     }
 
@@ -179,7 +182,7 @@ define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
     }
 
 
-    CellEditor.prototype.chooseInputFormat = function(column,id){
+    CellEditor.prototype.chooseInputFormat = function(column,id, value){
         switch(column.dataTypes[0]){
             case "date" :
                 $( "#"+id ).datepicker({ altField: "#actualDate" });
@@ -212,7 +215,35 @@ define(["jquery", "jquery.dirtyFields", "timepicker"], function ($) {
             case ("Number" || "enum"):
                 $( "#"+id ).spinner({min: column.domain.period.from, max: column.domain.period.to });
                 break;
+            case ("code"||"codeList"||"customCode"):
+                this.renderComboList(value);
+                break;
         }
+    }
+
+
+    CellEditor.prototype.renderComboList = function(input, cell, dsdInfo){
+        var rowDiv = "<div class ='row'><div class='col-lg-6'><label for='"+input+"Input' ></div>";
+        rowDiv += "<div class='col-lg-6' id='"+input+"Input' ></div>";
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'code' },
+                { name: 'label', map: "title>EN" }
+            ],
+            localdata: dsdInfo
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#"+input+"Input").jqxComboBox({
+            source: dataAdapter ,
+            displayMember: "label",
+            valueMember: "code",
+            width: '200px',
+            height: '25px'
+        })
+
     }
 
 

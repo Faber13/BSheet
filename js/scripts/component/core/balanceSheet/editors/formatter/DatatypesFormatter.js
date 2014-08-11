@@ -25,10 +25,17 @@ define(["jquery", "moment"], function($){
                 case "date":
                    result = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
                     break;
+
                 default :
                    result =  (value !=='undefined')? value : undefined;
             }
         return result;
+    }
+
+
+    DatatypesFormatter.prototype.chooseRightInput =  function(){
+
+
     }
 
 

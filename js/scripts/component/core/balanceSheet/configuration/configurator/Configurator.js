@@ -15,8 +15,9 @@ define(['jquery'], function($){
         lefKeyColumnConfiguration,   // Left key columns on the configuration ordered with DSD
         upKeyColumnConfiguration,    // Up key columns on the configuration ordered with DSD
         indexValueColumns,
-        accessorMap;                 // It is a map with KEYS = titles of accessor fields and
-                                     // VALUES = indexes on the DSD structure
+        accessorMap,                 // It is a map with KEYS = titles of accessor fields and VALUES = indexes on the DSD structure
+        mapCodesLabel,
+        mapCodesIndexes;
 
     function Configurator(){}
 
@@ -37,7 +38,9 @@ define(['jquery'], function($){
         upKeyIndexes = [],
         accessorMap  = {},
         accessorColumns = [];
-        accessorIndexes = []
+        accessorIndexes = [];
+        mapCodesLabel   = [];
+        mapCodesIndexes = {};
 
 
         var configuration= $.extend(true,{},compConfiguration);
@@ -124,9 +127,7 @@ define(['jquery'], function($){
             "accessorColumns" : accessorColumns,
             "accessorIndexes": accessorIndexes
         }
-
         return accessorsObject;
-
     }
 
 
@@ -190,6 +191,56 @@ define(['jquery'], function($){
         var language = compConfiguration.gridConfiguration.generalOptions.language;
         return language;
     }
+
+    Configurator.prototype.createMapCodes = function(columnDsd, compColumn) {
+        var id = compColumn.columnId;
+        var language = this.getComponentLanguage();
+        var map = {'id': id, 'mapCodeLabel': {}}
+
+        if(compColumn.values.dataRepresentation == 'domain'){
+            for(var i =0; i< columnDsd.domain.codes.length; i++){
+                map.mapCodeLabel[columnDsd.domain.codes[i].code.code] = columnDsd.domain.codes[i].code.title[language];
+            }
+        } else if(compColumn.values.dataRepresentation == 'distinct'){
+            for(var i =0; i< columnDsd.values.length; i++){
+                var value = columnDsd.values[i];
+                for(var j =0; j< columnDsd.domain.codes.length; j++){
+                    if(value == columnDsd.domain.codes[j].code.code){
+                        map.mapCodeLabel[value] = columnDsd.domain.codes[j].code.title[language];
+                    }
+                }
+            }
+        }else if(compColumn.values.dataRepresentation == 'hybrid'){
+            if(columnDsd.values.length >0){
+                for(var i =0; i< columnDsd.values.length; i++){
+                    var value = columnDsd.values[i];
+                    for(var j =0; j< columnDsd.domain.codes.length; j++){
+                        if(value == columnDsd.domain.codes[j].code.code){
+                            map.mapCodeLabel[value] = columnDsd.domain.codes[j].code.title[language];
+                        }
+                    }
+                }
+            }
+            else{
+                for(var i =0; i< columnDsd.codes.length; i++){
+                    map.mapCodeLabel[columnDsd.domain.codes[i].code.code] = columnDsd.domain.codes[i].code.title[language];
+                }
+            }
+        }
+        mapCodesIndexes[map.id] =  mapCodesLabel.length;
+        mapCodesLabel.push(map)
+    }
+
+
+    Configurator.prototype.getMapDomainCodes = function(){
+        return mapCodesLabel;
+    }
+
+    Configurator.prototype.getMapDomainCodesIndexes = function(index){
+        debugger;
+        return mapCodesIndexes[index];
+    }
+
 
 
     return Configurator;

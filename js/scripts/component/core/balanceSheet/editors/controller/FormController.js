@@ -1,9 +1,11 @@
 /**
  * Created by fabrizio on 7/29/14.
  */
-define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter"],function($, CellEditor, DatatypeFormatter){
+define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter",
+    "validator/EditorValidator"],function($, CellEditor, DatatypeFormatter, Validator){
 
-    var FormEditor, valueIndex, accessorIndexes, columns, Formatter;
+    var FormEditor, valueIndex, accessorIndexes, columns, Formatter, EditorValidator
+        , configurator;
 
     function FormController(){
 
@@ -17,6 +19,8 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
         columns         = Configurator.getDSD().dsd.columns
         accessorIndexes = Configurator.getDSDAccessorColumns()["accessorIndexes"]
         valueIndex      = Configurator.getValueIndex();
+        EditorValidator = new Validator;
+        configurator    = Configurator;
 
     }
 
@@ -27,7 +31,6 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
         var result = []; // An new empty array
 
         // If something has changed
-        debugger;
         if(this.checkValuesChanged($input)) {
             for (var i = 0, len = cell.length; i < len; i++) {
                 result[i] = cell[i];
@@ -40,7 +43,9 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
                 }
             }
         }
-        $("#dialogForm").dialog('close');
+        if(EditorValidator.init(result, configurator )) {
+            $("#dialogForm").dialog('close');
+        }
         return result;
     }
 

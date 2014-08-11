@@ -109,7 +109,7 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                 ]
             },
             width: "100%",
-            height: "1000"
+            height: "100%"
         });
         console.log("After rendering all grid!!")
     }
@@ -325,7 +325,6 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                 break;
 
             case "year":
-                debugger;
                 var year  =  value.substr(0, 4);
                 var date  =  new Date(year);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
@@ -410,9 +409,7 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                 result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
             }
         }
-
         result[indexValues] = this.expressionLanguage2(valueColumn, indexValues, item);
-
         return result;
 
     }

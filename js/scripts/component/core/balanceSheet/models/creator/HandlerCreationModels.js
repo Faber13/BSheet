@@ -14,7 +14,8 @@ define(["jquery"], function ($) {
         upKeyColumnConfiguration,    // Up key columns on the configuration ordered with DSD
         indexValueColumns,
         configuratorDsd,
-        language
+        language,
+        mapCodesIndex;
 
 
     function HandlerCreationModels() {
@@ -22,6 +23,7 @@ define(["jquery"], function ($) {
 
     HandlerCreationModels.prototype.init = function (Configurator) {
         configuratorDsd = Configurator;
+        mapCodesIndex = [];
         var model = this.createKeyMatrixes()
         return model;
 
@@ -40,8 +42,8 @@ define(["jquery"], function ($) {
         language = configuratorDsd.getComponentLanguage();
 
         var matrixLeft = this.chooseAndCreateByDataRepresentationType("left")
-        var matrixUp = this.chooseAndCreateByDataRepresentationType("up")
-        var matrixAll = this.createBigMatrix(matrixLeft, matrixUp)
+        var matrixUp   = this.chooseAndCreateByDataRepresentationType("up")
+        var matrixAll  = this.createBigMatrix(matrixLeft, matrixUp)
         var model = {
             "matrixLeft": matrixLeft,
             "matrixUp": matrixUp,
@@ -135,11 +137,10 @@ define(["jquery"], function ($) {
                     matrix = this.createMatrixDomainToDomain(versus, keyColumns[0]);
                     break;
                 case "hybrid":
-                    matrix = this.createHybridToDomain(versus, keyColumns[0]);
+                    matrix = this.createMatrixHybridToDomain(versus, keyColumns[0]);
                     break
             }
         }
-
         return matrix
     }
 
@@ -186,6 +187,7 @@ define(["jquery"], function ($) {
 
 
     HandlerCreationModels.prototype.createMatrixDomainToDistinct = function (versus, masterColumn, slaveColumn) {
+
         if (typeof slaveColumn !== 'undefined') {
             return this.createMatrixDomainToDomain(versus, masterColumn, slaveColumn)
         }
@@ -214,6 +216,16 @@ define(["jquery"], function ($) {
 
 
     HandlerCreationModels.prototype.createMatrixDomainToHybrid = function (versus, masterColumn, slaveColumn) {
+
+        if (typeof slaveColumn !== 'undefined') {
+            return this.createMatrixDomainToDomain(versus, masterColumn, slaveColumn)
+        }
+        else  if (slaveColumn.values.length == 0 || typeof slaveColumn.values === 'undefined') {
+            return this.create(versus, masterColumn, slaveColumn)
+        } else {
+            return this.createMatrixDistinctToDistinct(versus, masterColumn, slaveColumn)
+        }
+
 
     }
 
@@ -361,10 +373,11 @@ define(["jquery"], function ($) {
         var array = []
         switch (column.dataTypes[0]) {
 
-            case "code" :
+            case "code" || "customCode" :
                 var codes = column.domain.codes
                 for (var i = 0; i < codes.length; i++) {
-                    array.push(codes[i].code.title[language])
+                    array.push(codes[i].code.code)
+                    mapCodesIndex[codes[i].code.code] = i;
                 }
                 break;
 
@@ -372,13 +385,6 @@ define(["jquery"], function ($) {
                 var codes = column.domain.codes
                 for (var i = 0; i < codes.length; i++) {
                     array.push(codes[i].codeList)
-                }
-                break;
-
-            case "customCode" :
-                var codes = column.domain.codes
-                for (var i = 0; i < codes.length; i++) {
-                    array.push(codes[i].code)
                 }
                 break;
 
@@ -504,6 +510,11 @@ define(["jquery"], function ($) {
         }
 
         return matrix
+    }
+
+
+    HandlerCreationModels.prototype.getCodesMap = function(){
+        return mapCodesIndex;
     }
 
 
