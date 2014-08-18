@@ -146,7 +146,8 @@ define(["jquery" ], function ($) {
 
 
     TableDataModel.prototype.makeOperationsOnFullIndexes = function () {
-        // Sort and unique values
+        // Sort and "set" operations in variables that represent
+        // the rows and columns that have to be represented
 
         fullRows.sort(function (a, b) {
             return a > b ? 1 : a < b ? -1 : 0;
@@ -174,6 +175,7 @@ define(["jquery" ], function ($) {
             var indRow = fullRows[i]
             for (var j = 0; j < fullColumns.length; j++) {
                 var indCol = fullColumns[j]
+
                 // for each value contained into a cell
                 var numberColumns = counterEmptySpaces.columns.length;
                 if (GridDataModel["matrixLeft"][0].length == 2) {
@@ -199,6 +201,24 @@ define(["jquery" ], function ($) {
                         result.push(instanceFullTableData[(numberColumns * indRow) + (indCol)])
                     }
                 }
+            }
+        }
+
+        return result;
+    }
+
+
+
+    // Represent Every rows but only the full columns
+    TableDataModel.prototype.createColumnSparseTableData = function(modelForCreation){
+
+        var result = [];
+        // for each Row
+        for (var i = 0; i < modelForCreation["matrixAll"].length; i++) {
+            for(var j = 0; j<fullColumns.length; j++){
+                var indexColumns = fullColumns[j];
+                var numberColumns = counterEmptySpaces.columns.length;
+                result.push(instanceFullTableData[(numberColumns*i)+indexColumns])
             }
         }
 

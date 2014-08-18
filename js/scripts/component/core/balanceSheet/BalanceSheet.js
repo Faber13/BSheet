@@ -128,6 +128,8 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
     ]
     // -----------------------------------------------------------------------------------------
 
+    ///
+
 
     function BalanceSheet() {
 
