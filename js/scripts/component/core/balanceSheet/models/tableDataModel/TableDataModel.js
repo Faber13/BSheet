@@ -35,7 +35,8 @@ define(["jquery" ], function ($) {
 
 
     TableDataModel.prototype.getTableData = function () {
-        return instanceData
+        var result = instanceData;
+        return result;
     }
 
 
@@ -167,7 +168,6 @@ define(["jquery" ], function ($) {
         if(fullRows.length >0 && fullColumns.length >0) {
             var firstIndex = (counterEmptySpaces.columns.length * fullRows[0]) + fullColumns[0];
             var firstField = instanceFullTableData[firstIndex][0];
-
         }
 
         for (var i = 0; i < fullRows.length; i++) {
@@ -180,7 +180,6 @@ define(["jquery" ], function ($) {
                     if (indRow == 0) {
                         result.push(instanceFullTableData[indCol])
                     } else {
-                        var index = (numberColumns * indRow) + (indCol);
                         var element = instanceFullTableData[(numberColumns * indRow) + (indCol)]
                         if (typeof firstField !== 'undefined' && firstField !== element[0]) {
                             firstField = element[0];

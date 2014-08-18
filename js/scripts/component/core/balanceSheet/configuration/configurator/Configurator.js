@@ -151,7 +151,7 @@ define(['jquery'], function($){
     Configurator.prototype.getKeyColumnConfiguration = function(){
 
         var keyColumnConf = {
-            "lefKeyColumnConfiguration" : lefKeyColumnConfiguration,
+            "leftKeyColumnConfiguration" : lefKeyColumnConfiguration,
             "upKeyColumnConfiguration"  : upKeyColumnConfiguration
         }
 
@@ -239,6 +239,25 @@ define(['jquery'], function($){
     Configurator.prototype.getMapDomainCodesIndexes = function(index){
         debugger;
         return mapCodesIndexes[index];
+    }
+
+    Configurator.prototype.lookForCode = function(id){
+        var result;
+        for(var i =0; i< mapCodesLabel.length; i++){
+            if(mapCodesLabel[i].id == id){
+                result = mapCodesLabel[i];
+            }
+        }
+        return result;
+    }
+
+    Configurator.prototype.getLeftKeyColumnIndexes = function(){
+        return leftKeyIndexes;
+    }
+
+
+    Configurator.prototype.getUpKeyColumnIndexes = function(){
+        return upKeyIndexes;
     }
 
 

@@ -15,7 +15,6 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
        viewModel = new ViewModel;
        table = tableModel;
        Configurator = configurator;
-        debugger;
        language = Configurator.getComponentLanguage();
        this.createFullGrid();
     }
@@ -32,7 +31,7 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
         indexValues =       Configurator.getValueIndex();
         idOlapGrid  =       Configurator.getIdOlapGrid();
         modelView = viewModel.init(table,Configurator)
-       // modelView = this.createViewModel(table);
+        // modelView = this.createViewModel(table);
         this.renderGrid(modelView)
     }
 
@@ -117,7 +116,9 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
 
     GridDataView.prototype.updateGridView = function(newCell, indexCell){
 
-        var cellTransformed = this.transformItem(newCell);
+        debugger;
+
+        var cellTransformed = viewModel.updateItem(newCell)
         modelView[indexCell] = cellTransformed;
 
         dataSource2 = new $.ig.OlapFlatDataSource({
@@ -153,54 +154,6 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
 
         $("#pivotGrid").igPivotGrid("option", "dataSource", dataSource2)
 
-    }
-
-
-    GridDataView.prototype.expressionLanguage = function(columnValue, indexValue){
-
-        var conditionRegExpression = /(#(\w+)(\|))/;
-        var valuesRegExpression    = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
-        var onlyValue              = /(\$\w+)/;
-
-        return function (items, cellMetadata) {
-            var result = "";
-            $.each(items, function (index, item) {
-                var expression = columnValue.label;
-                while(expression != "" && expression != "|") {
-                    var firstCondition = expression.match(conditionRegExpression)[0]
-                    expression = expression.replace(conditionRegExpression, "")
-                    firstCondition = firstCondition.slice(0, -1);
-                    if (firstCondition.substring(1) == "value" ) {
-                        if (typeof item[indexValue] !== 'undefined') {
-                            var secondCondition = expression.match(valuesRegExpression)[0];
-                            expression = expression.replace(valuesRegExpression, "")
-                            secondCondition = secondCondition.slice(0, -1);
-                            var stringAppend = secondCondition.replace(onlyValue, function (match) {
-                                var returnedValue;
-                                returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
-                                return returnedValue;
-                            })
-                            result += stringAppend;
-                        }
-                        else {
-                            break;
-                        }
-                    }
-                    else if(typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
-                        var secondCondition = expression.match(valuesRegExpression)[0];
-                        expression = expression.replace(valuesRegExpression, "")
-                        secondCondition = secondCondition.slice(0, -1);
-                        var stringAppend = secondCondition.replace(onlyValue, function (match) {
-                            var returnedValue;
-                            returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
-                            return returnedValue;
-                        })
-                        result += stringAppend;
-                    }
-                }
-            })
-            return result;
-        }
     }
 
 
@@ -260,17 +213,6 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
     }
 
 
-   /* GridDataView.prototype.createMeasureDimension = function (fullModel) {
-
-        var result = {};
-        var result1 = { caption: "value", name: "value", aggregator: getItem(4) }
-        var indexValue = fullModel["valueColumnsModel"];
-        var accessorModel = fullModel["accessorColumnsModel"]
-        var measures = [];
-
-
-        return measuresDimension;
-    } */
 
 
     GridDataView.prototype.createUpPivotDimension = function (keyColumns, keyColumnConf) {
@@ -367,108 +309,6 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
     GridDataView.prototype.onRemoveColumn = function () {
         //TODO (V2.0)
     }
-
-
-    GridDataView.prototype.createViewModel = function(tableModel){
-        var result = tableModel.slice();
-        for(var i=0; i<tableModel.length; i++){
-
-            var item = tableModel[i];
-            result[i] = this.transformItem(item);
-        }
-        return result;
-
-    }
-
-
-    GridDataView.prototype.transformItem = function(item){
-        var result = item.slice()
-        fullModel["upColumnsModel"]["upKeyIndexes"]
-
-        var  upKeyIndexes       = fullModel["upColumnsModel"]["upKeyIndexes"]
-        var  leftKeyIndexes     = fullModel["leftColumnsModel"]["leftKeyIndexes"];
-        var  leftConf           = configurationKeys["lefKeyColumnConfiguration"];
-        var  upConf             = configurationKeys["upKeyColumnConfiguration"]
-
-        // UpPIVOT
-        for(var i = 0; i< upKeyIndexes.length; i++){
-            var datatype = fullModel["upColumnsModel"]["upColumns"][i].dataTypes;
-            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]], upConf[i], datatype)
-            }else{
-                result[upKeyIndexes[i]] = item[upKeyIndexes[i]]
-            }
-        }
-        // left KEY
-        for(var i = 0; i< upKeyIndexes.length; i++){
-            // for now simple
-            var datatype = fullModel["leftColumnsModel"]["leftColumns"][i].dataTypes;
-            if(datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year"){
-                result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
-            }else{
-                result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
-            }
-        }
-        result[indexValues] = this.expressionLanguage2(valueColumn, indexValues, item);
-        return result;
-
-    }
-
-
-    GridDataView.prototype.expressionLanguage2 = function(columnValue, indexValue, item) {
-
-        var conditionRegExpression = /(#(\w+)(\|))/;
-        var valuesRegExpression = /(((\W)|(\s))*(\$\w+)((\W)|(\s))*(\~))/;
-        var onlyValue = /(\$\w+)/;
-        var result = "";
-
-        var expression = columnValue.label;
-        while (expression != "" && expression != "|") {
-            var firstCondition = expression.match(conditionRegExpression)[0]
-            expression = expression.replace(conditionRegExpression, "")
-            firstCondition = firstCondition.slice(0, -1);
-            if (firstCondition.substring(1) == "value") {
-                if (typeof item[indexValue] !== 'undefined') {
-                    var secondCondition = expression.match(valuesRegExpression)[0];
-                    expression = expression.replace(valuesRegExpression, "")
-                    secondCondition = secondCondition.slice(0, -1);
-                    var stringAppend = secondCondition.replace(onlyValue, function (match) {
-                        var returnedValue;
-                        returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
-                        return returnedValue;
-                    })
-                    result += stringAppend;
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                if (typeof item[accessorMap[firstCondition.substring(1)]] !== 'undefined') {
-                    var secondCondition = expression.match(valuesRegExpression)[0];
-                    expression = expression.replace(valuesRegExpression, "")
-                    secondCondition = secondCondition.slice(0, -1);
-                    var stringAppend = secondCondition.replace(onlyValue, function (match) {
-                        var returnedValue;
-                        returnedValue = (match.substring(1) == "value") ? item[indexValue] : item[accessorMap[match.substring(1)]];
-                        return returnedValue;
-                    })
-                    result += stringAppend;
-                }
-                else{
-                    expression = expression.replace(valuesRegExpression, "")
-                }
-            }
-        }
-
-        return result;
-    }
-
-    GridDataView.prototype.getModelView = function(){
-        var result = modelView;
-        return result;
-    }
-
 
     return GridDataView;
 

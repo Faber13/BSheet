@@ -1,7 +1,9 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery", "jquery.dirtyFields", "timepicker", "infragistics"], function ($) {
+define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "timepicker", "infragistics"], function ($,Formatter) {
+
+    var formatter;
 
     // ---------------------- SUPPORT FUNCTIONS -------------------------------------------
 
@@ -24,11 +26,15 @@ define(["jquery", "jquery.dirtyFields", "timepicker", "infragistics"], function 
 
     CellEditor.prototype.init = function (Configurator, cell, dsd) {
 
+        formatter = new Formatter;
         var columns = dsd.dsd.columns
-        var leftKeyColumnsIndexes = Configurator.getLeftKeyColumn()["leftKeyIndexes"];
-        var upKeyColumnsIndexes   = Configurator.getUpKeyColumn()["upKeyIndexes"];
+        var leftColumns           = Configurator.getLeftKeyColumn();
+        var upColumns             = Configurator.getUpKeyColumn();
+        var leftKeyColumnsIndexes = leftColumns["leftKeyIndexes"];
+        var upKeyColumnsIndexes   = upColumns["upKeyIndexes"];
         var configurationKeys     = Configurator.getKeyColumnConfiguration();
-        var upKeyColumns          = Configurator.getUpKeyColumn()["upColumns"];
+        var upKeyColumns          = upColumns["upColumns"];
+        var leftKeyColumns        = leftColumns["leftColumns"]
         var valueIndex            = Configurator.getValueIndex();
         var accessorIndexes       = Configurator.getDSDAccessorColumns()["accessorIndexes"]
         var language              = Configurator.getComponentLanguage();
@@ -46,32 +52,27 @@ define(["jquery", "jquery.dirtyFields", "timepicker", "infragistics"], function 
         $('#dialogForm').append(form);
         // leftKeyColumns
         for (var i = 0; i < leftKeyColumnsIndexes.length; i++) {
+            debugger;
+            var valueLeft = formatter.renderRightLabelOrFormatView(cell[leftKeyColumnsIndexes[i]] ,configurationKeys["leftKeyColumnConfiguration"][i],
+                leftKeyColumns[i].dataTypes,Configurator)
             $('#form').append("<div class ='row'>" +
                 "<div class='col-lg-6'><label for='leftKeyColumn" + i + "'>" + columns[leftKeyColumnsIndexes[i]].domain.title[language]
                 + "</label></div>" +
-                "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='leftKeyColumn" + i + "'>" + cell[leftKeyColumnsIndexes[i]] + "</p></div>" +
+                "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='leftKeyColumn" + i + "'>" + valueLeft + "</p></div>" +
                 "</div><br>")
         }
         // upKeyColumns
         for (var i = 0; i < upKeyColumnsIndexes.length; i++) {
-            if (upKeyColumns[i].dataTypes == "date" || upKeyColumns[i].dataTypes == "month" || upKeyColumns[i].dataTypes == "time" ||
-                upKeyColumns[i].dataTypes == "year") {
-                var date = this.renderFormatDate(cell[upKeyColumnsIndexes[i]],
-                    configurationKeys["upKeyColumnConfiguration"][i],
-                    upKeyColumns[i].dataTypes)
+
+               var valueUp = formatter.renderRightLabelOrFormatView(cell[upKeyColumnsIndexes[i]] , configurationKeys["upKeyColumnConfiguration"][i] ,
+                   upKeyColumns[i].dataTypes, Configurator  )
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
                     + "</label></div>" +
-                    "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" + date + "</p></div>" +
-                    "</div><br>")
-            } else {
-                $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
-                    + "</label></div>" +
-                    "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" + cell[upKeyColumnsIndexes[i]] + "</p></div>" +
+                    "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" +valueUp + "</p></div>" +
                     "</div><br>")
             }
-        }
+
 
         // ----------- VALUE COLUMN ---------------------------------
         var toAppend = this.chooseInputFormat(columns[valueIndex], 'valueInput',cell[valueIndex])
@@ -184,9 +185,11 @@ define(["jquery", "jquery.dirtyFields", "timepicker", "infragistics"], function 
 
     CellEditor.prototype.chooseInputFormat = function(column,id, value){
         switch(column.dataTypes[0]){
+
             case "date" :
                 $( "#"+id ).datepicker({ altField: "#actualDate" });
                 break;
+
             case "month":
                 $( "#"+id ).datepicker({
                     changeMonth: true,
@@ -203,6 +206,7 @@ define(["jquery", "jquery.dirtyFields", "timepicker", "infragistics"], function 
                     });
                 });
                 break;
+
             case "time":
                 $( "#"+id ).datepicker({ altField: "#actualDate" });
                 break;

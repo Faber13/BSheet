@@ -115,16 +115,16 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         [1, 3, 11, 23, 1111313, "T"]
     ]
     data2 = [
-        [ "Population"  , "20140102", 13000, '1000s' , 'C'],
-        [ "Total Supply", "20140102", 232323, 'Tonn'  , 'D'],
-        [ "Population"  , "20140103", 1302130, '1000s' , 'C']
+        [ 11  , "20140102", 13000, '1000s' , 'C', ''],
+        [ 13, "20140102", 232323, 'Tonn'  , 'D', ''],
+        [ 11  , "20140103", 1302130, '1000s' , 'C', '']
     ]
     data3 = [
-        ["note","20140102",1,'KG','C',"Population"],
-        ["note","20140103",2,'KG','C',"Total Supply"],
-        ["note","20140105",3,'KG','C',"AreaHarvested"],
-        ["note","20140107",4,'KG','C',"Domestic Utilization"],
-        ["note","20140108",5,'KG','C',"Total Utilization"]
+        ["note","20140102",1,'KG','C',11],
+        ["note","20140103",2,'KG','C',13],
+        ["note","20140105",3,'KG','C',16],
+        ["note","20140107",4,'KG','C',14],
+        ["note","20140108",5,'KG','C',16]
     ]
     // -----------------------------------------------------------------------------------------
 
@@ -160,6 +160,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         modelController.init(data, configurator)
 
         var gridModel = modelController.getGridDataModel()
+        debugger;
         var tableModel = modelController.getTableDataModel()
         generalController.init( gridModel, tableModel, configurator, modelController)
 

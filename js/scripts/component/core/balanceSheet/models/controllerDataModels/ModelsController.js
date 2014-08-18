@@ -24,7 +24,6 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         modelForCreation       = CreatorModels.init(configurator)
         instanceGridDataModel  = GridModel.init( modelForCreation, tableData, indexes)
 
-        // Just to try
         TableModel.createFullTableData(modelForCreation)
         var newTable = TableModel.createTableModelFromGrid(instanceGridDataModel);
         TableModel.createSparseTableData(newTable);
@@ -59,7 +58,6 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         // Create a GRid Model
         GridModel.updateModel(cell,rowIndex, columnIndex)
         instanceGridDataModel = GridModel.getGridDataModel();
-
     }
 
 

@@ -1,5 +1,7 @@
 define(["jquery", "moment"], function($){
 
+    var mapLabelToCode = [];
+
     function DatatypesFormatter(){}
 
 
@@ -9,7 +11,6 @@ define(["jquery", "moment"], function($){
 
         var result
             switch (datatype){
-
                 case "month":
                    result = (value !=='undefined')? moment(value).format("YYYYMM"): undefined;
                     break;
@@ -26,6 +27,11 @@ define(["jquery", "moment"], function($){
                    result = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
                     break;
 
+                case "code" || "codeList" || "customCode":
+
+
+                    break;
+
                 default :
                    result =  (value !=='undefined')? value : undefined;
             }
@@ -33,10 +39,58 @@ define(["jquery", "moment"], function($){
     }
 
 
-    DatatypesFormatter.prototype.chooseRightInput =  function(){
+    DatatypesFormatter.prototype.renderRightLabelOrFormatView = function (value, configurationKeyColumn, datatype, configurator) {
 
+        var result;
+        switch (datatype[0]) {
+            case "time":
+                var date = new Date(value);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "month":
+                var year = value.substr(0, 4);
+                var month = value.substr(4, 2);
+                var date = new Date(year, month - 1);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "year":
+                var year = value.substr(0, 4);
+                var date = new Date(year);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "date":
+                var year = value.substr(0, 4);
+                var month = value.substr(4, 2);
+                var day = value.substr(6, 2);
+                var date = new Date(year, month - 1, day);
+                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                break;
+
+            case "code" ||"codeList" || "customCode":
+                var codeToLabel = this.lookForCodeFromLabel(value);
+                var columnsCodes = configurator.lookForCode(configurationKeyColumn.columnId);
+                result = columnsCodes.mapCodeLabel[value];
+                break;
+        }
+        return result;
 
     }
+
+
+    DatatypesFormatter.prototype.lookForCodeFromLabel = function(label){
+        var result;
+        for(var i =0; i<mapLabelToCode.length; i++){
+            if(typeof mapLabelToCode[i].map[label] !== 'undefined'){
+                result = mapLabelToCode[i].map[label]
+            }
+        }
+        return result;
+    }
+
+
 
 
     return DatatypesFormatter;

@@ -36,7 +36,7 @@ define(["jquery"], function ($) {
         var leftColumns = fullModel["leftColumnsModel"];
         var upKeyIndexes = fullModel["upColumnsModel"]["upKeyIndexes"];
         var leftKeyIndexes = fullModel["leftColumnsModel"]["leftKeyIndexes"];
-        var leftConf = configurationKeys["lefKeyColumnConfiguration"];
+        var leftConf = configurationKeys["leftKeyColumnConfiguration"];
         var upConf = configurationKeys["upKeyColumnConfiguration"];
 
         // UpPIVOT
@@ -44,16 +44,17 @@ define(["jquery"], function ($) {
             var datatype = fullModel["upColumnsModel"]["upColumns"][i].dataTypes;
             if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
                 result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]], upConf[i], datatype)
-            } else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
-
-
-                configurator.createMapCodes(upColumns.upColumns[i], upConf[i])
-                var index = configurator.getMapDomainCodesIndexes((upKeyIndexes[i]) + 1);
-
-                var codeMap = configurator.getMapDomainCodes();
-
-                //     result[upKeyIndexes[i]] = this.renderCode(item[upKeyIndexes[i]], upConf[i], datatype)
-                result[upKeyIndexes[i]] = codeMap[index].mapCodeLabel[item[upKeyIndexes[i]]];
+            }
+            else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
+                var columnCodes = configurator.lookForCode(upColumns.upColumns[i].domain.id) ;
+                if(typeof columnCodes === 'undefined') {
+                    configurator.createMapCodes(upColumns.upColumns[i], upConf[i])
+                    columnCodes = configurator.lookForCode(upColumns.upColumns[i].domain.id)
+                }
+                result[upKeyIndexes[i]] = columnCodes.mapCodeLabel[item[upKeyIndexes[i]]]
+            }
+            else {
+                result[upKeyIndexes[i]] = item[upKeyIndexes[i]]
             }
         }
         // left KEY
@@ -62,7 +63,17 @@ define(["jquery"], function ($) {
             var datatype = fullModel["leftColumnsModel"]["leftColumns"][i].dataTypes;
             if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
                 result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
-            } else {
+            }
+            else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
+                var columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id) ;
+                if(typeof columnCodes === 'undefined') {
+                    configurator.createMapCodes(leftColumns.leftColumns[i], leftConf[i])
+                    columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id)
+                }
+
+                result[leftKeyIndexes[i]] = columnCodes.mapCodeLabel[item[leftKeyIndexes[i]]];
+            }
+            else {
                 result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
             }
         }
@@ -136,7 +147,6 @@ define(["jquery"], function ($) {
                 break;
 
             case "year":
-                debugger;
                 var year = value.substr(0, 4);
                 var date = new Date(year);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)

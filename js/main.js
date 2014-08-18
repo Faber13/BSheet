@@ -11,7 +11,8 @@ requirejs.config({
         modelController   :  "../component/core/balanceSheet/models/controllerDataModels",
         editor            :  "../component/core/balanceSheet/editors",
         exporter          :  "../component/core/balanceSheet/exports",
-        validator         :  "../component/core/balanceSheet/validator"
+        validator         :  "../component/core/balanceSheet/validator",
+        formatter         :  "../component/core/balanceSheet/editors/formatter"
     },
     "shim": {
         "bootstrap": {

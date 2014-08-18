@@ -11,13 +11,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
         FormController = new EditorController;
     };
 
-    /* Function that it has to do:
-     1) initialization of the grid view (OK)
-     2) Export of the data
-     3) Manages the communication between different modules
-     */
 
-    // It manages the initialization time of the view
     GeneralController.prototype.init = function ( gridModel, fullTableModel, configurator, modelController) {
         ModelController = modelController;
         dsd = configurator.getDSD();
@@ -30,14 +24,20 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
     GeneralController.prototype.createListeners = function (columnsNumber) {
 
+        // Transform pivotGrid into grid
         var grid = $("#pivotGrid").igPivotGrid("grid");
         var that = this;
 
+        // attach the listener on click
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             // Only the FIRST ROW column indexes start from 2!
+
             var rowGridIndex, columnGridIndex;
-            var cellTableModel =        ModelController.getTableDataModel();
+            var cellTableModel2 =        ModelController.getTableDataModel();
+            var cellTableModel        = $.extend(true, [], cellTableModel2);
+
             var numberLeftKeyColumns =  Configurator.getLeftKeyColumn().leftColumns.length
+            debugger;
             if (ui.rowIndex == 0) {
                 rowGridIndex = 0;
                 columnGridIndex = ui.colIndex - 2;
@@ -50,12 +50,11 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
                 var indTable = ((ui.rowIndex) * columnsNumber) + (ui.colIndex - 1);
                 if(numberLeftKeyColumns >1){
                     var indexesObject = ModelController.getIndexesNewFirstColumnLeft();
-                    if(typeof indexesObject[indTable-1] !== 'undefined'){
+                    if(typeof indexesObject[indTable-1] !== 'undefined' && parseInt((indTable-1)/columnsNumber) == ui.rowIndex ){
                         indTable --;
                     }
                 }
-
-                var clickedCell = cellTableModel[indTable]
+               var clickedCell = cellTableModel[indTable]
             }
             FormController.init(Configurator, clickedCell, dsd)
             that.onclickCell(indTable, clickedCell, rowGridIndex, columnGridIndex);
@@ -85,6 +84,7 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
         $(document.body).on('click', "#saveButton", function (e) {
             var newCell = FormController.getValue(cell)
+            debugger;
             if(newCell.length >0) {
                 ModelController.updateModels(newCell, indTable, rowIndex, columnIndex)
                 ViewGrid.updateGridView(newCell, indTable);

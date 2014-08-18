@@ -10,7 +10,7 @@ define(["jquery"], function ($) {
         upKeyIndexes,               // DSD columns that represent the up key columns
         accessorIndexes,            // Indexes that indicate the position of the accessor column on the data
         accessorColumns,
-        lefKeyColumnConfiguration,   // Left key columns on the configuration ordered with DSD
+        leftKeyColumnConfiguration,   // Left key columns on the configuration ordered with DSD
         upKeyColumnConfiguration,    // Up key columns on the configuration ordered with DSD
         indexValueColumns,
         configuratorDsd,
@@ -36,7 +36,7 @@ define(["jquery"], function ($) {
         upKeyIndexes = configuratorDsd.getUpKeyColumn()["upKeyIndexes"]
         accessorIndexes = configuratorDsd.getDSDAccessorColumns()["accessorColumns"]
         accessorColumns = configuratorDsd.getDSDAccessorColumns()["accessorIndexes"]
-        lefKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["lefKeyColumnConfiguration"]
+        leftKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["leftKeyColumnConfiguration"]
         upKeyColumnConfiguration = configuratorDsd.getKeyColumnConfiguration()["upKeyColumnConfiguration"]
         indexValueColumns = configuratorDsd.getValueIndex();
         language = configuratorDsd.getComponentLanguage();
@@ -60,7 +60,7 @@ define(["jquery"], function ($) {
 
         // Check versus
         if (versus == "left") {
-            dataRepresentation = lefKeyColumnConfiguration;
+            dataRepresentation = leftKeyColumnConfiguration;
             keyColumns = leftKeyColumns;
         }
         else if (versus == "up") {

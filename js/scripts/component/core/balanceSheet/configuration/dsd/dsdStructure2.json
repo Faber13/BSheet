@@ -5,7 +5,6 @@
         "datasource": "",
         "aggregationRules": "",
         "columns": [
-
             {
                 "dimension": {
                     "link": "",
@@ -100,7 +99,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "1",
                                 "title": {
                                     "EN": "Maize",
                                     "FR": ""
@@ -119,7 +118,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "2",
                                 "title": {
                                     "EN": "Rice",
                                     "FR": ""
@@ -382,7 +381,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "11",
                                 "title": {
                                     "EN": "Population",
                                     "FR": ""
@@ -401,7 +400,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "12",
                                 "title": {
                                     "EN": "Unbalanced",
                                     "FR": ""
@@ -420,7 +419,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "13",
                                 "title": {
                                     "EN": "Total Supply",
                                     "FR": ""
@@ -439,7 +438,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "14",
                                 "title": {
                                     "EN": "Domestic Supply",
                                     "FR": ""
@@ -458,7 +457,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "15",
                                 "title": {
                                     "EN": "Opening Stocks",
                                     "FR": ""
@@ -477,7 +476,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "16",
                                 "title": {
                                     "EN": "Production",
                                     "FR": ""
@@ -496,7 +495,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "17",
                                 "title": {
                                     "EN": "AreaHarvested",
                                     "FR": ""
@@ -515,7 +514,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "18",
                                 "title": {
                                     "EN": "Yield",
                                     "FR": ""
@@ -534,7 +533,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "19",
                                 "title": {
                                     "EN": "Imports-ITY",
                                     "FR": ""
@@ -553,7 +552,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "20",
                                 "title": {
                                     "EN": "Imports-NMY",
                                     "FR": ""
@@ -572,7 +571,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "21",
                                 "title": {
                                     "EN": "Total Utilization",
                                     "FR": ""
@@ -591,7 +590,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "22",
                                 "title": {
                                     "EN": "Domestic Utilization",
                                     "FR": ""
@@ -610,7 +609,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "23",
                                 "title": {
                                     "EN": "Food Use",
                                     "FR": ""
@@ -629,7 +628,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "24",
                                 "title": {
                                     "EN": "Feed Use",
                                     "FR": ""
@@ -648,7 +647,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "25",
                                 "title": {
                                     "EN": "Other Uses",
                                     "FR": ""
@@ -667,7 +666,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "26",
                                 "title": {
                                     "EN": "Exports-ITY",
                                     "FR": ""
@@ -686,7 +685,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "27",
                                 "title": {
                                     "EN": "Exports-NMY",
                                     "FR": ""
@@ -705,7 +704,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "28",
                                 "title": {
                                     "EN": "Closing Stock",
                                     "FR": ""
@@ -724,7 +723,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "29",
                                 "title": {
                                     "EN": "OF Which Government",
                                     "FR": ""
@@ -743,7 +742,7 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "30",
                                 "title": {
                                     "EN": "Per Cap. Food Use",
                                     "FR": ""
