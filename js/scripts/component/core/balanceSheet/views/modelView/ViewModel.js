@@ -70,7 +70,6 @@ define(["jquery"], function ($) {
                     configurator.createMapCodes(leftColumns.leftColumns[i], leftConf[i])
                     columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id)
                 }
-
                 result[leftKeyIndexes[i]] = columnCodes.mapCodeLabel[item[leftKeyIndexes[i]]];
             }
             else {

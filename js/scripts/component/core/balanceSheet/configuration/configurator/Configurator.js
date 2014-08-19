@@ -261,6 +261,21 @@ define(['jquery'], function($){
     }
 
 
+    // Get an accessor column from the grid configuration ; @parameter: column id
+    Configurator.prototype.lookForAccessorColumnByIdOnConfiguration = function(id){
+        var result;
+        var found = false
+        var accessorsColumns = compConfiguration.gridConfiguration.otherColumns.accessorsColumns;
+        for(var i=0; i<accessorsColumns.length && !found; i++) {
+            if (accessorsColumns[i].columnId == id) {
+                result = accessorsColumns[i];
+                found = true;
+            }
+        }
+        return result;
+    }
+
+
 
     return Configurator;
 

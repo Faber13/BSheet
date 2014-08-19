@@ -28,8 +28,7 @@ define(["jquery", "moment"], function($){
                     break;
 
                 case "code" || "codeList" || "customCode":
-
-
+                    result =  (value !=='undefined')? value : undefined;
                     break;
 
                 default :

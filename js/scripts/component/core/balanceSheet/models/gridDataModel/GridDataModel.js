@@ -2,7 +2,7 @@
  * Created by fabrizio on 6/27/14.
  */
 
-define(["jquery", "models/gridDataModel/cell/Cell"], function ($, Cell) {
+define(["jquery"], function ($) {
 
     var matrixLeft, matrixUp, matrixAll, instanceGridModel;
 

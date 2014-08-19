@@ -108,7 +108,11 @@
             },
             "accessorsColumns": [
                 {
-                    "columnId": "",
+                    "columnId": "6",
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true
+                    },
                     "properties": ""
                 }
             ]

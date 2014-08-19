@@ -101,7 +101,7 @@
                 "dataTypes": [
                     "code"
                 ],
-                "values": [ "Maize", "Wheat", "Rice"
+                "values": [1,2
                 ],
                 "domain": {
                     "codes": [
@@ -307,7 +307,7 @@
                 "dataTypes": [
                     "code"
                 ],
-                "values": ["summer", "spring","winter"
+                "values": [21,22
 
                 ],
                 "domain": {
@@ -475,7 +475,7 @@
                     }
                 },
                 "dataTypes": [
-                    "string"
+                    "code"
                 ],
                 "values": [
 
@@ -494,9 +494,47 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "1",
+                                "title": {
+                                    "EN": "Kg",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
                                 "title": {
                                     "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "2",
+                                "title": {
+                                    "EN": "Tonn",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "3",
+                                "title": {
+                                    "EN": "PeG",
                                     "FR": ""
                                 }
                             }
@@ -513,8 +551,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "",
-                        "to": ""
+                        "from": "20130210",
+                        "to": "20130215"
                     },
                     "columnLink": "",
                     "key": false,
