@@ -4,7 +4,7 @@
 define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "timepicker", "infragistics", "jqwidgets"],
     function ($,Formatter) {
 
-    var formatter, language;
+    var formatter, language, columns, valueIndex, accessorIndexes;
 
     // ---------------------- SUPPORT FUNCTIONS -------------------------------------------
 
@@ -29,7 +29,7 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
 
         formatter = new Formatter;
         var configuration        = Configurator.getComponentConfigurator();
-        var columns = dsd.dsd.columns
+        columns = dsd.dsd.columns
         var leftColumns           = Configurator.getLeftKeyColumn();
         var upColumns             = Configurator.getUpKeyColumn();
         var leftKeyColumnsIndexes = leftColumns["leftKeyIndexes"];
@@ -37,8 +37,8 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         var configurationKeys     = Configurator.getKeyColumnConfiguration();
         var upKeyColumns          = upColumns["upColumns"];
         var leftKeyColumns        = leftColumns["leftColumns"]
-        var valueIndex            = Configurator.getValueIndex();
-        var accessorIndexes       = Configurator.getDSDAccessorColumns()["accessorIndexes"]
+        valueIndex            = Configurator.getValueIndex();
+        accessorIndexes       = Configurator.getDSDAccessorColumns()["accessorIndexes"]
         language              = Configurator.getComponentLanguage();
 
         var f = document.getElementById("dialogForm");
@@ -46,11 +46,11 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             f.remove()
         }
 
-        var $newdiv1 = $("<div id='dialogForm'></div>");
+        var $newdiv1 = $("<div id='dialogForm' type='hidden'></div>");
         // Only the FIRST ROW column indexes start from 2, it needs to be checked!
         $("#pivotGrid").append($newdiv1)
 
-        var form = ("<form id ='form' role='form' class='col-lg-10'><fieldset>");
+        var form = ("<form id ='form' role='form' class='col-lg-10' type='hidden'><fieldset>");
         $('#dialogForm').append(form);
         // leftKeyColumns
         for (var i = 0; i < leftKeyColumnsIndexes.length; i++) {
@@ -65,21 +65,20 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         }
         // upKeyColumns
         for (var i = 0; i < upKeyColumnsIndexes.length; i++) {
-
-               var valueUp = formatter.renderRightLabelOrFormatView(cell[upKeyColumnsIndexes[i]] , configurationKeys["upKeyColumnConfiguration"][i] ,
+            var valueUp = formatter.renderRightLabelOrFormatView(cell[upKeyColumnsIndexes[i]] , configurationKeys["upKeyColumnConfiguration"][i] ,
                    upKeyColumns[i].dataTypes, Configurator  )
-                $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
-                    + "</label></div>" +
-                    "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" +valueUp + "</p></div>" +
-                    "</div><br>")
+            $('#form').append("<div class ='row'>" +
+                "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
+                + "</label></div>" +
+                "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" +valueUp + "</p></div>" +
+                "</div><br>")
             }
 
 
         // ----------- VALUE COLUMN ---------------------------------
-        var toAppend = this.chooseInputFormat(columns[valueIndex], 'valueInput',cell[valueIndex])
+        var toAppend = this.chooseInputFormat(columns[valueIndex],cell[valueIndex], columns[valueIndex].dataTypes)
 
-        if(columns[valueIndex].dataTypes !== "boolean") {
+        /*if(columns[valueIndex].dataTypes !== "boolean") {
             // valueColumn
             $('#form').append("<div class ='row'>" +
                 "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
@@ -97,7 +96,7 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' ></div>" +
                     "</div><br>")
             }
-        }
+        }*/
         // accessorColumn
         for (var i = 0; i < accessorIndexes.length; i++) {
             var title = columns[accessorIndexes[i]].domain.title[language];
@@ -124,21 +123,12 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             modal: true,
             height: '400',
             width: "300",
-            background: '#FFFFFF',
+            background: '#AAAAA',
             buttons: [
                 {
                     text: 'Save',
-                    id: "saveButton",
-                    click: function () {
-                        if ($.fn.dirtyFields.getDirtyFieldNames($("#dialogForm")).length > 0) {
-                            debugger;
-                            cell[valueIndex] = document.getElementById('valueInput').value;
-                            for (var i = 0; i < accessorIndexes.length; i++) {
-                                debugger;
-                                cell[accessorIndexes[i]] = that.retrieveValueFromCell(columns[accessorIndexes[i]], "accessorInput" + i + "")
-                            }
-                        }
-                    }
+                    id: "saveButton"
+
                 },
                 {
                     text: 'Reset',
@@ -158,10 +148,7 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             }
         });
 
-        this.chooseInputFormat(columns[valueIndex], 'valueInput' )
-        /*for (var i = 0; i < accessorIndexes.length; i++) {
-            this.chooseInputFormat(columns[accessorIndexes[i]], 'accessorInput'+i, cell[accessorIndexes[i]])
-        }*/
+
         $('#dialogForm').dirtyFields();
     }
 
@@ -211,7 +198,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 result = document.getElementById(container).value
                 break;
         }
-        debugger;
         return result;
 
     }
@@ -244,8 +230,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                            var month = value.substr(4, 2);
                            var day = value.substr(6, 4);
                            defaultDate = new Date(year, month-1, day);
-                       } else {
-                           defaultDate = fromDate;
                        }
                    }
                    else{ // else, take defaultDate from the first element of the domain
@@ -263,14 +247,18 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                            var month = value.substr(4, 2);
                            var day = value.substr(6, 4);
                            defaultDate = new Date(year, month-1, day);
-                       } else {
-                           defaultDate = fromDate;
                        }
                    }
+               if(typeof defaultDate === 'undefined'){
+                    defaultDate = null;
+               } 
                $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>");
-               $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' ></div></div></div>");
-               $('#timePicker'+title).jqxDateTimeInput('setMinDate' , fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
+               $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' ></div></div></div><br>");
+               $('#timePicker'+title).jqxDateTimeInput({
+                     formatString: "F",
+                     value: defaultDate
+               })
                break;
 
             case "month":
@@ -293,8 +281,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         defaultDate = new Date(year, month-1);
-                    } else {
-                        defaultDate = fromDate;
                     }
                 }
                 else{ // else, take defaultDate from the first element of the domain
@@ -309,13 +295,15 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         defaultDate = new Date(year, month-1);
-                    } else {
-                        defaultDate = fromDate;
                     }
                 }
+                // set to null for jqwidgets settings
+                if(typeof defaultDate === 'undefined'){
+                    defaultDate = null;
+                } 
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>");
-                $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' />");
+                $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div></div>");
                 $("#jqxdatetimeinput").jqxDateTimeInput('setMinDate' , fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
                 break;
 
@@ -335,8 +323,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     if (typeof value !== 'undefined') {
                         var year = value.substr(0, 4);
                         defaultDate = new Date(year);
-                    } else {
-                        defaultDate = fromDate;
                     }
                 }
                 else{ // else, take defaultDate from the first element of the domain
@@ -349,19 +335,23 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         defaultDate = new Date(year);
-                    } else {
-                        defaultDate = fromDate;
                     }
                 }
+                // set to null for jqwidgets settings 
+                if(typeof defaultDate === 'undefined'){
+                    defaultDate = null;
+               } 
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>");
-                $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' />");
+                $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div><br>");
                 $("#jqxdatetimeinput").jqxDateTimeInput('setMinDate' , fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
                 break;
 
 
             case "date":
                 var defaultDate,fromDate, toDate;
+                // to transform it in a string
+                value +=""
 
                 // if data representation is distinct or hybrid, take the default value from the first element of value
                 if((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
@@ -384,8 +374,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                         var month = value.substr(4, 2);
                         var day = value.substr(6, 4);
                         defaultDate = new Date(year, month-1, day);
-                    } else {
-                        defaultDate = fromDate;
                     }
                 }
                 else{ // else, take defaultDate from the first element of the domain
@@ -398,22 +386,29 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     var dayTo =   dsdColumn.domain.period.to.substr(6, 4);
                     fromDate = new Date(yearFrom, monthFrom-1, dayFrom);
                     toDate   = new Date(yearTo, monthTo-1, dayTo);
-                    if (typeof value !== 'undefined') {
+                    debugger;
+                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date") {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         var day = value.substr(6, 4);
                         defaultDate = new Date(year, month-1, day);
-                    } else {
-                        defaultDate = fromDate;
+                    }else{
+                        defaultDate = null;
                     }
                 }
+                debugger;
+
+                alert(defaultDate)
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>"+
-                    "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div></div>");
+                    "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div></div></div><br>");
                 $("#timePicker"+title).jqxDateTimeInput({
                     value: defaultDate,
                     min : dayFrom,
-                    max : dayTo
+                    max : dayTo,
+                    width: '190px',
+                    height: '20px'
+
                 });
                 break;
 
@@ -451,7 +446,7 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
 
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>"+
-                    "<div class='col-lg-6'><div class = 'input-group-lg' id='accessorInput"+index+"' /></div></div>");
+                    "<div class='col-lg-6'><div class = 'input-group-lg' id='accessorInput"+index+"' /></div></div><br>");
 
                 // comboBox
                $('#accessorInput'+index).jqxComboBox({
@@ -464,14 +459,22 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 })
 
                 break;
+            case "number":
+
+             $('#form').append("<div class ='row'>" +
+                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>"+
+                    "<div class='col-lg-6'><input id='accessorInput"+index+"' value ="+value+" class ='input-group-lg'/></div></div><br>");
+
             default:
+                break;
 
             }
     }
 
 
-    CellEditor.prototype.chooseInputFormat = function(column,id, value){
-        switch(column.dataTypes[0]){
+    CellEditor.prototype.chooseInputFormat = function(column, value, datatype){
+        debugger;
+        switch(datatype[0]){
 
             case "date" :
                 $( "#"+id ).datepicker({ altField: "#actualDate" });
@@ -503,8 +506,17 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             case "boolean":
                 break;
 
-            case ("Number" || "enum"):
-                $( "#"+id ).spinner({min: column.domain.period.from, max: column.domain.period.to });
+            case ("number" || "enum"):
+
+            alert("number")
+                $('#form').append("<div class ='row'>" +
+                    "<div class='col-lg-6'><label for='valueInput'>" + column.domain.title[language]
+                    + "</label></div>" +
+                    "<div class='col-lg-6'><div class='input-group-lg' name='name' id='valueInput'/></div>" +
+                    "</div><br>")
+                    $( "#valueInput" ).jqxNumberInput({ width: '190px', height: '20px', spinButtonsStep: 1, spinButtons: true , inputMode: 'simple', spinMode: 'simple' });
+
+
                 break;
             case ("code"||"codeList"||"customCode"):
 
@@ -512,6 +524,47 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         }
     }
 
+
+
+    /*
+        The following methods are necessary to extract the values from the editor, depending on the
+        datatype associated to
+     */
+    CellEditor.prototype.getValuesFromCellEditor = function() {
+        var array = [];
+        var $input = document.getElementsByClassName('input-group-lg');
+        for(var i =0; i< $input.length; i++){
+            // VALUE column
+            if(i==0){
+                array.push(this.chooseAndGetElementByDatatype(columns[valueIndex].dataTypes, $input[i]))
+            }else{
+                array.push(this.chooseAndGetElementByDatatype(columns[accessorIndexes[i-1]].dataTypes, $input[i]))
+            }
+        }
+        return array;
+    }
+
+
+    CellEditor.prototype.chooseAndGetElementByDatatype = function(datatype, htmlvalue){
+        var result;
+        switch (datatype[0]){
+            case "code" || "customCode" || "codeList":
+                result = htmlvalue.childNodes[1].value;
+                break;
+            // TO FINISH
+            case "date" || "month" || "time" || "year":
+                result = htmlvalue.value;
+
+                break;
+            // TO FINISH
+            case "boolean":
+                break;
+
+            default :
+                result = htmlvalue.value;
+        }
+        return result;
+    }
 
 
 

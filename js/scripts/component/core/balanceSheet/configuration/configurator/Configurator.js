@@ -192,6 +192,8 @@ define(['jquery'], function($){
         return language;
     }
 
+    // create an object with the id of the column and a property that represent a map
+    // between codes and value (in the chosen language)
     Configurator.prototype.createMapCodes = function(columnDsd, compColumn) {
         var id = compColumn.columnId;
         var language = this.getComponentLanguage();
@@ -237,11 +239,10 @@ define(['jquery'], function($){
     }
 
     Configurator.prototype.getMapDomainCodesIndexes = function(index){
-        debugger;
         return mapCodesIndexes[index];
     }
 
-    Configurator.prototype.lookForCode = function(id){
+    Configurator.prototype.lookForCode = function(id){ 
         var result;
         for(var i =0; i< mapCodesLabel.length; i++){
             if(mapCodesLabel[i].id == id){
@@ -274,7 +275,6 @@ define(['jquery'], function($){
         }
         return result;
     }
-
 
 
     return Configurator;

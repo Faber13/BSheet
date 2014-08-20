@@ -14,32 +14,33 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
     }
 
     FormController.prototype.init = function(Configurator, cell, dsd){
-
-        FormEditor.init(Configurator,cell,dsd)
-        columns         = Configurator.getDSD().dsd.columns
-        accessorIndexes = Configurator.getDSDAccessorColumns()["accessorIndexes"]
-        valueIndex      = Configurator.getValueIndex();
-        EditorValidator = new Validator;
         configurator    = Configurator;
+        FormEditor.init(Configurator,cell,dsd)
+        columns         = configurator.getDSD().dsd.columns
+        accessorIndexes = configurator.getDSDAccessorColumns()["accessorIndexes"]
+        valueIndex      = configurator.getValueIndex();
+        EditorValidator = new Validator;
 
     }
 
     FormController.prototype.getValue = function(cell){
 
         var result
-        var $input = document.getElementsByClassName('input-group-lg');
+        var input = FormEditor.getValuesFromCellEditor();
         var result = []; // An new empty array
-        debugger;
 
         // If something has changed
-        if(this.checkValuesChanged($input)) {
+        debugger;
+        if(this.checkValuesChanged(input, cell)) {
             for (var i = 0, len = cell.length; i < len; i++) {
                 result[i] = cell[i];
             }
-            result[valueIndex]   =  Formatter.init(result[valueIndex], columns[valueIndex].dataTypes[0])
+            result[valueIndex]   =  Formatter.init(input[0], columns[valueIndex].dataTypes[0])
             for (var i = 0; i < accessorIndexes.length ; i++) {
+                 var accessorColumnConf = configurator.lookForAccessorColumnByIdOnConfiguration(columns[accessorIndexes[i]].domain.id);
+                 var formatDate = accessorColumnConf.properties.cellProperties.dateFormat;
                  //result[valueIndex] = Formatter.init($input[i].value, columns[valueIndex].dataTypes[0])
-                 result[accessorIndexes[i]] = Formatter.init(result[accessorIndexes[i]], columns[accessorIndexes[i]].dataTypes[0])
+                 result[accessorIndexes[i]] = Formatter.init(input[i+1], columns[accessorIndexes[i]].dataTypes[0], formatDate);
             }
         }
         if(EditorValidator.init(result, configurator )) {
@@ -49,12 +50,20 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
     }
 
 
-    FormController.prototype.checkValuesChanged = function(array){
+    FormController.prototype.checkValuesChanged = function(input, cell){
 
         var changed = false
-        for(var i =0; i< array.length && !changed; i++){
-            if(array[i].value != array[i].defaultValue){
-                changed = true;
+        for(var i =0; i< input.length && !changed; i++){
+            // Value column case
+            if(i ==0) {
+                if (input[i] != cell[valueIndex]) {
+                    changed = true;
+                }
+            // accessor columns case
+            } else {
+                if (input[i] != cell[accessorIndexes[i-1]]) {
+                    changed = true;
+                }
             }
         }
         return changed;

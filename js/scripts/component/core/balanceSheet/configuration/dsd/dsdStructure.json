@@ -568,6 +568,63 @@
                         "FR": ""
                     }
                 }
+            },
+            {
+                "dimension": {
+                    "link": "",
+                    "uid": "",
+                    "title": {
+                        "EN": "updateData",
+                        "FR": ""
+                    }
+                },
+                "dataTypes": [
+                    "date"
+                ],
+                "values": [
+
+                ],
+                "domain": {
+                    "codes": [
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            }
+                        }
+                    ],
+                    "enumeration": "",
+                    "period": {
+                        "from": "20130210",
+                        "to": "20130215"
+                    },
+                    "columnLink": "",
+                    "key": false,
+                    "transposed": true,
+                    "virtual": true,
+                    "id": 7,
+                    "title": {
+                        "EN": "lastUpdate",
+                        "FR": ""
+                    },
+                    "supplemental": {
+                        "EN": "lastUpdate oo",
+                        "FR": ""
+                    }
+                }
             }
 
         ]

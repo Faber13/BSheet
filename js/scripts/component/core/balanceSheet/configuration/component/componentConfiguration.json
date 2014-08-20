@@ -18,7 +18,7 @@
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
-                        "rowProperties": {
+                        "columnProperties": {
                             "dependencyRules": "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
@@ -38,7 +38,7 @@
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
-                        "rowProperties": {
+                        "columnProperties": {
                             "dependencyRules": "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
@@ -100,7 +100,12 @@
                 "properties": {
                     "cellProperties": {
                         "dependencyRule": "",
-                        "label": "",
+                        "dateFormat" : "",
+                        "coloursCharacters": "",
+                        "coloursBackground": ""
+                    },
+                    "columnProperties": {
+                        "dependencyRules": "",
                         "coloursCharacters": "",
                         "coloursBackground": ""
                     }
@@ -113,7 +118,39 @@
                         "dataRepresentation": "domain",
                         "emptyValue": true
                     },
-                    "properties": ""
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "dateFormat" : "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                },
+                {
+                    "columnId": "7",
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "dateFormat" : "DD-MM-YYYY LT",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
                 }
             ]
         },

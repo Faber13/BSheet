@@ -37,7 +37,6 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
             var cellTableModel        = $.extend(true, [], cellTableModel2);
 
             var numberLeftKeyColumns =  Configurator.getLeftKeyColumn().leftColumns.length
-            debugger;
             if (ui.rowIndex == 0) {
                 rowGridIndex = 0;
                 columnGridIndex = ui.colIndex - 2;
@@ -82,14 +81,14 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
     GeneralController.prototype.onclickCell = function (indTable, cell, rowIndex, columnIndex) {
 
-        $(document.body).on('click', "#saveButton", function (e) {
+        $('body').on('click', "#saveButton", function (e) {
+            $('body').off();
             var newCell = FormController.getValue(cell)
-            debugger;
             if(newCell.length >0) {
                 ModelController.updateModels(newCell, indTable, rowIndex, columnIndex)
                 ViewGrid.updateGridView(newCell, indTable);
             }
-            $(document.body).off();
+            //$(document.body).off();
         })
     }
 

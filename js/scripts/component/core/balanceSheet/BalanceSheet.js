@@ -107,12 +107,12 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         [ "Domestic Utilization", "20140105", 9.30, 'Million tonnes', 'C']
     ]
     data = [
-        [ 1, 2 ,11, 21, 22, "T"],
-        [ 1, 3 , 11, 21, 123123, "T"],
-        [2, 2 , 12, 23, 2222, "Kg"],
-        [2, 3 , 12,23, 888, "Kg"],
-        [1, 3 , 11, 22, 345435345, "T"],
-        [1, 3, 11, 23, 1111313, "T"]
+        [ 1, 2 ,11, 21, 22, 1, 20130210],
+        [ 1, 3 , 11, 21, 123123, 2, 20130210],
+        [2, 2 , 12, 23, 2222, 3, 20130211],
+        [2, 3 , 12,23, 888, 1, 20130212],
+        [1, 3 , 11, 22, 345435345, 2, 20130211],
+        [1, 3, 11, 23, 1111313, 3, 20130212]
     ]
     data2 = [
         [ 11  , "20140102", 13000, '1000s' , 'C', ''],
@@ -162,7 +162,6 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
         modelController.init(data, configurator)
 
         var gridModel = modelController.getGridDataModel()
-        debugger;
         var tableModel = modelController.getTableDataModel()
         generalController.init( gridModel, tableModel, configurator, modelController)
 

@@ -1,6 +1,6 @@
 define(["jquery"], function ($) {
 
-    var configurator, fullModel, configurationKeys, valueColumn, indexValues, idOlapGrid, accessorMap, dsd;
+    var configurator, fullModel, configurationKeys, valueColumn, indexValues, idOlapGrid, accessorMap, dsd, accessorModel;
 
     function ViewModel() {
     }
@@ -15,6 +15,8 @@ define(["jquery"], function ($) {
         accessorMap = configurator.getAccessorMap();
         indexValues = configurator.getValueIndex();
         idOlapGrid = configurator.getIdOlapGrid();
+        accessorModel = configurator.getDSDAccessorColumns()
+
         return this.createViewModel(tableData);
 
     }
@@ -76,7 +78,34 @@ define(["jquery"], function ($) {
                 result[leftKeyIndexes[i]] = item[leftKeyIndexes[i]]
             }
         }
-        result[indexValues] = this.expressionLanguage(valueColumn, indexValues, item);
+
+        var accessorIndexes = accessorModel["accessorIndexes"];
+        var accessorColumns = accessorModel["accessorColumns"];
+        // accessor columns
+        for(var i =0; i< accessorIndexes.length; i++) {
+
+            var configurationColumn = configurator.lookForAccessorColumnByIdOnConfiguration(accessorColumns[i].domain.id)
+            var datatype =accessorColumns[i].dataTypes
+            // case of date format
+            if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
+                result[accessorIndexes[i]] = this.renderFormatDate(item[accessorIndexes[i]], configurationColumn, datatype)
+            }
+            // case of code format
+            else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
+                var columnAccessorCodes = configurator.lookForCode(accessorColumns[i].domain.id);
+                if (typeof columnAccessorCodes === 'undefined') {
+                    var configurationColumn = configurator.lookForAccessorColumnByIdOnConfiguration(accessorColumns[i].domain.id)
+                    configurator.createMapCodes(accessorColumns[i], configurationColumn)
+                    columnAccessorCodes = configurator.lookForCode(accessorColumns[i].domain.id)
+                }
+                result[accessorIndexes[i]] = columnAccessorCodes.mapCodeLabel[item[accessorIndexes[i]]]
+            }
+            else {
+                result[accessorIndexes[i]] = item[accessorIndexes[i]]
+            }
+        }
+
+        result[indexValues] = this.expressionLanguage(valueColumn, indexValues, result);
         return result;
     }
 
@@ -139,23 +168,17 @@ define(["jquery"], function ($) {
                 break;
 
             case "month":
-                var year = value.substr(0, 4);
-                var month = value.substr(4, 2);
-                var date = new Date(year, month - 1);
+                var date = (value !=='undefined')? moment(value).format("YYYYMM"): undefined;
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "year":
-                var year = value.substr(0, 4);
-                var date = new Date(year);
+                var date = (value !=='undefined')? moment(value).format("YYYY"): undefined;
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "date":
-                var year = value.substr(0, 4);
-                var month = value.substr(4, 2);
-                var day = value.substr(6, 2);
-                var date = new Date(year, month - 1, day);
+                var date = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
