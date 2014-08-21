@@ -28,9 +28,10 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
         var result
         var input = FormEditor.getValuesFromCellEditor();
         var result = []; // An new empty array
+        console.log("inputttttttttt")
+        console.log(input)
 
         // If something has changed
-        debugger;
         if(this.checkValuesChanged(input, cell)) {
             for (var i = 0, len = cell.length; i < len; i++) {
                 result[i] = cell[i];
@@ -43,6 +44,7 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
                  result[accessorIndexes[i]] = Formatter.init(input[i+1], columns[accessorIndexes[i]].dataTypes[0], formatDate);
             }
         }
+        // validation (TODO)
         if(EditorValidator.init(result, configurator )) {
             $("#dialogForm").dialog('close');
         }

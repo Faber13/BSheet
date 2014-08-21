@@ -277,6 +277,12 @@ define(['jquery'], function($){
     }
 
 
+    // Get the value column on json component configuration
+    Configurator.prototype.getValueColumnOnConfiguration = function(){
+       return compConfiguration.gridConfiguration.otherColumns.valueColumn;
+    }
+
+
     return Configurator;
 
 })

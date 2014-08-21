@@ -24,7 +24,7 @@ define(["jquery", "moment"], function($){
                     break;
 
                 case "date":
-                   result = (value !=='undefined')? moment(value, formatDate).format("YYYYMMDD"): undefined;
+                   result = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
                     break;
 
                 case "code" || "codeList" || "customCode":
@@ -32,7 +32,7 @@ define(["jquery", "moment"], function($){
                     break;
 
                 default :
-                   result =  (value !=='undefined')? value : undefined;
+                   result =  (value !=='undefined' && value !='')? value : undefined;
             }
         return result;
     }

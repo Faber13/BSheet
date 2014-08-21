@@ -297,7 +297,7 @@
                     }
                 },
                 "dataTypes": [
-                    "month"
+                    "code"
                 ],
                 "values": [
 
@@ -307,7 +307,7 @@
                         {
                             "codeList": {
                                 "codeList": "",
-                                "version": "1",
+                                "version": "",
                                 "title": {
                                     "EN": "",
                                     "FR": ""
@@ -316,9 +316,28 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "1",
+                                "title": {
+                                    "EN": "C",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "",
                                 "title": {
                                     "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "2",
+                                "title": {
+                                    "EN": "F",
                                     "FR": ""
                                 }
                             }

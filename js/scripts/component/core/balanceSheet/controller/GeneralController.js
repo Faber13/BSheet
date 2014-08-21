@@ -31,6 +31,8 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
         // attach the listener on click
         $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             // Only the FIRST ROW column indexes start from 2!
+            evt.stopImmediatePropagation()
+            debugger;
 
             var rowGridIndex, columnGridIndex;
             var cellTableModel2 =        ModelController.getTableDataModel();
@@ -56,7 +58,12 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
                var clickedCell = cellTableModel[indTable]
             }
             FormController.init(Configurator, clickedCell, dsd)
-            that.onclickCell(indTable, clickedCell, rowGridIndex, columnGridIndex);
+            $('body').on('click', "#saveButton", function (e) {
+                e.stopImmediatePropagation();
+                $('body').off();
+                alert(indTable)
+                that.onclickCell(indTable, clickedCell, rowGridIndex, columnGridIndex);
+            });
         });
 
 
@@ -81,15 +88,18 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
     GeneralController.prototype.onclickCell = function (indTable, cell, rowIndex, columnIndex) {
 
-        $('body').on('click', "#saveButton", function (e) {
-            $('body').off();
+            alert("onclikcCell")
             var newCell = FormController.getValue(cell)
+            console.log("GENERAL CONTROLLER: new Cell")
+            console.log(newCell)
             if(newCell.length >0) {
+                console.log("*////////////////");
+                console.log(indTable)
                 ModelController.updateModels(newCell, indTable, rowIndex, columnIndex)
                 ViewGrid.updateGridView(newCell, indTable);
             }
             //$(document.body).off();
-        })
+
     }
 
 

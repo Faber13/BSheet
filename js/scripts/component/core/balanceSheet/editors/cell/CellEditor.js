@@ -1,10 +1,9 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "timepicker", "infragistics", "jqwidgets"],
-    function ($,Formatter) {
+define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "timepicker", "infragistics", "jqwidgets"], function ($, Formatter) {
 
-    var formatter, language, columns, valueIndex, accessorIndexes;
+    var formatter, language, columns, valueIndex, accessorIndexes ,mapPreviousValues;
 
     // ---------------------- SUPPORT FUNCTIONS -------------------------------------------
 
@@ -22,24 +21,26 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
     // ------------------------------------------------------------------------------------
 
 
-    function CellEditor() {}
+    function CellEditor() {
+    }
 
 
     CellEditor.prototype.init = function (Configurator, cell, dsd) {
 
         formatter = new Formatter;
-        var configuration        = Configurator.getComponentConfigurator();
+        var configuration = Configurator.getComponentConfigurator();
         columns = dsd.dsd.columns
-        var leftColumns           = Configurator.getLeftKeyColumn();
-        var upColumns             = Configurator.getUpKeyColumn();
+        var leftColumns = Configurator.getLeftKeyColumn();
+        var upColumns = Configurator.getUpKeyColumn();
         var leftKeyColumnsIndexes = leftColumns["leftKeyIndexes"];
-        var upKeyColumnsIndexes   = upColumns["upKeyIndexes"];
-        var configurationKeys     = Configurator.getKeyColumnConfiguration();
-        var upKeyColumns          = upColumns["upColumns"];
-        var leftKeyColumns        = leftColumns["leftColumns"]
-        valueIndex            = Configurator.getValueIndex();
-        accessorIndexes       = Configurator.getDSDAccessorColumns()["accessorIndexes"]
-        language              = Configurator.getComponentLanguage();
+        var upKeyColumnsIndexes = upColumns["upKeyIndexes"];
+        var configurationKeys = Configurator.getKeyColumnConfiguration();
+        var upKeyColumns = upColumns["upColumns"];
+        var leftKeyColumns = leftColumns["leftColumns"]
+        valueIndex = Configurator.getValueIndex();
+        accessorIndexes = Configurator.getDSDAccessorColumns()["accessorIndexes"]
+        language = Configurator.getComponentLanguage();
+        mapPreviousValues = [];
 
         var f = document.getElementById("dialogForm");
         if (f !== null) {
@@ -55,8 +56,8 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         // leftKeyColumns
         for (var i = 0; i < leftKeyColumnsIndexes.length; i++) {
             // show value in right format
-            var valueLeft = formatter.renderRightLabelOrFormatView(cell[leftKeyColumnsIndexes[i]] ,configurationKeys["leftKeyColumnConfiguration"][i],
-                leftKeyColumns[i].dataTypes,Configurator)
+            var valueLeft = formatter.renderRightLabelOrFormatView(cell[leftKeyColumnsIndexes[i]], configurationKeys["leftKeyColumnConfiguration"][i],
+                leftKeyColumns[i].dataTypes, Configurator)
             $('#form').append("<div class ='row'>" +
                 "<div class='col-lg-6'><label for='leftKeyColumn" + i + "'>" + columns[leftKeyColumnsIndexes[i]].domain.title[language]
                 + "</label></div>" +
@@ -65,52 +66,61 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         }
         // upKeyColumns
         for (var i = 0; i < upKeyColumnsIndexes.length; i++) {
-            var valueUp = formatter.renderRightLabelOrFormatView(cell[upKeyColumnsIndexes[i]] , configurationKeys["upKeyColumnConfiguration"][i] ,
-                   upKeyColumns[i].dataTypes, Configurator  )
+            var valueUp = formatter.renderRightLabelOrFormatView(cell[upKeyColumnsIndexes[i]], configurationKeys["upKeyColumnConfiguration"][i],
+                upKeyColumns[i].dataTypes, Configurator)
             $('#form').append("<div class ='row'>" +
                 "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
                 + "</label></div>" +
-                "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" +valueUp + "</p></div>" +
+                "<div class='col-lg-6'><p  class='read-group-lg' name='name' id='upKeyColumn" + i + "'>" + valueUp + "</p></div>" +
                 "</div><br>")
-            }
+        }
 
+
+        var titleVal = columns[valueIndex].domain.title[language];
+        var valueVal = cell[valueIndex];
+        var columnDSDVal = columns[valueIndex];
+        var columnCONFVal = Configurator.getValueColumnOnConfiguration()
+        var containerVal = "valueInput";
 
         // ----------- VALUE COLUMN ---------------------------------
-        var toAppend = this.chooseInputFormat(columns[valueIndex],cell[valueIndex], columns[valueIndex].dataTypes)
+        this.appendRigthInputFormat(titleVal, valueVal, columnDSDVal, columnCONFVal, containerVal);
+
+        //var toAppend = this.chooseInputFormat(columns[valueIndex],cell[valueIndex], columns[valueIndex].dataTypes)
 
         /*if(columns[valueIndex].dataTypes !== "boolean") {
-            // valueColumn
-            $('#form').append("<div class ='row'>" +
-                "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
-                + "</label></div>" +
-                "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "'></div>" +
-                "</div><br>")
-        }else{
-            $('#form').append("<div class ='row'>" +
-                "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]+ "</label></div>");
-            if( cell[valueIndex]){
-                form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' checked></div>" +
-                    "</div><br>")
+         // valueColumn
+         $('#form').append("<div class ='row'>" +
+         "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
+         + "</label></div>" +
+         "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "'></div>" +
+         "</div><br>")
+         }else{
+         $('#form').append("<div class ='row'>" +
+         "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]+ "</label></div>");
+         if( cell[valueIndex]){
+         form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' checked></div>" +
+         "</div><br>")
 
-            }else{
-                form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' ></div>" +
-                    "</div><br>")
-            }
-        }*/
+         }else{
+         form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' ></div>" +
+         "</div><br>")
+         }
+         }*/
         // accessorColumn
         for (var i = 0; i < accessorIndexes.length; i++) {
             var title = columns[accessorIndexes[i]].domain.title[language];
-            var value =  cell[accessorIndexes[i]];
+            var value = cell[accessorIndexes[i]];
             var columnDSD = columns[accessorIndexes[i]];
             var columnCONF = Configurator.lookForAccessorColumnByIdOnConfiguration(columnDSD.domain.id)
+            var container = "accessorInput" + i + "";
 
-            this.appendRigthInputFormat(title,value,columnDSD,columnCONF, i);
+            this.appendRigthInputFormat(title, value, columnDSD, columnCONF, container);
 
-           /* $('#form').append("<div class ='row'>" +
-                "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title[language]
-                + "</label></div>" +
-                "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
-                "</div><br>")*/
+            /* $('#form').append("<div class ='row'>" +
+             "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title[language]
+             + "</label></div>" +
+             "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
+             "</div><br>")*/
         }
         $('#form').append(("</fieldset></form>"))
 
@@ -121,8 +131,8 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             title: 'Editor',
             state: "open",
             modal: true,
-            height: '400',
-            width: "300",
+            height: '500',
+            width: "400",
             background: '#AAAAA',
             buttons: [
                 {
@@ -134,6 +144,38 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     text: 'Reset',
                     id: "resetButton",
                     click: function () {
+
+                        for( key in mapPreviousValues){
+                            var value = mapPreviousValues[key];
+                            for(var container in value){
+                                switch (value[container][1]) {
+                                    case "date":
+                                        var prevValue = value[container][0]
+                                        (prevValue == 'undefined')?  $('#'+container).jqxDateTimeInput('setDate', null):
+                                            $('#' + container).jqxDateTimeInput('setDate', new Date(prevValue))
+                                        break;
+                                    case "boolean":
+                                        $('#'+container).jqxRadioButton('check');
+                                        break
+
+                                    case "code":
+                                        var prevValue = value[container][0]
+                                        (prevValue == 'undefined')?  $('#'+container).jqxComboBox('val', null):
+                                            $('#' + container).jqxComboBox('val', prevValue);
+                                        break
+
+                                    default:
+                                        debugger;
+                                        var prevValue = value[container][0]
+                                        if(typeof prevValue== 'undefined' || prevValue == 'undefined') {
+                                            document.getElementById(container).value = null;
+                                        }else {
+                                            element.value = element.defaultValue;
+                                        }
+                                        break;
+                                }
+                            }
+                        }
                         $.fn.dirtyFields.rollbackForm($("#dialogForm"))
                         var n = document.getElementsByClassName("inputGroups");
                         for (var i in  n) {
@@ -142,9 +184,15 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     }
                 }
             ],
-            create: function(){
+            create: function () {
                 document.getElementById("resetButton").className = "btn btn-primary btn-large";
                 document.getElementById("saveButton").className = "btn btn-danger btn-large";
+            },
+            close: function(){
+                var f = document.getElementById("dialogForm");
+                if (f !== null) {
+                    f.remove()
+                }
             }
         });
 
@@ -187,11 +235,11 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
     }
 
 
-    CellEditor.prototype.retrieveValueFromCell = function( dataType, container){
+    CellEditor.prototype.retrieveValueFromCell = function (dataType, container) {
         var result;
-        switch(dataType.dataTypes[0]){
+        switch (dataType.dataTypes[0]) {
             case "code" || "customCode" || "codeList":
-                result =  document.getElementById(container).childNodes[1].value
+                result = document.getElementById(container).childNodes[1].value
                 break;
 
             default:
@@ -203,224 +251,235 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
     }
 
 
-    CellEditor.prototype.appendRigthInputFormat = function(title, value, dsdColumn, ConfColumn, index){
+    CellEditor.prototype.appendRigthInputFormat = function (title, value, dsdColumn, ConfColumn, container) {
         var result;
         switch (dsdColumn.dataTypes[0]) {
             case "time":
-               var defaultDate,fromDate, toDate;
-
-                   // if data representation is distinct or hybrid, take the default value from the first element of value
-                   if((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
-                       && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length >1 ) {
-                       var maxLength = dsdColumn.values.length;
-                       var yearFrom = dsdColumn.values[0].substr(0, 4);
-                       var yearTo = dsdColumn.values[maxLength-1].substr(0, 4);
-
-                       var monthFrom = dsdColumn.values[0].substr(4, 2);
-                       var monthTo = dsdColumn.values[maxLength-1].substr(4, 2);
-
-                       var dayFrom = dsdColumn.values[0].substr(6, 4);
-                       var dayTo = dsdColumn.values[maxLength-1].substr(6, 4);
-
-                       fromDate = new Date(yearFrom, monthFrom-1, dayFrom);
-                       toDate   = new Date(yearTo, monthTo-1, dayTo);
-                       // if a value exist, take it as default; otherwise, take the first value available
-                       if (typeof value !== 'undefined') {
-                           var year = value.substr(0, 4);
-                           var month = value.substr(4, 2);
-                           var day = value.substr(6, 4);
-                           defaultDate = new Date(year, month-1, day);
-                       }
-                   }
-                   else{ // else, take defaultDate from the first element of the domain
-                       var yearFrom =  dsdColumn.domain.period.from.substr(0, 4);
-                       var monthFrom = dsdColumn.domain.period.from.substr(4, 2);
-                       var dayFrom =   dsdColumn.domain.period.from.substr(6, 4);
-                       // setting the upper bound limit of the date
-                       var yearTo =  dsdColumn.domain.period.to.substr(0, 4);
-                       var monthTo = dsdColumn.domain.period.to.substr(4, 2);
-                       var dayTo =   dsdColumn.domain.period.to.substr(6, 4);
-                       fromDate = new Date(yearFrom, monthFrom-1, dayFrom);
-                       toDate   = new Date(yearTo, monthTo-1, dayTo);
-                       if (typeof value !== 'undefined') {
-                           var year = value.substr(0, 4);
-                           var month = value.substr(4, 2);
-                           var day = value.substr(6, 4);
-                           defaultDate = new Date(year, month-1, day);
-                       }
-                   }
-               if(typeof defaultDate === 'undefined'){
-                    defaultDate = null;
-               } 
-               $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>");
-               $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' ></div></div></div><br>");
-               $('#timePicker'+title).jqxDateTimeInput({
-                     formatString: "F",
-                     value: defaultDate
-               })
-               break;
-
-            case "month":
-                var defaultDate,fromDate, toDate;
+                var defaultDate, fromDate, toDate;
 
                 // if data representation is distinct or hybrid, take the default value from the first element of value
-                if((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
-                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length >1 ) {
+                if ((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
+                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length > 1) {
                     var maxLength = dsdColumn.values.length;
                     var yearFrom = dsdColumn.values[0].substr(0, 4);
-                    var yearTo = dsdColumn.values[maxLength-1].substr(0, 4);
+                    var yearTo = dsdColumn.values[maxLength - 1].substr(0, 4);
 
                     var monthFrom = dsdColumn.values[0].substr(4, 2);
-                    var monthTo = dsdColumn.values[maxLength-1].substr(4, 2);
+                    var monthTo = dsdColumn.values[maxLength - 1].substr(4, 2);
 
-                    fromDate = new Date(yearFrom, monthFrom-1);
-                    toDate   = new Date(yearTo, monthTo-1);
+                    var dayFrom = dsdColumn.values[0].substr(6, 4);
+                    var dayTo = dsdColumn.values[maxLength - 1].substr(6, 4);
+
+                    fromDate = new Date(yearFrom, monthFrom - 1, dayFrom);
+                    toDate = new Date(yearTo, monthTo - 1, dayTo);
                     // if a value exist, take it as default; otherwise, take the first value available
                     if (typeof value !== 'undefined') {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
-                        defaultDate = new Date(year, month-1);
+                        var day = value.substr(6, 4);
+                        defaultDate = new Date(year, month - 1, day);
                     }
                 }
-                else{ // else, take defaultDate from the first element of the domain
-                    var yearFrom =  dsdColumn.domain.period.from.substr(0, 4);
+                else { // else, take defaultDate from the first element of the domain
+                    var yearFrom = dsdColumn.domain.period.from.substr(0, 4);
                     var monthFrom = dsdColumn.domain.period.from.substr(4, 2);
+                    var dayFrom = dsdColumn.domain.period.from.substr(6, 4);
                     // setting the upper bound limit of the date
-                    var yearTo =  dsdColumn.domain.period.to.substr(0, 4);
+                    var yearTo = dsdColumn.domain.period.to.substr(0, 4);
                     var monthTo = dsdColumn.domain.period.to.substr(4, 2);
-                    fromDate = new Date(yearFrom, monthFrom-1, dayFrom);
-                    toDate   = new Date(yearTo, monthTo-1, dayTo);
+                    var dayTo = dsdColumn.domain.period.to.substr(6, 4);
+                    fromDate = new Date(yearFrom, monthFrom - 1, dayFrom);
+                    toDate = new Date(yearTo, monthTo - 1, dayTo);
                     if (typeof value !== 'undefined') {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
-                        defaultDate = new Date(year, month-1);
+                        var day = value.substr(6, 4);
+                        defaultDate = new Date(year, month - 1, day);
+                    }
+                }
+                if (typeof defaultDate === 'undefined') {
+                    defaultDate = null;
+                }
+                $('#form').append("<div class ='row'>" +
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>");
+                $('#form').append("<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' ></div></div></div><br>");
+                $('#timePicker' + title).jqxDateTimeInput({
+                    formatString: "F",
+                    value: defaultDate
+                })
+                var previous = {};
+                previous[container] = [value,"date"];
+                mapPreviousValues.push(previous);
+                break;
+
+            case "month":
+                var defaultDate, fromDate, toDate;
+
+                // if data representation is distinct or hybrid, take the default value from the first element of value
+                if ((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
+                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length > 1) {
+                    var maxLength = dsdColumn.values.length;
+                    var yearFrom = dsdColumn.values[0].substr(0, 4);
+                    var yearTo = dsdColumn.values[maxLength - 1].substr(0, 4);
+
+                    var monthFrom = dsdColumn.values[0].substr(4, 2);
+                    var monthTo = dsdColumn.values[maxLength - 1].substr(4, 2);
+
+                    fromDate = new Date(yearFrom, monthFrom - 1);
+                    toDate = new Date(yearTo, monthTo - 1);
+                    // if a value exist, take it as default; otherwise, take the first value available
+                    if (typeof value !== 'undefined') {
+                        var year = value.substr(0, 4);
+                        var month = value.substr(4, 2);
+                        defaultDate = new Date(year, month - 1);
+                    }
+                }
+                else { // else, take defaultDate from the first element of the domain
+                    var yearFrom = dsdColumn.domain.period.from.substr(0, 4);
+                    var monthFrom = dsdColumn.domain.period.from.substr(4, 2);
+                    // setting the upper bound limit of the date
+                    var yearTo = dsdColumn.domain.period.to.substr(0, 4);
+                    var monthTo = dsdColumn.domain.period.to.substr(4, 2);
+                    fromDate = new Date(yearFrom, monthFrom - 1, dayFrom);
+                    toDate = new Date(yearTo, monthTo - 1, dayTo);
+                    if (typeof value !== 'undefined') {
+                        var year = value.substr(0, 4);
+                        var month = value.substr(4, 2);
+                        defaultDate = new Date(year, month - 1);
                     }
                 }
                 // set to null for jqwidgets settings
-                if(typeof defaultDate === 'undefined'){
+                if (typeof defaultDate === 'undefined') {
                     defaultDate = null;
-                } 
+                }
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>");
-                $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div></div>");
-                $("#jqxdatetimeinput").jqxDateTimeInput('setMinDate' , fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
+                    "<div class='col-lg-6'><label for='valueInput'>" + title + "</label></div>");
+                $('#form').append("<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' /></div></div>");
+                $("#" + container + "").jqxDateTimeInput('setMinDate', fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
+                var previous = {};
+                previous[container] = [value,"date"];
+                mapPreviousValues.push(previous);
                 break;
 
             case "year":
-                var defaultDate,fromDate, toDate;
+                var defaultDate, fromDate, toDate;
 
                 // if data representation is distinct or hybrid, take the default value from the first element of value
-                if((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
-                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length >1 ) {
+                if ((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
+                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length > 1) {
                     var maxLength = dsdColumn.values.length;
                     var yearFrom = dsdColumn.values[0].substr(0, 4);
-                    var yearTo = dsdColumn.values[maxLength-1].substr(0, 4);
+                    var yearTo = dsdColumn.values[maxLength - 1].substr(0, 4);
 
                     fromDate = new Date(yearFrom);
-                    toDate   = new Date(yearTo);
+                    toDate = new Date(yearTo);
                     // if a value exist, take it as default; otherwise, take the first value available
                     if (typeof value !== 'undefined') {
                         var year = value.substr(0, 4);
                         defaultDate = new Date(year);
                     }
                 }
-                else{ // else, take defaultDate from the first element of the domain
-                    var yearFrom =  dsdColumn.domain.period.from.substr(0, 4);
+                else { // else, take defaultDate from the first element of the domain
+                    var yearFrom = dsdColumn.domain.period.from.substr(0, 4);
                     // setting the upper bound limit of the date
-                    var yearTo =  dsdColumn.domain.period.to.substr(0, 4);
+                    var yearTo = dsdColumn.domain.period.to.substr(0, 4);
                     fromDate = new Date(yearFrom);
-                    toDate   = new Date(yearTo);
+                    toDate = new Date(yearTo);
                     if (typeof value !== 'undefined') {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         defaultDate = new Date(year);
                     }
                 }
-                // set to null for jqwidgets settings 
-                if(typeof defaultDate === 'undefined'){
+                // set to null for jqwidgets settings
+                if (typeof defaultDate === 'undefined') {
                     defaultDate = null;
-               } 
+                }
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>");
-                $('#form').append( "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div><br>");
-                $("#jqxdatetimeinput").jqxDateTimeInput('setMinDate' , fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>");
+                $('#form').append("<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' /></div><br>");
+                $("#" + container + "").jqxDateTimeInput('setMinDate', fromDate, 'setMaxDate', toDate, 'setDate', defaultDate);
+                var previous = {};
+                previous[container] = [value,"date"];
+                mapPreviousValues.push(previous);
                 break;
 
 
             case "date":
-                var defaultDate,fromDate, toDate;
+                var defaultDate, fromDate, toDate;
                 // to transform it in a string
-                value +=""
+                value += ""
 
                 // if data representation is distinct or hybrid, take the default value from the first element of value
-                if((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
-                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length >1 ) {
+                if ((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
+                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length > 1) {
                     var maxLength = dsdColumn.values.length;
                     var yearFrom = dsdColumn.values[0].substr(0, 4);
-                    var yearTo = dsdColumn.values[maxLength-1].substr(0, 4);
+                    var yearTo = dsdColumn.values[maxLength - 1].substr(0, 4);
 
                     var monthFrom = dsdColumn.values[0].substr(4, 2);
-                    var monthTo = dsdColumn.values[maxLength-1].substr(4, 2);
+                    var monthTo = dsdColumn.values[maxLength - 1].substr(4, 2);
 
                     var dayFrom = dsdColumn.values[0].substr(6, 4);
-                    var dayTo = dsdColumn.values[maxLength-1].substr(6, 4);
+                    var dayTo = dsdColumn.values[maxLength - 1].substr(6, 4);
 
-                    fromDate = new Date(yearFrom, monthFrom-1, dayFrom);
-                    toDate   = new Date(yearTo, monthTo-1, dayTo);
+                    fromDate = new Date(yearFrom, monthFrom - 1, dayFrom);
+                    toDate = new Date(yearTo, monthTo - 1, dayTo);
                     // if a value exist, take it as default; otherwise, take the first value available
                     if (typeof value !== 'undefined') {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         var day = value.substr(6, 4);
-                        defaultDate = new Date(year, month-1, day);
+                        defaultDate = new Date(year, month - 1, day);
                     }
                 }
-                else{ // else, take defaultDate from the first element of the domain
-                    var yearFrom =  dsdColumn.domain.period.from.substr(0, 4);
+                else { // else, take defaultDate from the first element of the domain
+                    var yearFrom = dsdColumn.domain.period.from.substr(0, 4);
                     var monthFrom = dsdColumn.domain.period.from.substr(4, 2);
-                    var dayFrom =   dsdColumn.domain.period.from.substr(6, 4);
+                    var dayFrom = dsdColumn.domain.period.from.substr(6, 4);
                     // setting the upper bound limit of the date
-                    var yearTo =  dsdColumn.domain.period.to.substr(0, 4);
+                    var yearTo = dsdColumn.domain.period.to.substr(0, 4);
                     var monthTo = dsdColumn.domain.period.to.substr(4, 2);
-                    var dayTo =   dsdColumn.domain.period.to.substr(6, 4);
-                    fromDate = new Date(yearFrom, monthFrom-1, dayFrom);
-                    toDate   = new Date(yearTo, monthTo-1, dayTo);
-                    debugger;
+                    var dayTo = dsdColumn.domain.period.to.substr(6, 4);
+                    fromDate = new Date(yearFrom, monthFrom - 1, dayFrom);
+                    toDate = new Date(yearTo, monthTo - 1, dayTo);
                     if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date") {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         var day = value.substr(6, 4);
-                        defaultDate = new Date(year, month-1, day);
-                    }else{
+                        defaultDate = new Date(year, month - 1, day);
+                    } else {
                         defaultDate = null;
                     }
                 }
-                debugger;
 
-                alert(defaultDate)
+
+
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>"+
-                    "<div class='col-lg-6'><div class = 'input-group-lg' id='timePicker"+title+"' /></div></div></div><br>");
-                $("#timePicker"+title).jqxDateTimeInput({
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>" +
+                    "<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' /></div></div></div><br>");
+                $("#" + container + "").jqxDateTimeInput({
                     value: defaultDate,
-                    min : dayFrom,
-                    max : dayTo,
+                    min: new Date(yearFrom, monthFrom-1, dayFrom),
+                    max: new Date(yearTo, monthTo-1, dayTo),
                     width: '190px',
                     height: '20px'
 
                 });
+                var previous = {};
+                previous[container] = [value,"date"];
+                mapPreviousValues.push(previous);
                 break;
 
             case "code" || "codeList" || "customCode":
                 var codeValue;
                 // Prepare the data for Jqwidgets
                 var data = dsdColumn.domain.codes;
-                var sortedData = data.sort(function(a, b){
+                var sortedData = data.sort(function (a, b) {
 
-                    if ( a.code.title[language] < b.code.title[language] )
+                    if (a.code.title[language] < b.code.title[language])
                         return -1;
-                    if ( a.code.title[language] > b.code.title[language] )
+                    if (a.code.title[language] > b.code.title[language])
                         return 1;
                     return 0;
                 });
@@ -429,14 +488,14 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'code', map:"code>code" },
-                        { name: 'label', map: "code>title>"+language+"" }
+                        { name: 'code', map: "code>code" },
+                        { name: 'label', map: "code>title>" + language + "" }
                     ],
                     localdata: sortedData
                 };
 
-                for(var i = 0; i< sortedData.length; i++){
-                    if(value == sortedData[i].code.code){
+                for (var i = 0; i < sortedData.length; i++) {
+                    if (value == sortedData[i].code.code) {
                         codeValue = i;
                     }
                 }
@@ -445,128 +504,143 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 var dataAdapter = new $.jqx.dataAdapter(source);
 
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>"+
-                    "<div class='col-lg-6'><div class = 'input-group-lg' id='accessorInput"+index+"' /></div></div><br>");
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>" +
+                    "<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' /></div></div><br>");
 
                 // comboBox
-               $('#accessorInput'+index).jqxComboBox({
-                    source: dataAdapter ,
+                $('#' + container + '').jqxComboBox({
+                    source: dataAdapter,
                     displayMember: "label",
                     valueMember: "code",
                     selectedIndex: codeValue,
                     width: '190px',
                     height: '20px'
                 })
+                var previous = {};
+                previous[container] = [value,"code"];
+                mapPreviousValues.push(previous);
 
                 break;
-            case "number":
+            case ("number" || "enum"):
+                var maxLength, numberFrom, numberTo;
+                if ((ConfColumn.values.dataRepresentation == 'distinct' || ConfColumn.values.dataRepresentation == 'hybrid')
+                    && typeof dsdColumn.values !== 'undefined' && dsdColumn.values.length > 1) {
+                     maxLength = dsdColumn.values.length;
+                     numberFrom = dsdColumn.values[0];
+                     numberTo = dsdColumn.values[maxLength - 1];
 
-             $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + title+ "</label></div>"+
-                    "<div class='col-lg-6'><input id='accessorInput"+index+"' value ="+value+" class ='input-group-lg'/></div></div><br>");
+                } else {
+                     numberFrom = dsdColumn.domain.period.from;
+                     numberTo = dsdColumn.domain.period.to;
+                }
+
+                // JQWIDGETS SPINNER
+               /* $('#form').append("<div class ='row'>" +
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title
+                    + "</label></div>" +
+                    "<div class='col-lg-6'><div class='input-group-lg' name='name' id='" + container + "'/></div>" +
+                    "</div><br>")
+                if (numberFrom != '' && numberTo != '') {
+                    $("#" + container + "").jqxNumberInput({ width: '190px', height: '20px', spinButtonsStep: 1, spinButtons: true, inputMode: 'simple', spinMode: 'simple',
+                        min: numberFrom, max: numberTo, value: value });
+                } else {
+                    $("#" + container + "").jqxNumberInput({ width: '190px', height: '20px', spinButtonsStep: 1, spinButtons: true, inputMode: 'simple', spinMode: 'simple',
+                        value: value });
+                }*/
+                $('#form').append("<div class ='row'>" +
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title
+                    + "</label></div>" +
+                    "<div class='col-lg-6'><input type='number' class='input-group-lg' name='name' id='" + container + "' value='" + value +
+                    "' min='"+numberFrom+"' max='"+numberTo+"'  step='any'></div>" +
+                    "</div><br>")
+                var previous = {};
+                previous[container] = [value,"number"];
+                mapPreviousValues.push(previous);
+                break;
+
+            case "boolean":
+
+                console.log("CELL EDITOR: boolean: "+ value)
+                $('#form').append("<div class ='row'>" +
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title
+                    + "</label></div>" +
+                    "<div class ='row'><div class='col-lg-3'><div class='input-group-lg' name='name' id='" + container + "1'/>" +
+                    "</div></div>" +
+                    "<div class ='row'><div class='col-lg-3'></div><div class='col-lg-offset-7'><div class='input-group' name='name' id='" + container + "0'/>" +
+                    "</div></div></div><br>");
+
+                $("#"+container+"1").jqxRadioButton({ width: 120, height: 25 });
+                $("#"+container+"0").jqxRadioButton({ width: 120, height: 25 });
+
+                if(typeof value!='undefined' && value.toString() != "" && value.toString() != "undefined" ) {
+                    alert()
+                    debugger;
+                    var selected = (value) ? "" + container + "1" : "" + container + "0"
+                    $("#" + selected).jqxRadioButton('check')
+                }
+                var previous = {};
+                previous[container+"1"] = [value,"boolean"];
+                mapPreviousValues.push(previous);
+                break;
 
             default:
-                break;
-
-            }
-    }
-
-
-    CellEditor.prototype.chooseInputFormat = function(column, value, datatype){
-        debugger;
-        switch(datatype[0]){
-
-            case "date" :
-                $( "#"+id ).datepicker({ altField: "#actualDate" });
-                break;
-
-            case "month":
-                $( "#"+id ).datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    showButtonPanel: true,
-                    dateFormat: 'MM yy'
-                }).focus(function() {
-                    var thisCalendar = $(this);
-                    $('.ui-datepicker-calendar').detach();
-                    $('.ui-datepicker-close').click(function() {
-                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                        thisCalendar.datepicker('setDate', new Date(year, month, 1));
-                    });
-                });
-                break;
-
-            case "time":
-                $( "#"+id ).datepicker({ altField: "#actualDate" });
-                break;
-            case "year":
-                $( "#"+id ).spinner({min: column.domain.period.from, max: column.domain.period.to });
-                break;
-            case "boolean":
-                break;
-
-            case ("number" || "enum"):
-
-            alert("number")
                 $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='valueInput'>" + column.domain.title[language]
+                    "<div class='col-lg-6'><label for='" + container + "'>" + title
                     + "</label></div>" +
-                    "<div class='col-lg-6'><div class='input-group-lg' name='name' id='valueInput'/></div>" +
+                    "<div class='col-lg-6'><input type='text' class='input-group-lg form-control' name='name' id='" + container + "' value='" + value + "'></div>" +
                     "</div><br>")
-                    $( "#valueInput" ).jqxNumberInput({ width: '190px', height: '20px', spinButtonsStep: 1, spinButtons: true , inputMode: 'simple', spinMode: 'simple' });
-
-
+                var previous = {};
+                previous[container] = [value,"input"];
+                mapPreviousValues.push(previous);
                 break;
-            case ("code"||"codeList"||"customCode"):
 
-                break;
         }
     }
 
 
-
     /*
-        The following methods are necessary to extract the values from the editor, depending on the
-        datatype associated to
+     The following methods are necessary to extract the values from the editor, depending on the
+     datatype associated to
      */
-    CellEditor.prototype.getValuesFromCellEditor = function() {
+    CellEditor.prototype.getValuesFromCellEditor = function () {
         var array = [];
         var $input = document.getElementsByClassName('input-group-lg');
-        for(var i =0; i< $input.length; i++){
+        for (var i = 0; i < $input.length; i++) {
             // VALUE column
-            if(i==0){
+            if (i == 0) {
                 array.push(this.chooseAndGetElementByDatatype(columns[valueIndex].dataTypes, $input[i]))
-            }else{
-                array.push(this.chooseAndGetElementByDatatype(columns[accessorIndexes[i-1]].dataTypes, $input[i]))
+            } else {
+                console.log("----------------")
+                console.log("index is : "+i)
+                console.log("input  is : ")
+                console.log($input)
+
+                console.log("input lenght is : "+$input.length)
+
+                console.log("datatypes is : ")
+                console.log(columns[accessorIndexes[i - 1]].dataTypes)
+                array.push(this.chooseAndGetElementByDatatype(columns[accessorIndexes[i - 1]].dataTypes, $input[i]))
             }
         }
         return array;
     }
 
 
-    CellEditor.prototype.chooseAndGetElementByDatatype = function(datatype, htmlvalue){
+    CellEditor.prototype.chooseAndGetElementByDatatype = function (datatype, htmlvalue) {
         var result;
-        switch (datatype[0]){
+        switch (datatype[0]) {
             case "code" || "customCode" || "codeList":
-                result = htmlvalue.childNodes[1].value;
+                result = $("#" + htmlvalue.id).val();
                 break;
             // TO FINISH
             case "date" || "month" || "time" || "year":
-                result = htmlvalue.value;
-
+                result = $("#" + htmlvalue.id).jqxDateTimeInput('getDate');
                 break;
-            // TO FINISH
-            case "boolean":
-                break;
-
             default :
-                result = htmlvalue.value;
+                result = $("#" + htmlvalue.id).val();
         }
         return result;
     }
-
-
 
 
     return CellEditor;

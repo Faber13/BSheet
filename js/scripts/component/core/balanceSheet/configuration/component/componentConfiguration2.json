@@ -15,6 +15,7 @@
                         "cellProperties": {
                             "dependencyRule": "",
                             "dateFormat" : "",
+                            "numericFormat": "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
@@ -37,6 +38,7 @@
                         "cellProperties": {
                             "dependencyRule": "",
                             "dateFormat" : "DD-MM-YYYY LT",
+                            "numericFormat": "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
                         },
@@ -61,6 +63,7 @@
                     "cellProperties": {
                         "dependencyRule": "",
                         "dateFormat" : "DD-MM-YYYY LT",
+                        "numericFormat": "",
                         "coloursCharacters": "",
                         "coloursBackground": ""
                     }
@@ -68,13 +71,70 @@
             },
             "accessorsColumns": [
                 {
-                    "columnId": "",
+                    "columnId": "1",
+                    "values": {
+                        "dataRepresentation": "",
+                        "emptyValue": true,
+                        "editable": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "dateFormat" : "",
+                            "numericFormat": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                },
+                {
+                    "columnId": "4",
                     "values": {
                         "dataRepresentation": "domain",
                         "emptyValue": true,
-                        "editable" : true
+                        "editable": true
                     },
-                    "properties": ""
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "dateFormat" : "",
+                            "numericFormat": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                },
+                {
+                    "columnId": "5",
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true,
+                        "editable": true
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "dateFormat" : "",
+                            "numericFormat": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
                 }
             ]
         },
