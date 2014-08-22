@@ -82,30 +82,9 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         var columnCONFVal = Configurator.getValueColumnOnConfiguration()
         var containerVal = "valueInput";
 
-        // ----------- VALUE COLUMN ---------------------------------
+        // value column
         this.appendRigthInputFormat(titleVal, valueVal, columnDSDVal, columnCONFVal, containerVal);
 
-        //var toAppend = this.chooseInputFormat(columns[valueIndex],cell[valueIndex], columns[valueIndex].dataTypes)
-
-        /*if(columns[valueIndex].dataTypes !== "boolean") {
-         // valueColumn
-         $('#form').append("<div class ='row'>" +
-         "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]
-         + "</label></div>" +
-         "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "'></div>" +
-         "</div><br>")
-         }else{
-         $('#form').append("<div class ='row'>" +
-         "<div class='col-lg-6'><label for='valueInput'>" + columns[valueIndex].domain.title[language]+ "</label></div>");
-         if( cell[valueIndex]){
-         form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' checked></div>" +
-         "</div><br>")
-
-         }else{
-         form.append("<div class='col-lg-6'><input type='checkbox' class='input-group-lg' name='name' id='valueInput' value='" + cell[valueIndex] + "' ></div>" +
-         "</div><br>")
-         }
-         }*/
         // accessorColumn
         for (var i = 0; i < accessorIndexes.length; i++) {
             var title = columns[accessorIndexes[i]].domain.title[language];
@@ -116,11 +95,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
 
             this.appendRigthInputFormat(title, value, columnDSD, columnCONF, container);
 
-            /* $('#form').append("<div class ='row'>" +
-             "<div class='col-lg-6'><label for='accessorInput" + i + "'>" + columns[accessorIndexes[i]].domain.title[language]
-             + "</label></div>" +
-             "<div class='col-lg-6'><input type='text' class='input-group-lg' name='name' id='accessorInput" + i + "' value='" + cell[accessorIndexes[i]] + "'></div>" +
-             "</div><br>")*/
         }
         $('#form').append(("</fieldset></form>"))
 
@@ -134,60 +108,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             height: '500',
             width: "400",
             background: '#AAAAA',
-            buttons: [
-                {
-                    text: 'Save',
-                    id: "saveButton"
-
-                },
-                {
-                    text: 'Reset',
-                    id: "resetButton",
-                    click: function () {
-
-                        for( key in mapPreviousValues){
-                            var value = mapPreviousValues[key];
-                            for(var container in value){
-                                switch (value[container][1]) {
-                                    case "date":
-                                        var prevValue = value[container][0]
-                                        (prevValue == 'undefined')?  $('#'+container).jqxDateTimeInput('setDate', null):
-                                            $('#' + container).jqxDateTimeInput('setDate', new Date(prevValue))
-                                        break;
-                                    case "boolean":
-                                        $('#'+container).jqxRadioButton('check');
-                                        break
-
-                                    case "code":
-                                        var prevValue = value[container][0]
-                                        (prevValue == 'undefined')?  $('#'+container).jqxComboBox('val', null):
-                                            $('#' + container).jqxComboBox('val', prevValue);
-                                        break
-
-                                    default:
-                                        debugger;
-                                        var prevValue = value[container][0]
-                                        if(typeof prevValue== 'undefined' || prevValue == 'undefined') {
-                                            document.getElementById(container).value = null;
-                                        }else {
-                                            element.value = element.defaultValue;
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                        $.fn.dirtyFields.rollbackForm($("#dialogForm"))
-                        var n = document.getElementsByClassName("inputGroups");
-                        for (var i in  n) {
-                            n[i].val = n[i].defaultValue;
-                        }
-                    }
-                }
-            ],
-            create: function () {
-                document.getElementById("resetButton").className = "btn btn-primary btn-large";
-                document.getElementById("saveButton").className = "btn btn-danger btn-large";
-            },
             close: function(){
                 var f = document.getElementById("dialogForm");
                 if (f !== null) {
@@ -197,7 +117,82 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         });
 
 
-        $('#dialogForm').dirtyFields();
+        debugger;
+
+        $('#dialogForm').append("<br><br><div class='row'><div class='col-lg-5 col-lg-offset-1'>" +
+            "<button class='btn btn-lg btn-danger' id='saveButton'>Save</button></div>" +
+            "<div class='col-lg-2 col-lg-offset-3'><button class='btn btn-primary' id='resetButton'>Reset</button></div></div></div>")
+
+        var that = this;
+        $('#resetButton').on('click',function () {
+          that.restorePreviousValues();
+        })
+
+    }
+
+    // To restore previous values when clicks on reset button
+    CellEditor.prototype.restorePreviousValues = function(){
+        for( key in mapPreviousValues){
+            var value = mapPreviousValues[key];
+            for(var container in value){
+                var prevValue = value[container][0]
+                switch (value[container][1]) {
+                    case "date":
+                        if(typeof prevValue !='undefined' && prevValue != 'undefined'){
+                            switch(prevValue.length){
+                                case (8) :
+                                    var year        = prevValue.substring(0,4);
+                                    var month       = prevValue.substring(4,6);
+                                    var day         = prevValue.substring(6,8);
+                                    var date        = new Date(year, month-1, day);
+                                    // date
+                                    break;
+                                case ( 6) :
+                                    var year        = prevValue.substring(0,4);
+                                    var month       = prevValue.substring(4,6);
+                                    var date        = new Date(year, month-1);
+
+                                case ( 4) :
+                                    // year
+                                    var year        = prevValue.substring(0,4);
+                                    var date        = new Date(year);
+                                    break;
+                                default:
+                                    // time
+                                    var date = new Date(JSON.parse(prevValue));
+                                    break;
+                            }
+                            $('#' + container).jqxDateTimeInput('setDate', date)
+                        }else{
+                            $('#'+container).jqxDateTimeInput('setDate', null)
+                        }
+
+                        break;
+                    case "boolean":
+                        if(typeof prevValue== 'undefined'){
+                            $('#'+container).jqxRadioButton('check');
+                            $('#'+container).jqxRadioButton('uncheck');
+                        }else if(prevValue){
+                            $('#'+container).jqxRadioButton('check');
+                        }else{
+                            $('#'+container).jqxRadioButton('uncheck');
+                        }
+                        break
+
+                    case "code":
+                        (typeof prevValue== 'undefined' || prevValue == 'undefined')?  $('#'+container).jqxComboBox('val', ""):
+                            $('#' + container).jqxComboBox('val', prevValue);
+                        break
+
+                    default:
+                        debugger;
+                        var rightValue = (typeof prevValue== 'undefined' || prevValue == 'undefined')?
+                            "" : prevValue;
+                        document.getElementById(container).value = rightValue;
+                        break;
+                }
+            }
+        }
     }
 
 
@@ -253,6 +248,7 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
 
     CellEditor.prototype.appendRigthInputFormat = function (title, value, dsdColumn, ConfColumn, container) {
         var result;
+
         switch (dsdColumn.dataTypes[0]) {
             case "time":
                 var defaultDate, fromDate, toDate;
@@ -404,7 +400,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 mapPreviousValues.push(previous);
                 break;
 
-
             case "date":
                 var defaultDate, fromDate, toDate;
                 // to transform it in a string
@@ -453,8 +448,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     }
                 }
 
-
-
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>" +
                     "<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' /></div></div></div><br>");
@@ -464,16 +457,22 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     max: new Date(yearTo, monthTo-1, dayTo),
                     width: '190px',
                     height: '20px'
-
                 });
+
+                // Disable the selection if it is not configured
+                if(!ConfColumn.values.editable)
+                    $('#' + container + '').jqxDateTimeInput({disabled: false});
+
+                // To mantain in memory the original value
                 var previous = {};
                 previous[container] = [value,"date"];
                 mapPreviousValues.push(previous);
+
                 break;
 
             case "code" || "codeList" || "customCode":
                 var codeValue;
-                // Prepare the data for Jqwidgets
+                // Prepare the data for Jqwidgets and sort by label
                 var data = dsdColumn.domain.codes;
                 var sortedData = data.sort(function (a, b) {
 
@@ -499,8 +498,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                         codeValue = i;
                     }
                 }
-
-
                 var dataAdapter = new $.jqx.dataAdapter(source);
 
                 $('#form').append("<div class ='row'>" +
@@ -516,6 +513,10 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     width: '190px',
                     height: '20px'
                 })
+                // Disable the selection if it is not configured
+                if(!ConfColumn.values.editable)
+                    $('#' + container + '').jqxComboBox({enableSelection:false});
+
                 var previous = {};
                 previous[container] = [value,"code"];
                 mapPreviousValues.push(previous);
@@ -547,12 +548,21 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     $("#" + container + "").jqxNumberInput({ width: '190px', height: '20px', spinButtonsStep: 1, spinButtons: true, inputMode: 'simple', spinMode: 'simple',
                         value: value });
                 }*/
-                $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='" + container + "'>" + title
-                    + "</label></div>" +
-                    "<div class='col-lg-6'><input type='number' class='input-group-lg' name='name' id='" + container + "' value='" + value +
-                    "' min='"+numberFrom+"' max='"+numberTo+"'  step='any'></div>" +
-                    "</div><br>")
+                if(ConfColumn.values.editable) {
+                    $('#form').append("<div class ='row'>" +
+                        "<div class='col-lg-6'><label for='" + container + "'>" + title
+                        + "</label></div>" +
+                        "<div class='col-lg-6'><input type='number' class='input-group-lg' name='name' id='" + container + "' value='" + value +
+                        "' min='" + numberFrom + "' max='" + numberTo + "'  step='any'></div>" +
+                        "</div><br>")
+                }else{
+                    $('#form').append("<div class ='row'>" +
+                        "<div class='col-lg-6'><label for='" + container + "'>" + title
+                        + "</label></div>" +
+                        "<div class='col-lg-6'><input type='number' class='input-group-lg' name='name' id='" + container + "' value='" + value +
+                        "' min='" + numberFrom + "' max='" + numberTo + "'  step='any' readonly></div>" +
+                        "</div><br>")
+                }
                 var previous = {};
                 previous[container] = [value,"number"];
                 mapPreviousValues.push(previous);
@@ -560,40 +570,51 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
 
             case "boolean":
 
-                console.log("CELL EDITOR: boolean: "+ value)
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='" + container + "'>" + title
                     + "</label></div>" +
-                    "<div class ='row'><div class='col-lg-3'><div class='input-group-lg' name='name' id='" + container + "1'/>" +
+                    "<div class='col-lg-3'><div class='input-group-lg' name='name' id='" + container + "1'>True" +
                     "</div></div>" +
-                    "<div class ='row'><div class='col-lg-3'></div><div class='col-lg-offset-7'><div class='input-group' name='name' id='" + container + "0'/>" +
+                    "<div class='col-lg-3'><div class='input-group' name='name' id='" + container + "0'>False" +
                     "</div></div></div><br>");
+                var trueId = container+"1"
+                var falseId = container+"0"
 
-                $("#"+container+"1").jqxRadioButton({ width: 120, height: 25 });
-                $("#"+container+"0").jqxRadioButton({ width: 120, height: 25 });
+                $("#"+trueId).jqxRadioButton({ width: 120, height: 25 });
+                $("#"+falseId).jqxRadioButton({ width: 120, height: 25 });
 
                 if(typeof value!='undefined' && value.toString() != "" && value.toString() != "undefined" ) {
-                    alert()
-                    debugger;
-                    var selected = (value) ? "" + container + "1" : "" + container + "0"
+                    var selected = (value) ? "" +trueId : "" + falseId
                     $("#" + selected).jqxRadioButton('check')
                 }
+                if(!ConfColumn.values.editable) {
+                    $("#" + trueId).jqxRadioButton('disable');
+                    $("#" + falseId).jqxRadioButton('disable');
+                }
                 var previous = {};
-                previous[container+"1"] = [value,"boolean"];
+                // Push only the node with true on the map
+                previous[trueId] = [value,"boolean"];
                 mapPreviousValues.push(previous);
                 break;
 
             default:
-                $('#form').append("<div class ='row'>" +
-                    "<div class='col-lg-6'><label for='" + container + "'>" + title
-                    + "</label></div>" +
-                    "<div class='col-lg-6'><input type='text' class='input-group-lg form-control' name='name' id='" + container + "' value='" + value + "'></div>" +
-                    "</div><br>")
+                if(ConfColumn.values.editable) {
+                    $('#form').append("<div class ='row'>" +
+                        "<div class='col-lg-6'><label for='" + container + "'>" + title
+                        + "</label></div>" +
+                        "<div class='col-lg-6'><input type='text' class='input-group-lg form-control' name='name' id='" + container + "' value='" + value + "'></div>" +
+                        "</div><br>")
+                }else{
+                    $('#form').append("<div class ='row'>" +
+                        "<div class='col-lg-6'><label for='" + container + "'>" + title
+                        + "</label></div>" +
+                        "<div class='col-lg-6'><input type='text' class='input-group-lg form-control' name='name' id='" + container + "' value='" + value + "' readonly></div>" +
+                        "</div><br>")
+                }
                 var previous = {};
-                previous[container] = [value,"input"];
+                previous[container] = [value, "input"];
                 mapPreviousValues.push(previous);
                 break;
-
         }
     }
 
@@ -610,15 +631,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             if (i == 0) {
                 array.push(this.chooseAndGetElementByDatatype(columns[valueIndex].dataTypes, $input[i]))
             } else {
-                console.log("----------------")
-                console.log("index is : "+i)
-                console.log("input  is : ")
-                console.log($input)
-
-                console.log("input lenght is : "+$input.length)
-
-                console.log("datatypes is : ")
-                console.log(columns[accessorIndexes[i - 1]].dataTypes)
                 array.push(this.chooseAndGetElementByDatatype(columns[accessorIndexes[i - 1]].dataTypes, $input[i]))
             }
         }
@@ -635,6 +647,15 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             // TO FINISH
             case "date" || "month" || "time" || "year":
                 result = $("#" + htmlvalue.id).jqxDateTimeInput('getDate');
+                break;
+            case "boolean":
+
+                if(!$("#" + htmlvalue.id).val()){
+                    var other = htmlvalue.id.replace("1","0")
+                    result = ($("#" +other).val()) ? false : undefined;
+                }else{
+                    result = true;
+                }
                 break;
             default :
                 result = $("#" + htmlvalue.id).val();

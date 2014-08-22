@@ -5,7 +5,7 @@
 define(["jquery" ], function ($) {
 
     var instanceData, Configurator, instanceFullTableData, counterEmptySpaces,
-        fullRows, fullColumns, indexesDoubleColumnLeft;
+        fullRows, fullColumns, indexesDoubleColumnLeft, originalData, leftIndexes, upIndexes;
 
     // -------------------- SET OPERATIONS --------------------------------------
 
@@ -30,6 +30,7 @@ define(["jquery" ], function ($) {
 
     TableDataModel.prototype.init = function (data, configurator) {
         instanceData = data;
+        originalData =$.extend(true, [], data)
         Configurator = configurator;
     }
 
@@ -54,8 +55,8 @@ define(["jquery" ], function ($) {
         fullRows = [];
 
         var dsdColumns = Configurator.getAllColumnModels();
-        var leftIndexes = dsdColumns["leftColumnsModel"]["leftKeyIndexes"]
-        var upIndexes = dsdColumns["upColumnsModel"]["upKeyIndexes"]
+        leftIndexes = dsdColumns["leftColumnsModel"]["leftKeyIndexes"]
+        upIndexes = dsdColumns["upColumnsModel"]["upKeyIndexes"]
         var accessorIndexes = dsdColumns["accessorColumnsModel"]["accessorIndexes"];
         var valueIndexes = dsdColumns["valueColumnsModel"]
         var table = []
@@ -227,7 +228,45 @@ define(["jquery" ], function ($) {
 
 
     TableDataModel.prototype.updateTableData = function (value, index) {
+        alert("SAVEING DATA!!!")
+        debugger;
         instanceData[index] = value;
+        // new Data To Save!!
+        var indexRow = this.findIfUpdateOrNewValue(value)
+        if(typeof indexRow =='undefined'){
+            originalData.push(value);
+        }else{
+            originalData[indexRow] = value;
+        }
+        alert("SAVEDDDDD")
+        debugger;
+    }
+
+
+    TableDataModel.prototype.findIfUpdateOrNewValue = function(value){
+        var indexRow;
+        var allKeyIndexes = leftIndexes.concat(upIndexes);
+        var found = false;
+        alert("FINDDD")
+        debugger;
+        for(var i =0; i< originalData.length && !found; i++){
+            var row = originalData[i];
+            if(value[allKeyIndexes[0]] == row[allKeyIndexes[0]]){
+                var semiFound =true;
+                for(var j =1; j< allKeyIndexes.length  && semiFound;j++){
+                    if(value[allKeyIndexes[j]] != row[allKeyIndexes[j]]){
+                        semiFound = false;
+                    }else{
+                        if(semiFound && j== allKeyIndexes.length -1){
+                            indexRow = i;
+                            found = true;
+                        }
+                    }
+                }
+
+            }
+        }
+        return indexRow;
     }
 
 

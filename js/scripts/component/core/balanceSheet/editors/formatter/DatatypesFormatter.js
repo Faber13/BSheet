@@ -12,24 +12,32 @@ define(["jquery", "moment"], function($){
         var result
             switch (datatype){
                 case "month":
-                   result = (value !=='undefined')? moment(value, formatDate).format("YYYYMM"): undefined;
+                   result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value, formatDate).format("YYYYMM"): undefined;
                     break;
 
                 case "year" :
-                   result = (value !=='undefined')? moment(value, formatDate).format("YYYY"): undefined;
+                   result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value, formatDate).format("YYYY"): undefined;
                    break;
 
                 case "time" :
-                   result = (value !=='undefined')? moment(value, formatDate).toJSON() : undefined;
+                   result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value, formatDate).toJSON() : undefined;
                     break;
 
                 case "date":
-                   result = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
+
+                    result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value).format("YYYYMMDD"): undefined;
                     break;
 
                 case "code" || "codeList" || "customCode":
                     result =  (value !=='undefined')? value : undefined;
                     break;
+
+                case "boolean":
+                    if(typeof  result == 'undefined' || result == 'undefined'){
+                        result = undefined;
+                    }else{
+                        result = value;
+                    }
 
                 default :
                    result =  (value !=='undefined' && value !='')? value : undefined;

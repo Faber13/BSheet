@@ -16,7 +16,6 @@ define(["jquery"], function ($) {
         indexValues = configurator.getValueIndex();
         idOlapGrid = configurator.getIdOlapGrid();
         accessorModel = configurator.getDSDAccessorColumns()
-
         return this.createViewModel(tableData);
 
     }
@@ -178,20 +177,12 @@ define(["jquery"], function ($) {
                 break;
 
             case "date":
-                debugger;
                 var date = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
-
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
         }
         return result;
-    }
-
-
-    ViewModel.prototype.renderCode = function (value) {
-
-
     }
 
     return ViewModel;

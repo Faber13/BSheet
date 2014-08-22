@@ -145,7 +145,7 @@
                     "values": {
                         "dataRepresentation": "domain",
                         "emptyValue": true,
-                        "editable": true
+                        "editable": false
                     },
                     "properties": {
                         "cellProperties": {

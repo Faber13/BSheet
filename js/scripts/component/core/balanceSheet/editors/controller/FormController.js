@@ -2,69 +2,88 @@
  * Created by fabrizio on 7/29/14.
  */
 define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter",
-    "validator/EditorValidator"],function($, CellEditor, DatatypeFormatter, Validator){
+    "validator/EditorValidator"], function ($, CellEditor, DatatypeFormatter, Validator) {
 
     var FormEditor, valueIndex, accessorIndexes, columns, Formatter, EditorValidator
         , configurator;
 
-    function FormController(){
+    function FormController() {
 
         FormEditor = new CellEditor;
-        Formatter  = new DatatypeFormatter;
+        Formatter = new DatatypeFormatter;
     }
 
-    FormController.prototype.init = function(Configurator, cell, dsd){
-        configurator    = Configurator;
-        FormEditor.init(Configurator,cell,dsd)
-        columns         = configurator.getDSD().dsd.columns
+    FormController.prototype.init = function (Configurator, cell, dsd) {
+        configurator = Configurator;
+        FormEditor.init(Configurator, cell, dsd)
+        columns = configurator.getDSD().dsd.columns
         accessorIndexes = configurator.getDSDAccessorColumns()["accessorIndexes"]
-        valueIndex      = configurator.getValueIndex();
+        valueIndex = configurator.getValueIndex();
         EditorValidator = new Validator;
 
     }
 
-    FormController.prototype.getValue = function(cell){
+    FormController.prototype.getValue = function (cell) {
 
         var result
         var input = FormEditor.getValuesFromCellEditor();
         var result = []; // An new empty array
-        console.log("inputttttttttt")
-        console.log(input)
 
         // If something has changed
-        if(this.checkValuesChanged(input, cell)) {
+        if (this.checkValuesChanged(input, cell)) {
             for (var i = 0, len = cell.length; i < len; i++) {
                 result[i] = cell[i];
             }
-            result[valueIndex]   =  Formatter.init(input[0], columns[valueIndex].dataTypes[0])
-            for (var i = 0; i < accessorIndexes.length ; i++) {
-                 var accessorColumnConf = configurator.lookForAccessorColumnByIdOnConfiguration(columns[accessorIndexes[i]].domain.id);
-                 var formatDate = accessorColumnConf.properties.cellProperties.dateFormat;
-                 //result[valueIndex] = Formatter.init($input[i].value, columns[valueIndex].dataTypes[0])
-                 result[accessorIndexes[i]] = Formatter.init(input[i+1], columns[accessorIndexes[i]].dataTypes[0], formatDate);
+            result[valueIndex] = Formatter.init(input[0], columns[valueIndex].dataTypes[0])
+            for (var i = 0; i < accessorIndexes.length; i++) {
+                var accessorColumnConf = configurator.lookForAccessorColumnByIdOnConfiguration(columns[accessorIndexes[i]].domain.id);
+                var formatDate = accessorColumnConf.properties.cellProperties.dateFormat;
+                //result[valueIndex] = Formatter.init($input[i].value, columns[valueIndex].dataTypes[0])
+                result[accessorIndexes[i]] = Formatter.init(input[i + 1], columns[accessorIndexes[i]].dataTypes[0], formatDate);
             }
         }
         // validation (TODO)
-        if(EditorValidator.init(result, configurator )) {
+        if (EditorValidator.init(result, configurator)) {
             $("#dialogForm").dialog('close');
         }
         return result;
     }
 
 
-    FormController.prototype.checkValuesChanged = function(input, cell){
+    FormController.prototype.checkValuesChanged = function (input, cell) {
 
+        alert("checking")
+        debugger;
         var changed = false
-        for(var i =0; i< input.length && !changed; i++){
+        for (var i = 0; i < input.length && !changed; i++) {
             // Value column case
-            if(i ==0) {
-                if (input[i] != cell[valueIndex]) {
-                    changed = true;
+            if (i == 0) {
+                if (typeof cell[valueIndex] == 'undefined') {
+                    changed = (input[i] != "");
+                } else {
+                    changed = (input[i] != cell[valueIndex])
                 }
+            }
             // accessor columns case
-            } else {
-                if (input[i] != cell[accessorIndexes[i-1]]) {
-                    changed = true;
+            else {
+                // case where there is not an instance of the accessor value in the original cell
+                if (typeof cell[accessorIndexes[i - 1]] == 'undefined') {
+                    if (typeof input[i] == 'boolean') {
+                        debugger;
+                        changed =  typeof input[i] != 'undefined' && input[i] != null
+                    } else {
+                        changed = ((typeof input[i] != 'undefined' ) && (input[i] != "") && (input[i] != null));
+                    }
+                }
+                else {
+                    if (input[i] instanceof Date) {
+                        var accessorColumnConf = configurator.lookForAccessorColumnByIdOnConfiguration(columns[accessorIndexes[i]].domain.id);
+                        var formatDate = accessorColumnConf.properties.cellProperties.dateFormat;
+                        var dateFormatted = Formatter.init(input[i], columns[accessorIndexes[i - 1]].dataTypes[0], formatDate);
+                        changed = (dateFormatted != cell[accessorIndexes[i - 1]])
+                    } else {
+                        changed = (input[i] != cell[accessorIndexes[i - 1]])
+                    }
                 }
             }
         }

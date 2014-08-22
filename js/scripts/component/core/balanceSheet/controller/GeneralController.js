@@ -29,11 +29,9 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
         var that = this;
 
         // attach the listener on click
-        $(document).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
+        $(document.body).delegate("#" + grid.id(), "iggridcellclick", function (evt, ui) {
             // Only the FIRST ROW column indexes start from 2!
             evt.stopImmediatePropagation()
-            debugger;
-
             var rowGridIndex, columnGridIndex;
             var cellTableModel2 =        ModelController.getTableDataModel();
             var cellTableModel        = $.extend(true, [], cellTableModel2);
@@ -58,10 +56,9 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
                var clickedCell = cellTableModel[indTable]
             }
             FormController.init(Configurator, clickedCell, dsd)
-            $('body').on('click', "#saveButton", function (e) {
+            $( "#saveButton").on('click', function (e) {
                 e.stopImmediatePropagation();
-                $('body').off();
-                alert(indTable)
+                $('#saveButton').off();
                 that.onclickCell(indTable, clickedCell, rowGridIndex, columnGridIndex);
             });
         });
@@ -76,30 +73,13 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
     }
 
 
-    GeneralController.prototype.exportData = function () {
-
-    }
-
-
-    GeneralController.prototype.importData = function () {
-
-    }
-
-
     GeneralController.prototype.onclickCell = function (indTable, cell, rowIndex, columnIndex) {
 
-            alert("onclikcCell")
             var newCell = FormController.getValue(cell)
-            console.log("GENERAL CONTROLLER: new Cell")
-            console.log(newCell)
             if(newCell.length >0) {
-                console.log("*////////////////");
-                console.log(indTable)
                 ModelController.updateModels(newCell, indTable, rowIndex, columnIndex)
                 ViewGrid.updateGridView(newCell, indTable);
             }
-            //$(document.body).off();
-
     }
 
 
