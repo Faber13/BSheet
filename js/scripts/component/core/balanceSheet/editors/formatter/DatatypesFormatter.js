@@ -33,11 +33,14 @@ define(["jquery", "moment"], function($){
                     break;
 
                 case "boolean":
-                    if(typeof  result == 'undefined' || result == 'undefined'){
+                    alert();
+                    debugger;
+                    if(typeof  value == 'undefined' || value == 'undefined'){
                         result = undefined;
                     }else{
                         result = value;
                     }
+                    break;
 
                 default :
                    result =  (value !=='undefined' && value !='')? value : undefined;

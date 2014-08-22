@@ -74,8 +74,8 @@
       <file leaf-file-name="DatatypesFormatter.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/formatter/DatatypesFormatter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79901356" vertical-offset="108" max-vertical-offset="1962">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.79901356" vertical-offset="108" max-vertical-offset="2016">
+              <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -1335,12 +1335,12 @@
       <workItem from="1408518829108" duration="18112000" />
       <workItem from="1408604497408" duration="27526000" />
       <workItem from="1408691175301" duration="15380000" />
-      <workItem from="1408714512786" duration="10719000" />
+      <workItem from="1408714512786" duration="11047000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="611107000" />
+    <option name="totallyTimeSpent" value="611435000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1824,8 +1824,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/scripts/component/core/balanceSheet/editors/formatter/DatatypesFormatter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79901356" vertical-offset="108" max-vertical-offset="1962">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.79901356" vertical-offset="108" max-vertical-offset="2016">
+          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
           <folding />
         </state>
       </provider>
