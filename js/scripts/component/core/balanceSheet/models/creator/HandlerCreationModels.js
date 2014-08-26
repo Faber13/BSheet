@@ -42,8 +42,8 @@ define(["jquery"], function ($) {
         language = configuratorDsd.getComponentLanguage();
 
         var matrixLeft = this.chooseAndCreateByDataRepresentationType("left")
-        var matrixUp   = this.chooseAndCreateByDataRepresentationType("up")
-        var matrixAll  = this.createBigMatrix(matrixLeft, matrixUp)
+        var matrixUp = this.chooseAndCreateByDataRepresentationType("up")
+        var matrixAll = this.createBigMatrix(matrixLeft, matrixUp)
         var model = {
             "matrixLeft": matrixLeft,
             "matrixUp": matrixUp,
@@ -220,7 +220,7 @@ define(["jquery"], function ($) {
         if (typeof slaveColumn !== 'undefined') {
             return this.createMatrixDomainToDomain(versus, masterColumn, slaveColumn)
         }
-        else  if (slaveColumn.values.length == 0 || typeof slaveColumn.values === 'undefined') {
+        else if (slaveColumn.values.length == 0 || typeof slaveColumn.values === 'undefined') {
             return this.create(versus, masterColumn, slaveColumn)
         } else {
             return this.createMatrixDistinctToDistinct(versus, masterColumn, slaveColumn)
@@ -513,7 +513,7 @@ define(["jquery"], function ($) {
     }
 
 
-    HandlerCreationModels.prototype.getCodesMap = function(){
+    HandlerCreationModels.prototype.getCodesMap = function () {
         return mapCodesIndex;
     }
 

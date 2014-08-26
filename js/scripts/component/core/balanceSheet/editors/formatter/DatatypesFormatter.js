@@ -1,50 +1,49 @@
-define(["jquery", "moment"], function($){
+define(["jquery", "moment"], function ($) {
 
     var mapLabelToCode = [];
 
-    function DatatypesFormatter(){}
+    function DatatypesFormatter() {
+    }
 
 
     // When the data comes back from the editing,they need to be saved
     // in the right format
-    DatatypesFormatter.prototype.init = function(value, datatype, formatDate){
+    DatatypesFormatter.prototype.init = function (value, datatype, formatDate) {
 
         var result
-            switch (datatype){
-                case "month":
-                   result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value, formatDate).format("YYYYMM"): undefined;
-                    break;
+        switch (datatype) {
+            case "month":
+                result = (typeof value != 'undefined' && value !== 'undefined' && value != null) ? moment(value).format("YYYYMM") : undefined;
+                break;
 
-                case "year" :
-                   result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value, formatDate).format("YYYY"): undefined;
-                   break;
+            case "year" :
+                result = (typeof value != 'undefined' && value !== 'undefined' && value != null) ? moment(value).format("YYYY") : undefined;
+                break;
 
-                case "time" :
-                   result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value, formatDate).toJSON() : undefined;
-                    break;
+            case "time" :
+                result = (typeof value != 'undefined' && value !== 'undefined' && value != null) ? moment(value, formatDate).toJSON() : undefined;
+                break;
 
-                case "date":
+            case "date":
+                result = (typeof value != 'undefined' && value !== 'undefined' && value != null) ? moment(value).format("YYYYMMDD") : undefined;
+                break;
 
-                    result = (typeof value != 'undefined' && value !=='undefined' && value != null)? moment(value).format("YYYYMMDD"): undefined;
-                    break;
+            case "code" || "codeList" || "customCode":
+                result = (value !== 'undefined') ? value : undefined;
+                break;
 
-                case "code" || "codeList" || "customCode":
-                    result =  (value !=='undefined')? value : undefined;
-                    break;
+            case "boolean":
+                if (typeof  value == 'undefined' || value == 'undefined') {
+                    result = undefined;
+                }
+                else {
+                    result = value;
+                }
+                break;
 
-                case "boolean":
-                    alert();
-                    debugger;
-                    if(typeof  value == 'undefined' || value == 'undefined'){
-                        result = undefined;
-                    }else{
-                        result = value;
-                    }
-                    break;
-
-                default :
-                   result =  (value !=='undefined' && value !='')? value : undefined;
-            }
+            default :
+                result = (value !== 'undefined' && value != '') ? value : undefined;
+        }
         return result;
     }
 
@@ -79,7 +78,7 @@ define(["jquery", "moment"], function($){
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
-            case "code" ||"codeList" || "customCode":
+            case "code" || "codeList" || "customCode":
                 var codeToLabel = this.lookForCodeFromLabel(value);
                 var columnsCodes = configurator.lookForCode(configurationKeyColumn.columnId);
                 result = columnsCodes.mapCodeLabel[value];
@@ -90,17 +89,15 @@ define(["jquery", "moment"], function($){
     }
 
 
-    DatatypesFormatter.prototype.lookForCodeFromLabel = function(label){
+    DatatypesFormatter.prototype.lookForCodeFromLabel = function (label) {
         var result;
-        for(var i =0; i<mapLabelToCode.length; i++){
-            if(typeof mapLabelToCode[i].map[label] !== 'undefined'){
+        for (var i = 0; i < mapLabelToCode.length; i++) {
+            if (typeof mapLabelToCode[i].map[label] !== 'undefined') {
                 result = mapLabelToCode[i].map[label]
             }
         }
         return result;
     }
-
-
 
 
     return DatatypesFormatter;

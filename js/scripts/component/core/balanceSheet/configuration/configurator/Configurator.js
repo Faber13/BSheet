@@ -1,10 +1,10 @@
 /**
  * Created by fabrizio on 7/10/14.
  */
-define(['jquery'], function($){
+define(['jquery'], function ($) {
 
 
-   var  leftKeyColumns,              // DSD columns that represent the left key columns
+    var leftKeyColumns,              // DSD columns that represent the left key columns
         leftKeyIndexes,              // Index of the left key columns on the DSD
         upKeyColumns,                // DSD columns that represent the up key columns
         upKeyIndexes,                // DSD columns that represent the up key indexes
@@ -19,52 +19,51 @@ define(['jquery'], function($){
         mapCodesLabel,
         mapCodesIndexes;
 
-    function Configurator(){}
+    function Configurator() {
+    }
 
 
-    Configurator.prototype.init = function(dsd, component){
+    Configurator.prototype.init = function (dsd, component) {
         dsdConf = dsd;
         compConfiguration = component;
         this.createKeyMatrixes();
     }
 
 
-    Configurator.prototype.createKeyMatrixes = function(){
+    Configurator.prototype.createKeyMatrixes = function () {
         lefKeyColumnConfiguration = [];
         leftKeyColumns = []
         leftKeyIndexes = []
         upKeyColumnConfiguration = [];
         upKeyColumns = []
         upKeyIndexes = [],
-        accessorMap  = {},
+        accessorMap = {},
         accessorColumns = [];
         accessorIndexes = [];
-        mapCodesLabel   = [];
+        mapCodesLabel = [];
         mapCodesIndexes = {};
 
 
-        var configuration= $.extend(true,{},compConfiguration);
+        var configuration = $.extend(true, {}, compConfiguration);
         console.log(configuration)
 
         for (var i = 0; i < dsdConf.dsd.columns.length; i++) {
             if (dsdConf.dsd.columns[i].domain.key) {
                 var found = false;
-                for (var k = 0; k < configuration.gridConfiguration.columnsKey.left.length &&
-                    !found; k++) {
+                for (var k = 0; k < configuration.gridConfiguration.columnsKey.left.length && !found; k++) {
                     if (configuration.gridConfiguration.columnsKey.left[k].columnId ==
                         dsdConf.dsd.columns[i].domain.id) {
-                        lefKeyColumnConfiguration.push(configuration.gridConfiguration.columnsKey.left.splice(k,1)[0])
+                        lefKeyColumnConfiguration.push(configuration.gridConfiguration.columnsKey.left.splice(k, 1)[0])
                         leftKeyColumns.push(dsdConf.dsd.columns[i])
                         leftKeyIndexes.push(i);
                         found = true;
                     }
                 }
 
-                for (var k = 0; k < configuration.gridConfiguration.columnsKey.up.length &&
-                    !found; k++) {
+                for (var k = 0; k < configuration.gridConfiguration.columnsKey.up.length && !found; k++) {
                     if (configuration.gridConfiguration.columnsKey.up[k].columnId ==
                         dsdConf.dsd.columns[i].domain.id) {
-                        upKeyColumnConfiguration.push(configuration.gridConfiguration.columnsKey.up.splice(k,1)[0])
+                        upKeyColumnConfiguration.push(configuration.gridConfiguration.columnsKey.up.splice(k, 1)[0])
                         upKeyColumns.push(dsdConf.dsd.columns[i])
                         upKeyIndexes.push(i);
                         found = true;
@@ -84,7 +83,7 @@ define(['jquery'], function($){
     }
 
 
-    Configurator.prototype.getLeftKeyColumn = function(){
+    Configurator.prototype.getLeftKeyColumn = function () {
 
         var leftKeyColumn;
         leftKeyColumn = {
@@ -96,7 +95,7 @@ define(['jquery'], function($){
     }
 
 
-    Configurator.prototype.getUpKeyColumn = function(){
+    Configurator.prototype.getUpKeyColumn = function () {
 
         var upKeyColumn;
         upKeyColumn = {
@@ -107,9 +106,9 @@ define(['jquery'], function($){
     }
 
 
-    Configurator.prototype.getDSDtoConfigurationKeyColumns = function(){
+    Configurator.prototype.getDSDtoConfigurationKeyColumns = function () {
 
-        var keyColumns ;
+        var keyColumns;
         keyColumns = {
             "leftColumns": leftKeyColumns,
             "leftKeyIndexes": leftKeyIndexes,
@@ -120,154 +119,154 @@ define(['jquery'], function($){
     }
 
 
-    Configurator.prototype.getDSDAccessorColumns = function(){
+    Configurator.prototype.getDSDAccessorColumns = function () {
 
         var accessorsObject
         accessorsObject = {
-            "accessorColumns" : accessorColumns,
+            "accessorColumns": accessorColumns,
             "accessorIndexes": accessorIndexes
         }
         return accessorsObject;
     }
 
 
-    Configurator.prototype.getValueIndex = function(){
+    Configurator.prototype.getValueIndex = function () {
         return indexValueColumns;
     }
 
 
-    Configurator.prototype.getAllColumnModels = function(){
+    Configurator.prototype.getAllColumnModels = function () {
 
         var allColumnsModel = {
-            "leftColumnsModel"      : this.getLeftKeyColumn(),
-            "upColumnsModel"        : this.getUpKeyColumn(),
-            "accessorColumnsModel"  : this.getDSDAccessorColumns(),
-            "valueColumnsModel"     : this.getValueIndex()
+            "leftColumnsModel": this.getLeftKeyColumn(),
+            "upColumnsModel": this.getUpKeyColumn(),
+            "accessorColumnsModel": this.getDSDAccessorColumns(),
+            "valueColumnsModel": this.getValueIndex()
         }
         return allColumnsModel;
     }
 
 
-    Configurator.prototype.getKeyColumnConfiguration = function(){
+    Configurator.prototype.getKeyColumnConfiguration = function () {
 
         var keyColumnConf = {
-            "leftKeyColumnConfiguration" : lefKeyColumnConfiguration,
-            "upKeyColumnConfiguration"  : upKeyColumnConfiguration
+            "leftKeyColumnConfiguration": lefKeyColumnConfiguration,
+            "upKeyColumnConfiguration": upKeyColumnConfiguration
         }
 
         return keyColumnConf;
     }
 
 
-    Configurator.prototype.getAccessorMap = function(){
+    Configurator.prototype.getAccessorMap = function () {
         return accessorMap;
     }
 
 
-    Configurator.prototype.getValueColumnConfiguration = function(){
-       var result = compConfiguration.gridConfiguration.otherColumns.valueColumn;
-       return result;
+    Configurator.prototype.getValueColumnConfiguration = function () {
+        var result = compConfiguration.gridConfiguration.otherColumns.valueColumn;
+        return result;
     }
 
 
-    Configurator.prototype.getIdOlapGrid = function(){
+    Configurator.prototype.getIdOlapGrid = function () {
         var result = compConfiguration.gridConfiguration.HTMLproperties.idGrid;
         return result;
     }
 
 
-    Configurator.prototype.getDSD = function(){
+    Configurator.prototype.getDSD = function () {
         var result = dsdConf;
         return result;
     }
 
 
-    Configurator.prototype.getComponentConfigurator = function(){
+    Configurator.prototype.getComponentConfigurator = function () {
         var result = compConfiguration;
         return result;
     }
 
-    Configurator.prototype.getComponentLanguage = function(){
+    Configurator.prototype.getComponentLanguage = function () {
         var language = compConfiguration.gridConfiguration.generalOptions.language;
         return language;
     }
 
     // create an object with the id of the column and a property that represent a map
     // between codes and value (in the chosen language)
-    Configurator.prototype.createMapCodes = function(columnDsd, compColumn) {
+    Configurator.prototype.createMapCodes = function (columnDsd, compColumn) {
         var id = compColumn.columnId;
         var language = this.getComponentLanguage();
         var map = {'id': id, 'mapCodeLabel': {}}
 
-        if(compColumn.values.dataRepresentation == 'domain'){
-            for(var i =0; i< columnDsd.domain.codes.length; i++){
+        if (compColumn.values.dataRepresentation == 'domain') {
+            for (var i = 0; i < columnDsd.domain.codes.length; i++) {
                 map.mapCodeLabel[columnDsd.domain.codes[i].code.code] = columnDsd.domain.codes[i].code.title[language];
             }
-        } else if(compColumn.values.dataRepresentation == 'distinct'){
-            for(var i =0; i< columnDsd.values.length; i++){
+        } else if (compColumn.values.dataRepresentation == 'distinct') {
+            for (var i = 0; i < columnDsd.values.length; i++) {
                 var value = columnDsd.values[i];
-                for(var j =0; j< columnDsd.domain.codes.length; j++){
-                    if(value == columnDsd.domain.codes[j].code.code){
+                for (var j = 0; j < columnDsd.domain.codes.length; j++) {
+                    if (value == columnDsd.domain.codes[j].code.code) {
                         map.mapCodeLabel[value] = columnDsd.domain.codes[j].code.title[language];
                     }
                 }
             }
-        }else if(compColumn.values.dataRepresentation == 'hybrid'){
-            if(columnDsd.values.length >0){
-                for(var i =0; i< columnDsd.values.length; i++){
+        } else if (compColumn.values.dataRepresentation == 'hybrid') {
+            if (columnDsd.values.length > 0) {
+                for (var i = 0; i < columnDsd.values.length; i++) {
                     var value = columnDsd.values[i];
-                    for(var j =0; j< columnDsd.domain.codes.length; j++){
-                        if(value == columnDsd.domain.codes[j].code.code){
+                    for (var j = 0; j < columnDsd.domain.codes.length; j++) {
+                        if (value == columnDsd.domain.codes[j].code.code) {
                             map.mapCodeLabel[value] = columnDsd.domain.codes[j].code.title[language];
                         }
                     }
                 }
             }
-            else{
-                for(var i =0; i< columnDsd.codes.length; i++){
+            else {
+                for (var i = 0; i < columnDsd.codes.length; i++) {
                     map.mapCodeLabel[columnDsd.domain.codes[i].code.code] = columnDsd.domain.codes[i].code.title[language];
                 }
             }
         }
-        mapCodesIndexes[map.id] =  mapCodesLabel.length;
+        mapCodesIndexes[map.id] = mapCodesLabel.length;
         mapCodesLabel.push(map)
     }
 
 
-    Configurator.prototype.getMapDomainCodes = function(){
+    Configurator.prototype.getMapDomainCodes = function () {
         return mapCodesLabel;
     }
 
-    Configurator.prototype.getMapDomainCodesIndexes = function(index){
+    Configurator.prototype.getMapDomainCodesIndexes = function (index) {
         return mapCodesIndexes[index];
     }
 
-    Configurator.prototype.lookForCode = function(id){ 
+    Configurator.prototype.lookForCode = function (id) {
         var result;
-        for(var i =0; i< mapCodesLabel.length; i++){
-            if(mapCodesLabel[i].id == id){
+        for (var i = 0; i < mapCodesLabel.length; i++) {
+            if (mapCodesLabel[i].id == id) {
                 result = mapCodesLabel[i];
             }
         }
         return result;
     }
 
-    Configurator.prototype.getLeftKeyColumnIndexes = function(){
+    Configurator.prototype.getLeftKeyColumnIndexes = function () {
         return leftKeyIndexes;
     }
 
 
-    Configurator.prototype.getUpKeyColumnIndexes = function(){
+    Configurator.prototype.getUpKeyColumnIndexes = function () {
         return upKeyIndexes;
     }
 
 
     // Get an accessor column from the grid configuration ; @parameter: column id
-    Configurator.prototype.lookForAccessorColumnByIdOnConfiguration = function(id){
+    Configurator.prototype.lookForAccessorColumnByIdOnConfiguration = function (id) {
         var result;
         var found = false
         var accessorsColumns = compConfiguration.gridConfiguration.otherColumns.accessorsColumns;
-        for(var i=0; i<accessorsColumns.length && !found; i++) {
+        for (var i = 0; i < accessorsColumns.length && !found; i++) {
             if (accessorsColumns[i].columnId == id) {
                 result = accessorsColumns[i];
                 found = true;
@@ -278,8 +277,8 @@ define(['jquery'], function($){
 
 
     // Get the value column on json component configuration
-    Configurator.prototype.getValueColumnOnConfiguration = function(){
-       return compConfiguration.gridConfiguration.otherColumns.valueColumn;
+    Configurator.prototype.getValueColumnOnConfiguration = function () {
+        return compConfiguration.gridConfiguration.otherColumns.valueColumn;
     }
 
 

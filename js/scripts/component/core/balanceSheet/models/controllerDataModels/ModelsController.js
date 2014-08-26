@@ -1,19 +1,19 @@
 /**
  * Created by fabrizio on 7/24/14.
  */
-define(["jquery",  "models/tableDataModel/TableDataModel",
-    "models/gridDataModel/GridDataModel", "models/creator/HandlerCreationModels"], function($,  TableDataModel, GridDataModel, ModelCreator) {
+define(["jquery", "models/tableDataModel/TableDataModel",
+    "models/gridDataModel/GridDataModel", "models/creator/HandlerCreationModels"], function ($, TableDataModel, GridDataModel, ModelCreator) {
 
     var TableModel, GridModel, indexes, instanceGridDataModel, instanceTableDataModel, fullTableModel, newValues, dataTable, CreatorModels,
         modelForCreation;
 
     function ModelsController() {
-        TableModel    = new TableDataModel;
-        GridModel     = new GridDataModel;
+        TableModel = new TableDataModel;
+        GridModel = new GridDataModel;
         CreatorModels = new ModelCreator;
     }
 
-    ModelsController.prototype.init = function(tableData,  configurator){
+    ModelsController.prototype.init = function (tableData, configurator) {
 
         dataTable = tableData
         newValues = []; // New values will be put into this variable
@@ -21,8 +21,8 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         indexes = configurator.getAllColumnModels();
         instanceTableDataModel = tableData;
         TableModel.init(tableData, configurator);
-        modelForCreation       = CreatorModels.init(configurator)
-        instanceGridDataModel  = GridModel.init( modelForCreation, tableData, indexes)
+        modelForCreation = CreatorModels.init(configurator)
+        instanceGridDataModel = GridModel.init(modelForCreation, tableData, indexes)
 
         TableModel.createFullTableData(modelForCreation)
         var newTable = TableModel.createTableModelFromGrid(instanceGridDataModel);
@@ -30,24 +30,28 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
 
     }
 
-    ModelsController.prototype.getTableDataModel = function(){
+    ModelsController.prototype.getTableDataModel = function () {
         return TableModel.getTableData();
     }
 
-    ModelsController.prototype.getGridDataModel = function(){
+    ModelsController.prototype.getGridDataModel = function () {
         return GridModel.getGridDataModel();
     }
 
-    ModelsController.prototype.createFullTableModel = function(creationMode){
+    ModelsController.prototype.getData = function () {
+        return TableModel.getAllData();
+    }
+
+    ModelsController.prototype.createFullTableModel = function (creationMode) {
         fullTableModel = TableModel.createFullTableData(instanceGridDataModel)
         return fullTableModel;
     }
 
-    ModelsController.prototype.getFullTableModel = function(){
+    ModelsController.prototype.getFullTableModel = function () {
         return fullTableModel;
     }
 
-    ModelsController.prototype.updateModels = function(cell, indTable, rowIndex, columnIndex){
+    ModelsController.prototype.updateModels = function (cell, indTable, rowIndex, columnIndex) {
         var newCell = cell;
         console.log("updateMODELS: INDEX table")
         console.log(indTable)
@@ -56,27 +60,27 @@ define(["jquery",  "models/tableDataModel/TableDataModel",
         TableModel.updateTableData(cell, indTable)
         instanceTableDataModel = TableModel.getTableData();
         // Create a GRid Model
-        GridModel.updateModel(cell,rowIndex, columnIndex)
+        GridModel.updateModel(cell, rowIndex, columnIndex)
         instanceGridDataModel = GridModel.getGridDataModel();
     }
 
 
-    ModelsController.prototype.getFullRowsIndexes = function(){
+    ModelsController.prototype.getFullRowsIndexes = function () {
         return TableModel.getFullIndexRows();
     }
 
 
-    ModelsController.prototype.getFullColumnsIndexes = function(){
+    ModelsController.prototype.getFullColumnsIndexes = function () {
         return TableModel.getFullIndexColumns();
     }
 
 
-    ModelsController.prototype.getIndexesNewFirstColumnLeft = function(){
+    ModelsController.prototype.getIndexesNewFirstColumnLeft = function () {
         return TableModel.getIndexesDoubleColumns();
     }
 
 
-    ModelsController.prototype.getMapDomainCodes = function(indexColumn){
+    ModelsController.prototype.getMapDomainCodes = function (indexColumn) {
         TableModel.getMapDomainCodes(indexColumn)
 
     }

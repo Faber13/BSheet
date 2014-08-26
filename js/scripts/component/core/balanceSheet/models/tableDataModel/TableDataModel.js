@@ -30,7 +30,7 @@ define(["jquery" ], function ($) {
 
     TableDataModel.prototype.init = function (data, configurator) {
         instanceData = data;
-        originalData =$.extend(true, [], data)
+        originalData = $.extend(true, [], data)
         Configurator = configurator;
     }
 
@@ -132,7 +132,7 @@ define(["jquery" ], function ($) {
         }
 
         this.makeOperationsOnFullIndexes(),
-        instanceFullTableData = table;
+            instanceFullTableData = table;
         return table;
     }
 
@@ -158,8 +158,12 @@ define(["jquery" ], function ($) {
             return a > b ? 1 : a < b ? -1 : 0;
         })
         fullColumns = fullColumns.getUnique();
+    }
 
-
+    // To get the original data and the new ones
+    TableDataModel.prototype.getAllData = function () {
+        var result = originalData;
+        return result;
     }
 
 
@@ -167,7 +171,7 @@ define(["jquery" ], function ($) {
 
         var result = [];
         indexesDoubleColumnLeft = {};
-        if(fullRows.length >0 && fullColumns.length >0) {
+        if (fullRows.length > 0 && fullColumns.length > 0) {
             var firstIndex = (counterEmptySpaces.columns.length * fullRows[0]) + fullColumns[0];
             var firstField = instanceFullTableData[firstIndex][0];
         }
@@ -209,17 +213,16 @@ define(["jquery" ], function ($) {
     }
 
 
-
     // Represent Every rows but only the full columns
-    TableDataModel.prototype.createColumnSparseTableData = function(modelForCreation){
+    TableDataModel.prototype.createColumnSparseTableData = function (modelForCreation) {
 
         var result = [];
         // for each Row
         for (var i = 0; i < modelForCreation["matrixAll"].length; i++) {
-            for(var j = 0; j<fullColumns.length; j++){
+            for (var j = 0; j < fullColumns.length; j++) {
                 var indexColumns = fullColumns[j];
                 var numberColumns = counterEmptySpaces.columns.length;
-                result.push(instanceFullTableData[(numberColumns*i)+indexColumns])
+                result.push(instanceFullTableData[(numberColumns * i) + indexColumns])
             }
         }
 
@@ -233,9 +236,9 @@ define(["jquery" ], function ($) {
         instanceData[index] = value;
         // new Data To Save!!
         var indexRow = this.findIfUpdateOrNewValue(value)
-        if(typeof indexRow =='undefined'){
+        if (typeof indexRow == 'undefined') {
             originalData.push(value);
-        }else{
+        } else {
             originalData[indexRow] = value;
         }
         alert("SAVEDDDDD")
@@ -243,21 +246,21 @@ define(["jquery" ], function ($) {
     }
 
 
-    TableDataModel.prototype.findIfUpdateOrNewValue = function(value){
+    TableDataModel.prototype.findIfUpdateOrNewValue = function (value) {
         var indexRow;
         var allKeyIndexes = leftIndexes.concat(upIndexes);
         var found = false;
         alert("FINDDD")
         debugger;
-        for(var i =0; i< originalData.length && !found; i++){
+        for (var i = 0; i < originalData.length && !found; i++) {
             var row = originalData[i];
-            if(value[allKeyIndexes[0]] == row[allKeyIndexes[0]]){
-                var semiFound =true;
-                for(var j =1; j< allKeyIndexes.length  && semiFound;j++){
-                    if(value[allKeyIndexes[j]] != row[allKeyIndexes[j]]){
+            if (value[allKeyIndexes[0]] == row[allKeyIndexes[0]]) {
+                var semiFound = true;
+                for (var j = 1; j < allKeyIndexes.length && semiFound; j++) {
+                    if (value[allKeyIndexes[j]] != row[allKeyIndexes[j]]) {
                         semiFound = false;
-                    }else{
-                        if(semiFound && j== allKeyIndexes.length -1){
+                    } else {
+                        if (semiFound && j == allKeyIndexes.length - 1) {
                             indexRow = i;
                             found = true;
                         }

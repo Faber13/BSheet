@@ -47,8 +47,8 @@ define(["jquery"], function ($) {
                 result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]], upConf[i], datatype)
             }
             else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
-                var columnCodes = configurator.lookForCode(upColumns.upColumns[i].domain.id) ;
-                if(typeof columnCodes === 'undefined') {
+                var columnCodes = configurator.lookForCode(upColumns.upColumns[i].domain.id);
+                if (typeof columnCodes === 'undefined') {
                     configurator.createMapCodes(upColumns.upColumns[i], upConf[i])
                     columnCodes = configurator.lookForCode(upColumns.upColumns[i].domain.id)
                 }
@@ -66,8 +66,8 @@ define(["jquery"], function ($) {
                 result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
             }
             else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
-                var columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id) ;
-                if(typeof columnCodes === 'undefined') {
+                var columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id);
+                if (typeof columnCodes === 'undefined') {
                     configurator.createMapCodes(leftColumns.leftColumns[i], leftConf[i])
                     columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id)
                 }
@@ -81,10 +81,10 @@ define(["jquery"], function ($) {
         var accessorIndexes = accessorModel["accessorIndexes"];
         var accessorColumns = accessorModel["accessorColumns"];
         // accessor columns
-        for(var i =0; i< accessorIndexes.length; i++) {
+        for (var i = 0; i < accessorIndexes.length; i++) {
 
             var configurationColumn = configurator.lookForAccessorColumnByIdOnConfiguration(accessorColumns[i].domain.id)
-            var datatype =accessorColumns[i].dataTypes
+            var datatype = accessorColumns[i].dataTypes
             // case of date format
             if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
                 result[accessorIndexes[i]] = this.renderFormatDate(item[accessorIndexes[i]], configurationColumn, datatype)
@@ -167,17 +167,17 @@ define(["jquery"], function ($) {
                 break;
 
             case "month":
-                var date = (value !=='undefined')? moment(value).format("YYYYMM"): undefined;
+                var date = (value !== 'undefined') ? moment(value).format("YYYYMM") : undefined;
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "year":
-                var date = (value !=='undefined')? moment(value).format("YYYY"): undefined;
+                var date = (value !== 'undefined') ? moment(value).format("YYYY") : undefined;
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "date":
-                var date = (value !=='undefined')? moment(value).format("YYYYMMDD"): undefined;
+                var date = (value !== 'undefined') ? moment(value).format("YYYYMMDD") : undefined;
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 

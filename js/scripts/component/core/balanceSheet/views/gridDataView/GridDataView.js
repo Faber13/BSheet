@@ -4,39 +4,39 @@
 define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pivot, ViewModel) {
 
     var model, table, Configurator, titlesUp, titlesLeft, accessorMap, fullModel, configurationKeys, indexValues, modelView,
-    leftDimensions, upDimensions, valueColumn, dataSource2, idOlapGrid, language, viewModel
+        leftDimensions, upDimensions, valueColumn, dataSource2, idOlapGrid, language, viewModel
+
     function GridDataView() {
 
     }
 
 
-    GridDataView.prototype.init = function ( tableModel, configurator) {
+    GridDataView.prototype.init = function (tableModel, configurator) {
 
-       viewModel = new ViewModel;
-       table = tableModel;
-       Configurator = configurator;
-       language = Configurator.getComponentLanguage();
-       this.createFullGrid();
+        viewModel = new ViewModel;
+        table = tableModel;
+        Configurator = configurator;
+        language = Configurator.getComponentLanguage();
+        this.createFullGrid();
     }
 
 
     GridDataView.prototype.createFullGrid = function () {
 
-        fullModel =         Configurator.getAllColumnModels();
+        fullModel = Configurator.getAllColumnModels();
         configurationKeys = Configurator.getKeyColumnConfiguration();
-        accessorMap =       Configurator.getAccessorMap();
-        leftDimensions =    this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
-        upDimensions =      this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
-        valueColumn  =      Configurator.getValueColumnConfiguration();
-        indexValues =       Configurator.getValueIndex();
-        idOlapGrid  =       Configurator.getIdOlapGrid();
-        modelView = viewModel.init(table,Configurator)
-        // modelView = this.createViewModel(table);
+        accessorMap = Configurator.getAccessorMap();
+        leftDimensions = this.createLeftPivotDimension(fullModel["leftColumnsModel"], configurationKeys["lefKeyColumnConfiguration"]);
+        upDimensions = this.createUpPivotDimension(fullModel["upColumnsModel"], configurationKeys["upKeyColumnConfiguration"]);
+        valueColumn = Configurator.getValueColumnConfiguration();
+        indexValues = Configurator.getValueIndex();
+        idOlapGrid = Configurator.getIdOlapGrid();
+        modelView = viewModel.init(table, Configurator)
         this.renderGrid(modelView)
     }
 
 
-    GridDataView.prototype.renderGrid = function(model){
+    GridDataView.prototype.renderGrid = function (model) {
 
         getValue = function (valueInd) {
             var result;
@@ -59,7 +59,7 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                     measuresDimension: {
                         caption: "Measures",
                         measures: [ //for each measure, name and aggregator are required
-                            { caption: "value", name: "value", aggregator:  getValue(indexValues) }
+                            { caption: "value", name: "value", aggregator: getValue(indexValues) }
                         ]
                     },
                     dimensions: [ // for each dimension
@@ -80,7 +80,7 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
             measures: "[Measures].[value]"
         });
 
-        $("#"+idOlapGrid).igPivotGrid({
+        $("#" + idOlapGrid).igPivotGrid({
             allowSorting: true,
             allowHeaderRowsSorting: true,
             allowHeaderColumnsSorting: true,
@@ -92,9 +92,9 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
             compactRowHeaders: true,
             compactHeaderIndentation: 80,
             isParentInFrontForColumns: true,
-            disableFiltersDropArea : true,
-            hideFiltersDropArea : true,
-            gridOptions:{
+            disableFiltersDropArea: true,
+            hideFiltersDropArea: true,
+            gridOptions: {
                 defaultColumnWidth: 150,
                 features: [
                     {
@@ -114,13 +114,10 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
     }
 
 
-    GridDataView.prototype.updateGridView = function(newCell, indexCell){
-
-        debugger;
+    GridDataView.prototype.updateGridView = function (newCell, indexCell) {
 
         var cellTransformed = viewModel.updateItem(newCell)
         modelView[indexCell] = cellTransformed;
-
         dataSource2 = new $.ig.OlapFlatDataSource({
             dataSource: modelView,
             metadata: {
@@ -130,7 +127,7 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                     measuresDimension: {
                         caption: "Measures",
                         measures: [ //for each measure, name and aggregator are required
-                            { caption: "value", name: "value", aggregator:  getValue(indexValues) }
+                            { caption: "value", name: "value", aggregator: getValue(indexValues) }
                         ]
                     },
                     dimensions: [ // for each dimension
@@ -188,7 +185,9 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                 {
                     name: keyColumns["leftColumns"][0].domain.supplemental[language],
                     caption: keyColumns["leftColumns"][0].domain.title[language],
-                    memberProvider: function (item) { return item[keyColumns["leftKeyIndexes"][0]]; }
+                    memberProvider: function (item) {
+                        return item[keyColumns["leftKeyIndexes"][0]];
+                    }
 
                 }
             ]
@@ -203,7 +202,9 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                     {
                         name: keyColumns["leftColumns"][1].domain.supplemental[language],
                         caption: keyColumns["leftColumns"][1].domain.title[language],
-                        memberProvider: function (item) { return item[keyColumns["leftKeyIndexes"][1]]; }
+                        memberProvider: function (item) {
+                            return item[keyColumns["leftKeyIndexes"][1]];
+                        }
                     }
                 ]
             }
@@ -211,8 +212,6 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
         }
         return keysLeft;
     }
-
-
 
 
     GridDataView.prototype.createUpPivotDimension = function (keyColumns, keyColumnConf) {
@@ -229,7 +228,9 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                 {
                     name: keyColumns["upColumns"][0].domain.supplemental[language],
                     caption: keyColumns["upColumns"][0].domain.title[language],
-                    memberProvider: function (item) { return item[keyColumns["upKeyIndexes"][0]]; }
+                    memberProvider: function (item) {
+                        return item[keyColumns["upKeyIndexes"][0]];
+                    }
                 }
             ]}
         keysUp.push(key);
@@ -242,7 +243,9 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
                     {
                         name: keyColumns["upColumns"][1].domain.supplemental[language],
                         caption: keyColumns["upColumns"][1].domain.title[language],
-                        memberProvider: function (item) { return item[keyColumns["upKeyIndexes"][1]]; }                    }
+                        memberProvider: function (item) {
+                            return item[keyColumns["upKeyIndexes"][1]];
+                        }                    }
                 ]}
             keysUp.push(key2);
         }
@@ -250,33 +253,33 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
     }
 
 
-    GridDataView.prototype.renderFormatDate = function(value, configurationKeyColumn, datatype){
+    GridDataView.prototype.renderFormatDate = function (value, configurationKeyColumn, datatype) {
 
         var result;
-        switch (datatype[0]){
+        switch (datatype[0]) {
             case "time":
                 var date = new Date(value);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "month":
-                var year  =  value.substr(0, 4);
-                var month =  value.substr(4,2);
-                var date  =  new Date(year,month-1);
+                var year = value.substr(0, 4);
+                var month = value.substr(4, 2);
+                var date = new Date(year, month - 1);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "year":
-                var year  =  value.substr(0, 4);
-                var date  =  new Date(year);
+                var year = value.substr(0, 4);
+                var date = new Date(year);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
             case "date":
-                var year  =  value.substr(0, 4);
-                var month =  value.substr(4,2);
-                var day   =  value.substr(6,2);
-                var date  =  new Date(year,month-1,day);
+                var year = value.substr(0, 4);
+                var month = value.substr(4, 2);
+                var day = value.substr(6, 2);
+                var date = new Date(year, month - 1, day);
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
 
                 break;

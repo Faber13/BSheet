@@ -1,32 +1,33 @@
-define(["jquery", "excellentExport"], function($){
+define(["jquery", "excellentExport"], function ($) {
 
-    function TableExport(){}
+    function TableExport() {
+    }
 
-    TableExport.prototype.init = function(table, Configurator){
-      var dsd = Configurator.getDSD();
-      var language = Configurator.getComponentLanguage();
+    TableExport.prototype.init = function (table, Configurator) {
+        var dsd = Configurator.getDSD();
+        var language = Configurator.getComponentLanguage();
 
-      var string = "<table id='tablePivot'><tr>"
-        for(var i =0; i<dsd.dsd.columns.length; i++) {
+        var string = "<table id='tablePivot'><tr>"
+        for (var i = 0; i < dsd.dsd.columns.length; i++) {
             var title = dsd.dsd.columns[i].domain.title[language];
             string += "<th>" + title + "</th>";
         }
         string += "</tr><tr>";
-        for(var i = 0; i<table.length; i++){
-            for(var j=0; j<table[i].length; j++) {
-                var value = (typeof  table[i][j] === 'undefined')? "":  table[i][j];
+        for (var i = 0; i < table.length; i++) {
+            for (var j = 0; j < table[i].length; j++) {
+                var value = (typeof  table[i][j] === 'undefined') ? "" : table[i][j];
                 string += "<td>" + value + "</td>"
             }
-            if(i < table.length -1) {
+            if (i < table.length - 1) {
                 string += "</tr><tr>";
-            }else{
+            } else {
                 string += "</tr>";
             }
         }
         string += "</<table>";
 
         $("#optionPivotGrid").append(string);
-        var uri = ' data:application/vnd.ms-excel,'+ $('#tablePivot').html();
+        var uri = ' data:application/vnd.ms-excel,' + $('#tablePivot').html();
         var downloadLink = document.createElement("a");
         downloadLink.href = uri;
         downloadLink.download = "data.xslx";

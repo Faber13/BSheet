@@ -96,7 +96,7 @@
         "otherColumns": {
             "valueColumn": {
                 "columnId": "",
-                "label": "#value|$value~#measurementUnit| ($measurementUnit) ~#flag| $flag ~|",
+                "label": "#value|$value~#measurementUnit| ($measurementUnit) ~#isOk| $isOk ~|",
                 "values": {
                     "dataRepresentation": "domain",
                     "emptyValue": true,
@@ -145,7 +145,7 @@
                     "values": {
                         "dataRepresentation": "domain",
                         "emptyValue": true,
-                        "editable": false
+                        "editable": true
                     },
                     "properties": {
                         "cellProperties": {
@@ -167,7 +167,7 @@
                     "values": {
                         "dataRepresentation": "distinct",
                         "emptyValue": true,
-                        "editable": true
+                        "editable": false
                     },
                     "properties": {
                         "cellProperties": {

@@ -70,7 +70,7 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
                 if (typeof cell[accessorIndexes[i - 1]] == 'undefined') {
                     if (typeof input[i] == 'boolean') {
                         debugger;
-                        changed =  typeof input[i] != 'undefined' && input[i] != null
+                        changed = typeof input[i] != 'undefined' && input[i] != null
                     } else {
                         changed = ((typeof input[i] != 'undefined' ) && (input[i] != "") && (input[i] != null));
                     }

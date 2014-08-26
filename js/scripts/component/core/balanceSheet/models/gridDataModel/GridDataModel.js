@@ -100,7 +100,7 @@ define(["jquery"], function ($) {
     }
 
 
-    GridDataModel.prototype.updateModel = function(cell, indexRow, indexColumn){
+    GridDataModel.prototype.updateModel = function (cell, indexRow, indexColumn) {
         instanceGridModel[indexRow][indexColumn] = cell;
     }
 

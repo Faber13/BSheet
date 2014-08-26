@@ -579,7 +579,7 @@
                     }
                 },
                 "dataTypes": [
-                    "date"
+                    "time"
                 ],
                 "values": [
 
@@ -608,8 +608,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "20130210",
-                        "to": "20130215"
+                        "from": "2011-04-23T18:25:43.511Z",
+                        "to": "2012-04-23T18:25:43.511Z"
                     },
                     "columnLink": "",
                     "key": false,

@@ -6,6 +6,7 @@ define(["jquery" ], function($ ){
     function EditorValidator(){};
 
     EditorValidator.prototype.init = function(cell, dsd){
+        // TODO
         return true;
 
     }
