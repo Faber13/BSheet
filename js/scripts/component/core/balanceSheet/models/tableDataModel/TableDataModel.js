@@ -231,8 +231,6 @@ define(["jquery" ], function ($) {
 
 
     TableDataModel.prototype.updateTableData = function (value, index) {
-        alert("SAVEING DATA!!!")
-        debugger;
         instanceData[index] = value;
         // new Data To Save!!
         var indexRow = this.findIfUpdateOrNewValue(value)
@@ -241,8 +239,6 @@ define(["jquery" ], function ($) {
         } else {
             originalData[indexRow] = value;
         }
-        alert("SAVEDDDDD")
-        debugger;
     }
 
 
@@ -250,8 +246,6 @@ define(["jquery" ], function ($) {
         var indexRow;
         var allKeyIndexes = leftIndexes.concat(upIndexes);
         var found = false;
-        alert("FINDDD")
-        debugger;
         for (var i = 0; i < originalData.length && !found; i++) {
             var row = originalData[i];
             if (value[allKeyIndexes[0]] == row[allKeyIndexes[0]]) {

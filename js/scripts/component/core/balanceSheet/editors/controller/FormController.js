@@ -52,8 +52,6 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
 
     FormController.prototype.checkValuesChanged = function (input, cell) {
 
-        alert("checking")
-        debugger;
         var changed = false
         for (var i = 0; i < input.length && !changed; i++) {
             // Value column case

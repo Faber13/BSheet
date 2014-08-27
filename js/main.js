@@ -21,6 +21,9 @@ requirejs.config({
         "infragistics" : {
             "deps" : ["jquery","jquery-ui"]
         },
+        "pivot" : {
+            "deps": ["webix"]
+        },
         "jquery-ui" : {
           "deps" : ["jquery"]
         },

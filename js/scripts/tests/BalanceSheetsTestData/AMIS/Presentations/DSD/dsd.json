@@ -60,7 +60,7 @@
                     "key": false,
                     "transposed": true,
                     "virtual": true,
-                    "id": 5,
+                    "id": 1,
                     "title": {
                         "EN": "Notes",
                         "FR": ""
@@ -231,7 +231,7 @@
                     }
                 },
                 "dataTypes": [
-                    "string"
+                    "code"
                 ],
                 "values": [
 
@@ -250,9 +250,104 @@
                             "code": {
                                 "codeList": "",
                                 "version": "",
-                                "code": "",
+                                "code": "99",
+                                "title": {
+                                    "EN": "1000s",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
                                 "title": {
                                     "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "98",
+                                "title": {
+                                    "EN": "%",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "10",
+                                "title": {
+                                    "EN": "Thousand Tonnes",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "20",
+                                "title": {
+                                    "EN": "Tonnes/Ha",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "40",
+                                "title": {
+                                    "EN": "Kg/Yr",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "40",
+                                "title": {
+                                    "EN": "Thousand Hectares",
                                     "FR": ""
                                 }
                             }
@@ -402,7 +497,7 @@
                                 "version": "",
                                 "code": "11",
                                 "title": {
-                                    "EN": "Population",
+                                    "EN": "Population (1000s)",
                                     "FR": ""
                                 }
                             }
@@ -421,7 +516,7 @@
                                 "version": "",
                                 "code": "12",
                                 "title": {
-                                    "EN": "Unbalanced",
+                                    "EN": "Unbalanced (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -440,7 +535,7 @@
                                 "version": "",
                                 "code": "13",
                                 "title": {
-                                    "EN": "Total Supply",
+                                    "EN": "Total Supply (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -459,7 +554,7 @@
                                 "version": "",
                                 "code": "14",
                                 "title": {
-                                    "EN": "Domestic Supply",
+                                    "EN": "Domestic Supply (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -478,7 +573,7 @@
                                 "version": "",
                                 "code": "15",
                                 "title": {
-                                    "EN": "Opening Stocks",
+                                    "EN": "Opening Stock (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -497,7 +592,7 @@
                                 "version": "",
                                 "code": "16",
                                 "title": {
-                                    "EN": "Production",
+                                    "EN": "Production (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -516,7 +611,7 @@
                                 "version": "",
                                 "code": "17",
                                 "title": {
-                                    "EN": "AreaHarvested",
+                                    "EN": "Area Harvested (Thousand Hectares)",
                                     "FR": ""
                                 }
                             }
@@ -535,7 +630,7 @@
                                 "version": "",
                                 "code": "18",
                                 "title": {
-                                    "EN": "Yield",
+                                    "EN": "Yield (Tonnes/Ha)",
                                     "FR": ""
                                 }
                             }
@@ -554,7 +649,7 @@
                                 "version": "",
                                 "code": "19",
                                 "title": {
-                                    "EN": "Imports-ITY",
+                                    "EN": "Imports-ITY (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -573,7 +668,7 @@
                                 "version": "",
                                 "code": "20",
                                 "title": {
-                                    "EN": "Imports-NMY",
+                                    "EN": "Imports-NMY (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -592,7 +687,7 @@
                                 "version": "",
                                 "code": "21",
                                 "title": {
-                                    "EN": "Total Utilization",
+                                    "EN": "Total Utilization (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -611,7 +706,7 @@
                                 "version": "",
                                 "code": "22",
                                 "title": {
-                                    "EN": "Domestic Utilization",
+                                    "EN": "Domestic Utilization (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -630,7 +725,7 @@
                                 "version": "",
                                 "code": "23",
                                 "title": {
-                                    "EN": "Food Use",
+                                    "EN": "Food Use (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -649,7 +744,7 @@
                                 "version": "",
                                 "code": "24",
                                 "title": {
-                                    "EN": "Feed Use",
+                                    "EN": "Feed Use (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -668,7 +763,7 @@
                                 "version": "",
                                 "code": "25",
                                 "title": {
-                                    "EN": "Other Uses",
+                                    "EN": "Other Uses (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -687,7 +782,7 @@
                                 "version": "",
                                 "code": "26",
                                 "title": {
-                                    "EN": "Exports-ITY",
+                                    "EN": "Exports-ITY (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -706,7 +801,7 @@
                                 "version": "",
                                 "code": "27",
                                 "title": {
-                                    "EN": "Exports-NMY",
+                                    "EN": "Exports-NMY (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -725,7 +820,7 @@
                                 "version": "",
                                 "code": "28",
                                 "title": {
-                                    "EN": "Closing Stock",
+                                    "EN": "Closing Stocks (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -744,7 +839,7 @@
                                 "version": "",
                                 "code": "29",
                                 "title": {
-                                    "EN": "OF Which Government",
+                                    "EN": "Government Stocks (Thousand Tonnes)",
                                     "FR": ""
                                 }
                             }
@@ -763,7 +858,64 @@
                                 "version": "",
                                 "code": "30",
                                 "title": {
-                                    "EN": "Per Cap. Food Use",
+                                    "EN": "Per Cap. Food Use (Kg/Yr)",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "31",
+                                "title": {
+                                    "EN": "Area Planted (Thousand Hectares)",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "32",
+                                "title": {
+                                    "EN": "Extraction Rate (%)",
+                                    "FR": ""
+                                }
+                            }
+                        },
+                        {
+                            "codeList": {
+                                "codeList": "",
+                                "version": "1",
+                                "title": {
+                                    "EN": "",
+                                    "FR": ""
+                                }
+                            },
+                            "code": {
+                                "codeList": "",
+                                "version": "",
+                                "code": "33",
+                                "title": {
+                                    "EN": "Paddy Yield (Tonnes/Ha)",
                                     "FR": ""
                                 }
                             }
@@ -780,8 +932,8 @@
                     ],
                     "enumeration": "",
                     "period": {
-                        "from": "20100624",
-                        "to":   "20111024"
+                        "from": "",
+                        "to":   ""
                     },
                     "columnLink": "",
                     "key": true,

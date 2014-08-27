@@ -53,9 +53,10 @@
         },
         "otherColumns": {
             "valueColumn": {
-                "numberFormat" : "",
                 "columnId": "",
-                "label": "#value|$value~#measurementUnit| ($measurementUnit) ~#flag| $flag ~|",
+                "numberFormat" : "",
+
+                "label": "#value|$value~#flag| $flag~|",
                 "valuesValid": [
                     "value"
                 ],

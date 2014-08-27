@@ -5,11 +5,12 @@
 define(["jquery", "configurator/Configurator", "modelController/ModelsController",
     "generalController/GeneralController"], function ($, Configurator, ModelController, GeneralController) {
 
-    var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json"
+    var urlDSD = "./js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/DSD/dsd.json"
 
-    var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json"
+    var urlData = "./js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/Data/data.js"
 
-    var urlData = "./js/scripts/component/core/balanceSheet/configuration/data/data.js"
+    var urlComponent = "./js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/ComponentConfiguration/componentConfiguration.json"
+
 
     var tableDataModel, gridDataModel, data, dsd, componentConfiguration,
         configurator, indexes, generalController, modelController;
@@ -54,6 +55,8 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
                 dataInput = JSON.parse(data);
             }
         })
+
+        debugger;
 
         configurator.init(dsd, componentConfiguration)
         modelController.init(dataInput, configurator)

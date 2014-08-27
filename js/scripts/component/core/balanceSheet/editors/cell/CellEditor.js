@@ -270,7 +270,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                     }
                 }
                 else { // else, take defaultDate from the first element of the domain
-                    debugger;
                     var dateStringFrom = Date.parse(dsdColumn.domain.period.from);
                     var dateStringTo = Date.parse(dsdColumn.domain.period.to);
 
