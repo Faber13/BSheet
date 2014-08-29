@@ -163,6 +163,7 @@ define(["jquery"], function ($) {
         switch (datatype[0]) {
             case "time":
                 var date = new Date(value);
+
                 result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
@@ -177,8 +178,15 @@ define(["jquery"], function ($) {
                 break;
 
             case "date":
-                var date = (value !== 'undefined') ? moment(value).format("YYYYMMDD") : undefined;
-                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
+                alert("DATEEEEEE")
+                debugger;
+
+                var yearFrom = value.substr(0, 4);
+                var mmFrom = value.substr(4, 2);
+                var ddFrom = value.substr(6, 2);
+                var dateFrom = new Date(yearFrom, mmFrom - 1, ddFrom)
+               // var date = (value !== 'undefined') ? moment(value).format("YYYYMMDD") : undefined;
+                result = moment(dateFrom).format(configurationKeyColumn.properties.cellProperties.dateFormat)
                 break;
 
         }

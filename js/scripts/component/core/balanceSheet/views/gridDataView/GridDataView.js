@@ -90,12 +90,12 @@ define(["jquery" , "infragistics", "views/modelView/ViewModel"], function ($, pi
             dataSource: dataSource2,
             compactColumnHeaders: false,
             compactRowHeaders: true,
-            compactHeaderIndentation: 80,
+            compactHeaderIndentation: 120,
             isParentInFrontForColumns: true,
             disableFiltersDropArea: true,
             hideFiltersDropArea: true,
             gridOptions: {
-                defaultColumnWidth: 150,
+                defaultColumnWidth: 300,
                 features: [
                     {
                         name: "Selection",

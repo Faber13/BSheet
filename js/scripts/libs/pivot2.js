@@ -95,13 +95,8 @@ webix.protoUI({
     },
 
     render: function(without_filters) {
-        //alert("ROWID")
-
         var data = this._process_data(this.data.pull, this.data.order);
-        // data sara un oggetto tipo:
-        // { data: [Figli], name: "nomePadre"}
 
-       // se sono ssettati i flitri
         if (!without_filters) {
             var filters = this._process_filters();
             if (filters.length > 0) {
@@ -207,17 +202,13 @@ webix.protoUI({
         var fields = structure.rows.concat(structure.columns);
         var items = this._group(data, order, fields);
         var header = {};
-        if (structure.rows.length > 0){
-            items = this._process_rows(items, structure.rows, structure, header);}
-
+        if (structure.rows.length > 0)
+            items = this._process_rows(items, structure.rows, structure, header);
         else {
             // there are no rows in structure, only columns and values
             this._process_columns(items, structure.columns, structure, header);
             items = [];
         }
-       // alert("ITems")
-       // debugger;
-
         header = this._process_header(header);
 
         return { header: header, data: items };
@@ -251,7 +242,6 @@ webix.protoUI({
         var items = [];
         // se il numero di rhge e >1
         if (rows.length > 1) {
-            //alert("IF")
             // per ogni elemento in data
             for (var i in data)
                 data[i] = this._process_rows(data[i], rows.slice(1), structure, header);
@@ -273,7 +263,6 @@ webix.protoUI({
                 items.push(item);
             }
         } else {
-           // alert("elese")
             for (var i in data) {
                 var item = this._process_columns(data[i], this.config.structure.columns, structure, header);
                 item.name = i;
@@ -282,7 +271,7 @@ webix.protoUI({
                 items.push(item);
             }
         }
-  //      debugger;
+        debugger;
         return items;
     },
 
@@ -329,9 +318,7 @@ webix.protoUI({
 
             header[i] = {id: parts.join(this.$divider), header: header[i], sort:"int", width: this.config.columnWidth};
         }
-        header.splice(0, 0, {id:"name", exportAsTree:true, template:"{common.treetable()} #name#", header:{ text: webix.i18n.pivot.pivotMessage }, width: this.config.yScaleWidth});
-       // alert("header")
-       // debugger;
+        header.splice(0, 0, {id:"name", exportAsTree:false, template:"{common.treetable()} #name#", header:{ text: webix.i18n.pivot.pivotMessage }, width: this.config.yScaleWidth});
         return header;
     },
 

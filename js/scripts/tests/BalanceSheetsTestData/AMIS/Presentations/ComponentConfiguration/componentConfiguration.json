@@ -37,7 +37,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "dateFormat" : "DD-MM-YYYY LT",
+                            "dateFormat" : "DD-MM-YYYY",
                             "numericFormat": "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
@@ -54,17 +54,22 @@
         "otherColumns": {
             "valueColumn": {
                 "columnId": "",
-                "numberFormat" : "",
-
-                "label": "#value|$value~#flag| $flag~|",
-                "valuesValid": [
-                    "value"
-                ],
+                "label": "#value|$value~#flag| $flag ~|",
+                "values": {
+                    "dataRepresentation": "domain",
+                    "emptyValue": true,
+                    "editable": true
+                },
                 "properties": {
                     "cellProperties": {
                         "dependencyRule": "",
-                        "dateFormat" : "DD-MM-YYYY LT",
+                        "dateFormat" : "",
                         "numericFormat": "",
+                        "coloursCharacters": "",
+                        "coloursBackground": ""
+                    },
+                    "columnProperties": {
+                        "dependencyRules": "",
                         "coloursCharacters": "",
                         "coloursBackground": ""
                     }
@@ -98,7 +103,7 @@
                     "values": {
                         "dataRepresentation": "domain",
                         "emptyValue": true,
-                        "editable": true
+                        "editable": false
                     },
                     "properties": {
                         "cellProperties": {

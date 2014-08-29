@@ -96,7 +96,7 @@
         "otherColumns": {
             "valueColumn": {
                 "columnId": "",
-                "label": "#value|$value~#measurementUnit| ($measurementUnit) ~#isOk| $isOk ~|",
+                "label": "#value|$value~#flag| ($flag) ~|",
                 "values": {
                     "dataRepresentation": "domain",
                     "emptyValue": true,

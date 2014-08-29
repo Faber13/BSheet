@@ -12,7 +12,8 @@ requirejs.config({
         editor            :  "../component/core/balanceSheet/editors",
         exporter          :  "../component/core/balanceSheet/exports",
         validator         :  "../component/core/balanceSheet/validator",
-        formatter         :  "../component/core/balanceSheet/editors/formatter"
+        formatter         :  "../component/core/balanceSheet/formatter",
+        adapter           :  "../component/core/balanceSheet/visualization/ignite/adapter"
     },
     "shim": {
         "bootstrap": {

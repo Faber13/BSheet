@@ -1,7 +1,7 @@
 /**
  * Created by fabrizio on 7/7/14.
  */
-define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "infragistics", "jqwidgets"], function ($, Formatter) {
+define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragistics", "jqwidgets"], function ($, Formatter) {
 
     var formatter, language, columns, valueIndex, accessorIndexes , mapPreviousValues;
 
@@ -56,7 +56,8 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         // leftKeyColumns
         for (var i = 0; i < leftKeyColumnsIndexes.length; i++) {
             // show value in right format
-            var valueLeft = formatter.renderRightLabelOrFormatView(cell[leftKeyColumnsIndexes[i]], configurationKeys["leftKeyColumnConfiguration"][i],
+            debugger;
+            var valueLeft = formatter.fromDSDToVisualizationFormat(cell[leftKeyColumnsIndexes[i]], configurationKeys["leftKeyColumnConfiguration"][i],
                 leftKeyColumns[i].dataTypes, Configurator)
             $('#form').append("<div class ='row'>" +
                 "<div class='col-lg-6'><label for='leftKeyColumn" + i + "'>" + columns[leftKeyColumnsIndexes[i]].domain.title[language]
@@ -66,7 +67,7 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
         }
         // upKeyColumns
         for (var i = 0; i < upKeyColumnsIndexes.length; i++) {
-            var valueUp = formatter.renderRightLabelOrFormatView(cell[upKeyColumnsIndexes[i]], configurationKeys["upKeyColumnConfiguration"][i],
+            var valueUp = formatter.fromDSDToVisualizationFormat(cell[upKeyColumnsIndexes[i]], configurationKeys["upKeyColumnConfiguration"][i],
                 upKeyColumns[i].dataTypes, Configurator)
             $('#form').append("<div class ='row'>" +
                 "<div class='col-lg-6'><label for='upKeyColumn" + i + "'>" + columns[upKeyColumnsIndexes[i]].domain.title[language]
@@ -196,56 +197,6 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
             }
         }
     }
-
-/*
-    CellEditor.prototype.renderFormatDate = function (value, configurationKeyColumn, datatype) {
-
-        var result;
-        switch (datatype[0]) {
-            case "time":
-                var date = new Date(value);
-                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-                break;
-
-            case "month":
-                var year = value.substr(0, 4);
-                var month = value.substr(4, 2);
-                var date = new Date(year, month - 1);
-                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-                break;
-
-            case "year":
-                var year = value.substr(0, 4);
-                var date = new Date(year);
-                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-                break;
-
-            case "date":
-                var year = value.substr(0, 4);
-                var month = value.substr(4, 2);
-                var day = value.substr(6, 2);
-                var date = new Date(year, month - 1, day);
-                result = moment(date).format(configurationKeyColumn.properties.cellProperties.dateFormat)
-                break;
-        }
-        return result;
-    }
-
-
-    CellEditor.prototype.retrieveValueFromCell = function (dataType, container) {
-        var result;
-        switch (dataType.dataTypes[0]) {
-            case "code" || "customCode" || "codeList":
-                result = document.getElementById(container).childNodes[1].value
-                break;
-
-            default:
-                result = document.getElementById(container).value
-                break;
-        }
-        return result;
-
-    }*/
 
 
     CellEditor.prototype.appendRigthInputFormat = function (title, value, dsdColumn, ConfColumn, container) {
@@ -670,11 +621,11 @@ define(["jquery", "editor/formatter/DatatypesFormatter", "jquery.dirtyFields", "
                 break;
             case  "month" :
                 var stringMonth = $("#" + htmlvalue.id).jqxDateTimeInput('getDate');
-                result = formatter.init(stringMonth, "month");
+                result = formatter.fromVisualizationToDSDFormat(stringMonth, "month");
                 break;
             case  "year" :
                 var stringYear = $("#" + htmlvalue.id).jqxDateTimeInput('getDate');
-                result = formatter.init(stringYear, "year");
+                result = formatter.fromVisualizationToDSDFormat(stringYear, "year");
                 break;
             case "boolean":
                 if (!$("#" + htmlvalue.id).val()) {

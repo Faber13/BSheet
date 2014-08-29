@@ -1,7 +1,7 @@
 /**
  * Created by fabrizio on 7/29/14.
  */
-define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter",
+define(["jquery", "editor/cell/CellEditor", "formatter/DatatypesFormatter",
     "validator/EditorValidator"], function ($, CellEditor, DatatypeFormatter, Validator) {
 
     var FormEditor, valueIndex, accessorIndexes, columns, Formatter, EditorValidator
@@ -34,12 +34,12 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
             for (var i = 0, len = cell.length; i < len; i++) {
                 result[i] = cell[i];
             }
-            result[valueIndex] = Formatter.init(input[0], columns[valueIndex].dataTypes[0])
+            result[valueIndex] = Formatter.fromVisualizationToDSDFormat(input[0], columns[valueIndex].dataTypes[0])
             for (var i = 0; i < accessorIndexes.length; i++) {
                 var accessorColumnConf = configurator.lookForAccessorColumnByIdOnConfiguration(columns[accessorIndexes[i]].domain.id);
                 var formatDate = accessorColumnConf.properties.cellProperties.dateFormat;
-                //result[valueIndex] = Formatter.init($input[i].value, columns[valueIndex].dataTypes[0])
-                result[accessorIndexes[i]] = Formatter.init(input[i + 1], columns[accessorIndexes[i]].dataTypes[0], formatDate);
+                //result[valueIndex] = Formatter.fromVisualizationToDSDFormat($input[i].value, columns[valueIndex].dataTypes[0])
+                result[accessorIndexes[i]] = Formatter.fromVisualizationToDSDFormat(input[i + 1], columns[accessorIndexes[i]].dataTypes[0], formatDate);
             }
         }
         // validation (TODO)
@@ -77,7 +77,7 @@ define(["jquery", "editor/cell/CellEditor", "editor/formatter/DatatypesFormatter
                     if (input[i] instanceof Date) {
                         var accessorColumnConf = configurator.lookForAccessorColumnByIdOnConfiguration(columns[accessorIndexes[i]].domain.id);
                         var formatDate = accessorColumnConf.properties.cellProperties.dateFormat;
-                        var dateFormatted = Formatter.init(input[i], columns[accessorIndexes[i - 1]].dataTypes[0], formatDate);
+                        var dateFormatted = Formatter.fromV(input[i], columns[accessorIndexes[i - 1]].dataTypes[0], formatDate);
                         changed = (dateFormatted != cell[accessorIndexes[i - 1]])
                     } else {
                         changed = (input[i] != cell[accessorIndexes[i - 1]])

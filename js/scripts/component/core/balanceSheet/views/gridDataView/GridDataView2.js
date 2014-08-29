@@ -49,14 +49,40 @@ define(["jquery" , "views/modelView/ViewModel", "webix","pivot"], function ($, V
             };
         };
 
-        var data345 = [
-            ["2012", "February", "Russia", "Summer", 4],
-            ["2012", "February", "Russia", "Winter", 3],
-            ["2012", "February", "England", "Summer", 5],
-            ["2012", "February", "England", "Winter", "6fe"]
-        ]
-        var pivot = webix.ui.pivot
+         var modello =
+         [
+            ["Production","Maize","Egypt","summer","22","Kg","asd",true],
+            ["Production","Maize","Egypt","summer","",null,"qweqwe",null],
+            ["Production","Maize","Egypt","winter","",null,"wqe",null],
+            ["Production","Maize","Egypt","winter","",null,"ewq",null],
+            ["Production","Rice","Egypt","summer","22","Kg","asd",true],
+            ["Production","Rice","Egypt","summer","",null,"qweqwe",null],
+            ["Production","Rice","Egypt","winter","",null,"wqe",null],
+            ["Production","Rice","Egypt","winter","",null,"ewq",null]
+         ]
+      //  debugger;
 
+      /*  grida = new webix.ui({
+            container: "pivotGrid",
+            id: "pivot",
+            view: "pivot",
+            height: 400,
+            width: 1000,
+            datatype: "jsarray",
+            data: modello,
+            structure: {
+                rows : [
+                { type:"space", rows:[
+                    { template:"cell 1" },
+                    { template:"cell 2" },
+                    { template:"cell 3" }
+                ]
+                }]
+        ,
+                columns: ["data2", "data3"],
+                values: []
+            }
+        });*/
 
         grida = new webix.ui({
             container: "pivotGrid",
@@ -65,21 +91,28 @@ define(["jquery" , "views/modelView/ViewModel", "webix","pivot"], function ($, V
             height: 400,
             width: 1000,
             datatype: "jsarray",
-            data: model,
+            data: modello,
             structure: {
-                rows:[
-                   "data0", "data1"
-                    ]                        ,
+                rows : [ {
+                    id: "data0",
+                    text : { name : "data0",rowspan : 2}
+                }]
+                ,
                 columns: ["data2", "data3"],
                 values: []
             }
-
         });
+
+
+
+
 
         var datatable = $$("pivot").$$("data");
 
         //attach event to selection
         datatable.attachEvent("onAfterSelect", function(id){
+         //   alert()
+          //  debugger;
             webix.message("selected row: "+id);
             var record = datatable.getItem(id);
             record["Egypt_'_spring"] = "<img src='http://www.imginternet.com/imgpub/img7787_0_0.gif'>ciao</img>";
