@@ -498,7 +498,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                 })
                 // Disable the selection if it is not configured
                 if (!ConfColumn.values.editable)
-                    $('#' + container + '').jqxComboBox({enableSelection: false});
+                    $('#' + container + '').jqxComboBox({ disabled: true });
 
                 var previous = {};
                 previous[container] = [value, "code"];

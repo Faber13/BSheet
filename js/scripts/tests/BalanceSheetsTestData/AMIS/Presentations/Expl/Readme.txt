@@ -1,3 +1,8 @@
+
+var urlData = "./js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/Data/data.js"
+var urlComponent = './js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/ComponentConfiguration/componentConfiguration.json'
+var urlDSD = './js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/DSD/dsd.json'
+
 =============================== ELEMENTS ============================================
 =====================================================================================
 

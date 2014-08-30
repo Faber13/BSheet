@@ -1,12 +1,13 @@
-define(["jquery"], function ($) {
+define(["jquery", "formatter/DatatypesFormatter"], function ($, Formatter) {
 
-    var configurator, fullModel, configurationKeys, valueColumn, indexValues, idOlapGrid, accessorMap, dsd, accessorModel;
+    var configurator, fullModel, configurationKeys, valueColumn, indexValues, idOlapGrid, accessorMap, dsd, accessorModel,
+    formatter;
 
     function ViewModel() {
     }
 
     ViewModel.prototype.init = function (tableData, Configurator) {
-
+        formatter = new Formatter;
         configurator = Configurator;
         dsd = configurator.getDSD()
         fullModel = configurator.getAllColumnModels();
@@ -44,7 +45,7 @@ define(["jquery"], function ($) {
         for (var i = 0; i < upKeyIndexes.length; i++) {
             var datatype = fullModel["upColumnsModel"]["upColumns"][i].dataTypes;
             if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
-                result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]], upConf[i], datatype)
+                result[upKeyIndexes[i]] = this.renderFormatDate(item[upKeyIndexes[i]],upConf[i], datatype)
             }
             else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
                 var columnCodes = configurator.lookForCode(upColumns.upColumns[i].domain.id);
@@ -63,7 +64,7 @@ define(["jquery"], function ($) {
             // for now simple
             var datatype = fullModel["leftColumnsModel"]["leftColumns"][i].dataTypes;
             if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
-                result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]], leftConf[i], datatype)
+                result[leftKeyIndexes[i]] = this.renderFormatDate(item[leftKeyIndexes[i]],leftConf[i],datatype)
             }
             else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
                 var columnCodes = configurator.lookForCode(leftColumns.leftColumns[i].domain.id);
@@ -87,7 +88,7 @@ define(["jquery"], function ($) {
             var datatype = accessorColumns[i].dataTypes
             // case of date format
             if (datatype == "date" || datatype == "time" || datatype == "month" || datatype == "year") {
-                result[accessorIndexes[i]] = this.renderFormatDate(item[accessorIndexes[i]], configurationColumn, datatype)
+                result[accessorIndexes[i]] = this.fromDSDToVisualizationFormat(item[accessorIndexes[i]],configurationColumn, datatype)
             }
             // case of code format
             else if (datatype == "code" || datatype == "codeList" || datatype == "customCode") {
@@ -178,8 +179,6 @@ define(["jquery"], function ($) {
                 break;
 
             case "date":
-                alert("DATEEEEEE")
-                debugger;
 
                 var yearFrom = value.substr(0, 4);
                 var mmFrom = value.substr(4, 2);

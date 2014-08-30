@@ -38,5 +38,42 @@ define(["jquery" ], function($ ){
         return result;
     }
 
+
+    AdapterPivot.prototype.getIndexTableFromGridIndex = function(rowIndex, columnIndex, columnsNumber, rowsNumber, indexesObject){
+       
+        var indexTable, rowGridIndex, columnGridIndex;
+        
+        // if it is the first
+        if (rowIndex == 0) {
+            rowGridIndex = 0;
+            columnGridIndex = columnIndex - 2;
+            indexTable = (rowsNumber > 1) ? ((rowIndex) ) + (columnIndex - 2) :
+                ((rowIndex) + 1) + (columnIndex - 2);
+        
+        } else {
+            rowGridIndex = rowIndex;
+            columnGridIndex = columnIndex- 1;
+            indTable = ((rowIndex) * columnsNumber) + (columnIndex - 1);
+            if (rowsNumber > 1) {
+                // Indexes object is a map where are stored the indexes of the first rows in a nested
+                // left header
+                if (typeof indexesObject[indexTable - 1] !== 'undefined' && 
+                    parseInt((indexTable - 1) / columnsNumber) == rowIndex) {
+                    indexTable--;
+                }
+            }
+        }
+
+        
+        return indexTable
+    }
+
+
+
+    AdapterPivot.prototype.setCSSClassOnRendering = function(ModelTable, ModelGrid){
+
+
+    }
+
     return AdapterPivot;
 })

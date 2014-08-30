@@ -26,8 +26,9 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
 
     GeneralController.prototype.createListeners = function (columnsNumber) {
 
+        var idPivot = Configurator.getIdOlapGrid()
         // Transform pivotGrid into grid
-        var grid = $("#pivotGrid").igPivotGrid("grid");
+        var grid = $("#"+idPivot).igPivotGrid("grid");
         var that = this;
 
         // attach the listener on click
@@ -43,6 +44,9 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
             var indTable = resultedClicked["indTable"] ;
             var rowGridIndex = resultedClicked["rowGridIndex"];
             var columnGridIndex = resultedClicked["columnGridIndex"];
+            alert("cambia cella")
+            debugger;
+
             FormController.init(Configurator, clickedCell, dsd)     
             that.onSaveButton(indTable, clickedCell, rowGridIndex, columnGridIndex);
         });

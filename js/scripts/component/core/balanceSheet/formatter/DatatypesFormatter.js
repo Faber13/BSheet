@@ -70,6 +70,8 @@ define(["jquery", "moment"], function ($) {
                 break;
 
             case "date":
+            debugger;
+            alert("DAta")
                 var year = value.substr(0, 4);
                 var month = value.substr(4, 2);
                 var day = value.substr(6, 2);
