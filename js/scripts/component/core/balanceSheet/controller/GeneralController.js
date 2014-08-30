@@ -45,6 +45,8 @@ define(["jquery", "view/GridDataView", "editor/controller/FormController",
             var rowGridIndex = resultedClicked["rowGridIndex"];
             var columnGridIndex = resultedClicked["columnGridIndex"];
             alert("cambia cella")
+            var grid = $("#pivotGrid").igPivotGrid("grid");
+
             debugger;
 
             FormController.init(Configurator, clickedCell, dsd)     

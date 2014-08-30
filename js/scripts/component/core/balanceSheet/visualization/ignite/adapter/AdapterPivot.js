@@ -63,8 +63,6 @@ define(["jquery" ], function($ ){
                 }
             }
         }
-
-        
         return indexTable
     }
 
