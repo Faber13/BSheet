@@ -281,6 +281,16 @@ define(['jquery'], function ($) {
         return compConfiguration.gridConfiguration.otherColumns.valueColumn;
     }
 
+    // Get the value the representation of row configured on compnent configuration
+    Configurator.prototype.getFullRowsRepresentation = function(){
+        return compConfiguration.gridConfiguration.generalOptions.fullRowsRepresentation;
+    }
+
+    // Get the factor of conversion between different Masurement Units
+    Configurator.prototype.getConversionMU = function(){
+       return compConfiguration.gridConfiguration.otherColumns.valueColumn.values.conversionMU;
+    }
+
 
     return Configurator;
 

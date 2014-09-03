@@ -5,7 +5,8 @@
 define(["jquery" ], function ($) {
 
     var instanceData, Configurator, instanceFullTableData, counterEmptySpaces,
-        fullRows, fullColumns, indexesDoubleColumnLeft, originalData, leftIndexes, upIndexes;
+        fullRows, fullColumns, indexesDoubleColumnLeft, originalData, leftIndexes, upIndexes,
+        visualizedData, newData, updatedData;
 
     // -------------------- SET OPERATIONS --------------------------------------
 
@@ -25,6 +26,8 @@ define(["jquery" ], function ($) {
 
 
     function TableDataModel() {
+        newData = [];
+        updatedData = [];
     }
 
 
@@ -36,7 +39,7 @@ define(["jquery" ], function ($) {
 
 
     TableDataModel.prototype.getTableData = function () {
-        var result = instanceData;
+        var result = visualizedData;
         return result;
     }
 
@@ -226,28 +229,34 @@ define(["jquery" ], function ($) {
             }
         }
 
+        visualizedData = result;
+
         return result;
     }
 
 
     TableDataModel.prototype.updateTableData = function (value, index) {
-        instanceData[index] = value;
+        visualizedData[index] = value;
         // new Data To Save!!
         var indexRow = this.findIfUpdateOrNewValue(value)
         if (typeof indexRow == 'undefined') {
             originalData.push(value);
+            newData.push(visualizedData[index])
         } else {
-            originalData[indexRow] = value;
+            visualizedData[indexRow] = value;
+            updatedData.push(visualizedData[index])
+
         }
     }
 
 
+    // find if it 's new or updated
     TableDataModel.prototype.findIfUpdateOrNewValue = function (value) {
         var indexRow;
         var allKeyIndexes = leftIndexes.concat(upIndexes);
         var found = false;
-        for (var i = 0; i < originalData.length && !found; i++) {
-            var row = originalData[i];
+        for (var i = 0; i < visualizedData.length && !found; i++) {
+            var row = visualizedData[i];
             if (value[allKeyIndexes[0]] == row[allKeyIndexes[0]]) {
                 var semiFound = true;
                 for (var j = 1; j < allKeyIndexes.length && semiFound; j++) {

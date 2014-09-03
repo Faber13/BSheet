@@ -1,7 +1,8 @@
 {
     "gridConfiguration": {
         "generalOptions":{
-            "language": "EN"
+            "language": "EN",
+            "fullRowsRepresentation": true
         },
         "columnsKey": {
             "left": [
@@ -25,28 +26,8 @@
                             "coloursBackground": ""
                         }
                     }
-                },
-                {
-                    "columnId": 2,
-                    "values": {
-                        "dataRepresentation": "domain",
-                        "emptyValue": true
-                    },
-                    "properties": {
-                        "cellProperties": {
-                            "dependencyRule": "",
-                            "dateFormat" : "",
-                            "numericFormat": "",
-                            "coloursCharacters": "",
-                            "coloursBackground": ""
-                        },
-                        "columnProperties": {
-                            "dependencyRules": "",
-                            "coloursCharacters": "",
-                            "coloursBackground": ""
-                        }
-                    }
                 }
+
             ],
             "up": [
                 {
@@ -58,28 +39,7 @@
                     "properties": {
                         "cellProperties": {
                             "dependencyRule": "",
-                            "dateFormat" : "",
-                            "numericFormat": "",
-                            "coloursCharacters": "",
-                            "coloursBackground": ""
-                        },
-                        "columnProperties": {
-                            "dependencyRules": "",
-                            "coloursCharacters": "",
-                            "coloursBackground": ""
-                        }
-                    }
-                },
-                {
-                    "columnId": 4,
-                    "values": {
-                        "dataRepresentation": "domain",
-                        "emptyValue": true
-                    },
-                    "properties": {
-                        "cellProperties": {
-                            "dependencyRule": "",
-                            "dateFormat" : "",
+                            "dateFormat" : "DD/MM/YYYY",
                             "numericFormat": "",
                             "coloursCharacters": "",
                             "coloursBackground": ""
@@ -95,12 +55,13 @@
         },
         "otherColumns": {
             "valueColumn": {
-                "columnId": "",
-                "label": "#value|$value~#flag| ($flag) ~|",
+                "columnId": 4,
+                "label": "#value|$value~#flag| $flag ~|",
                 "values": {
                     "dataRepresentation": "domain",
                     "emptyValue": true,
-                    "editable": true
+                    "editable": true,
+                    "conversionMU": 1000
                 },
                 "properties": {
                     "cellProperties": {
@@ -119,11 +80,11 @@
             },
             "accessorsColumns": [
                 {
-                    "columnId": "6",
+                    "columnId": 2,
                     "values": {
                         "dataRepresentation": "domain",
                         "emptyValue": true,
-                        "editable": true
+                        "editable": false
                     },
                     "properties": {
                         "cellProperties": {
@@ -141,7 +102,7 @@
                     }
                 },
                 {
-                    "columnId": "7",
+                    "columnId": 5,
                     "values": {
                         "dataRepresentation": "domain",
                         "emptyValue": true,
@@ -163,11 +124,33 @@
                     }
                 },
                 {
-                    "columnId": "8",
+                    "columnId": 6,
                     "values": {
-                        "dataRepresentation": "distinct",
+                        "dataRepresentation": "domain",
                         "emptyValue": true,
                         "editable": false
+                    },
+                    "properties": {
+                        "cellProperties": {
+                            "dependencyRule": "",
+                            "dateFormat" : "DD-MM-YYYY LT",
+                            "numericFormat": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        },
+                        "columnProperties": {
+                            "dependencyRules": "",
+                            "coloursCharacters": "",
+                            "coloursBackground": ""
+                        }
+                    }
+                },
+                {
+                    "columnId": 7,
+                    "values": {
+                        "dataRepresentation": "domain",
+                        "emptyValue": true,
+                        "editable": true
                     },
                     "properties": {
                         "cellProperties": {
@@ -184,6 +167,7 @@
                         }
                     }
                 }
+
             ]
         },
         "HTMLproperties" : {

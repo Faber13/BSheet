@@ -67,7 +67,6 @@ define(["jquery", "editor/cell/CellEditor", "formatter/DatatypesFormatter",
                 // case where there is not an instance of the accessor value in the original cell
                 if (typeof cell[accessorIndexes[i - 1]] == 'undefined') {
                     if (typeof input[i] == 'boolean') {
-                        debugger;
                         changed = typeof input[i] != 'undefined' && input[i] != null
                     } else {
                         changed = ((typeof input[i] != 'undefined' ) && (input[i] != "") && (input[i] != null));

@@ -99,6 +99,22 @@ define(["jquery", "moment"], function ($) {
         return result;
     }
 
+    // Get from and to different Measurement units
+    DatatypesFormatter.prototype.fromDataMUtoVisualizationMU = function(data, conversionFactor){
+        var result;
+        if(typeof data != 'undefined' && data != 'null') {
+            result = data * conversionFactor;
+        }else{
+            result = data;
+        }
+        return result;
+    }
+
+
+    DatatypesFormatter.prototype.fromVisualizationMUtoDataMU = function(data, conversionFactor){
+
+    }
+
 
     return DatatypesFormatter;
 })

@@ -107,7 +107,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
             state: "open",
             modal: true,
             height: '500',
-            width: "400",
+            width: "600",
             background: '#AAAAA',
             close: function () {
                 var f = document.getElementById("dialogForm");
@@ -243,7 +243,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                     value: defaultDate,
                     min: new Date(fromDate),
                     max: new Date(toDate),
-                    width: '190px',
+                    width: '200px',
                     height: '20px',
                     formatString: "dd/MM/yyyy hh:mm:ss"
                 });
@@ -292,7 +292,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
 
                     fromDate = new Date(yearFrom, monthFrom - 1);
                     toDate = new Date(yearTo, monthTo - 1);
-                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date") {
+                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date" && value !='null') {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         defaultDate = new Date(year, month - 1);
@@ -301,6 +301,8 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                     }
                 }
 
+
+
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>" +
                     "<div class='col-lg-6'><div class = 'input-group-lg' id='" + container + "' /></div></div></div><br>");
@@ -308,7 +310,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                     value: defaultDate,
                     min: new Date(yearFrom, monthFrom - 1),
                     max: new Date(yearTo, monthTo - 1),
-                    width: '190px',
+                    width: '200px',
                     height: '20px',
                     formatString: "MMMM yyyy"
 
@@ -352,7 +354,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
 
                     fromDate = new Date(yearFrom);
                     toDate = new Date(yearTo);
-                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date") {
+                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date"  && value !='null') {
                         var year = value.substr(0, 4);
                         defaultDate = new Date(year);
                     } else {
@@ -367,7 +369,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                     value: defaultDate,
                     min: new Date(yearFrom),
                     max: new Date(yearTo),
-                    width: '190px',
+                    width: '200px',
                     height: '20px',
                     formatString: "yyyy"
                 });
@@ -421,7 +423,7 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                     var dayTo = dsdColumn.domain.period.to.substr(6, 4);
                     fromDate = new Date(yearFrom, monthFrom - 1, dayFrom);
                     toDate = new Date(yearTo, monthTo - 1, dayTo);
-                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date") {
+                    if (typeof value !== 'undefined' && value != 'undefined' && value != "Invalid date" && value !='null') {
                         var year = value.substr(0, 4);
                         var month = value.substr(4, 2);
                         var day = value.substr(6, 4);
@@ -430,6 +432,8 @@ define(["jquery", "formatter/DatatypesFormatter", "jquery.dirtyFields", "infragi
                         defaultDate = null;
                     }
                 }
+                alert("DATE GRID")
+                debugger;
 
                 $('#form').append("<div class ='row'>" +
                     "<div class='col-lg-6'><label for='" + container + "'>" + title + "</label></div>" +

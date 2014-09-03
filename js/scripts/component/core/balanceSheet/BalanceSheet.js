@@ -8,9 +8,9 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
     /*var urlComponent = "./js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json"
     var urlData = "./js/scripts/component/core/balanceSheet/configuration/data/data.js"
     var urlDSD = "./js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json"*/
-    var urlData = "./js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/Data/data.js"
-    var urlComponent = './js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/ComponentConfiguration/componentConfiguration.json'
-    var urlDSD = './js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/DSD/dsd.json'
+  //  var urlData = "./js/scripts/tests/BalanceSheetsTestData/AMIS/Presentations/Data/data.js"
+    var urlComponent = './js/scripts/component/core/balanceSheet/configuration/component/componentConfiguration.json'
+    var urlDSD = './js/scripts/component/core/balanceSheet/configuration/dsd/dsdStructure.json'
 
 
     var tableDataModel, gridDataModel, data, dsd, componentConfiguration,
@@ -26,7 +26,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
 
     }
 
-    BalanceSheet.prototype.init = function (tableData) {
+    BalanceSheet.prototype.init = function (dataInput) {
         // dsd
         $.ajax({
             async: false,
@@ -46,7 +46,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
                 componentConfiguration = data;
             }
         })
-
+/*
         // data
         $.ajax({
             async: false,
@@ -55,7 +55,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
             success: function (data) {
                 dataInput = JSON.parse(data);
             }
-        })
+        })*/
 
         configurator.init(dsd, componentConfiguration)
         modelController.init(dataInput, configurator)
@@ -83,7 +83,7 @@ define(["jquery", "configurator/Configurator", "modelController/ModelsController
     }
 
     BalanceSheet.prototype.getTableData = function () {
-        return modelController.getTableData();
+        return modelController.getTableDataModel();
     }
 
     BalanceSheet.prototype.getGridData = function () {

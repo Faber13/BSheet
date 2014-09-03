@@ -17,15 +17,16 @@ define(["jquery", "models/tableDataModel/TableDataModel",
 
         dataTable = tableData
         newValues = []; // New values will be put into this variable
-        console.log("ModelController.INIT()")
         indexes = configurator.getAllColumnModels();
         instanceTableDataModel = tableData;
         TableModel.init(tableData, configurator);
         modelForCreation = CreatorModels.init(configurator)
         instanceGridDataModel = GridModel.init(modelForCreation, tableData, indexes)
-
         TableModel.createFullTableData(modelForCreation)
-        var newTable = TableModel.createTableModelFromGrid(instanceGridDataModel);
+        // if a full rows representation need to be visualized
+        var newTable =(configurator.getFullRowsRepresentation())?  TableModel.createColumnSparseTableData(modelForCreation) :
+            TableModel.createTableModelFromGrid(instanceGridDataModel);
+
         TableModel.createSparseTableData(newTable);
 
     }
@@ -42,7 +43,7 @@ define(["jquery", "models/tableDataModel/TableDataModel",
         return TableModel.getAllData();
     }
 
-    ModelsController.prototype.createFullTableModel = function (creationMode) {
+    ModelsController.prototype.createFullTableModel = function () {
         fullTableModel = TableModel.createFullTableData(instanceGridDataModel)
         return fullTableModel;
     }
